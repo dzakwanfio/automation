@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Log History{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/log_history.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="fw-bold">HISTORY</h2>
+
+    <!-- Filter Section (dipindahkan ke atas tabel) -->
+    <div class="d-flex justify-content-end mt-3">
+        <label class="me-2">Past 30 Days</label>
+        <input type="date" class="form-control w-auto">
+        <span class="mx-2">to</span>
+        <input type="date" class="form-control w-auto">
+    </div>
+
+    <div class="card shadow-sm mt-3"> <!-- Tambahkan margin-top agar ada jarak -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="border-bottom bg-teal text-white">
+                        <tr class="text-center">
+                            <th>Name</th>
+                            <th>Upload Date</th>
+                            <th>Course Name</th>
+                            <th>Course Model</th>
+                            <th>Destination</th>
+                            <th>Status</th>
+                            <th>Process Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>data_siswa_januari.xlsx</td>
+                            <td>2023-02-15 08:10</td>
+                            <td>Pemrograman</td>
+                            <td>Online</td>
+                            <td>Dapodik</td>
+                            <td>Sedang Diproses</td>
+                            <td>2023-02-15 08:15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+    </div>
+</div>
+{% endblock %}

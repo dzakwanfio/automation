@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+}
+
+.login-container {
+    width: 450px; /* Lebih proporsional */
+    padding: 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #999;
+    transition: 0.3s ease-in-out;
+    pointer-events: none;
+    background: white;
+    padding: 0 5px;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 12px;
+    color: #000000;
+}
+
+/* Tombol LOGIN */
+.login-btn {
+    width: 100%;
+    background-color: #005F63;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    transition: background 0.3s;
+}
+
+
+
+/* Tombol REGISTER */
+.register-btn {
+    width: 100%;
+    background-color: #006D77;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    transition: background 0.3s;
+}
+
+a {
+    color: #006D77;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

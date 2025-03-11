@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input History</title>
+    <link rel="stylesheet" href="{% static 'style/history.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'asset/logo.png' %}" alt="TRUSTEntry">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="#" class="active">History</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>User Input History</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Upload ID</th>
+                    <th>User ID</th>
+                    <th>File Name</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Website</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="6"></td></tr>
+                <tr><td colspan="6"></td></tr>
+                <tr><td colspan="6"></td></tr>
+                <tr><td colspan="6"></td></tr>
+                <tr><td colspan="6"></td></tr>
+                <tr><td colspan="6"></td></tr>
+                <tr><td colspan="6"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

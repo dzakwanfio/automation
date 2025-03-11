@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - TRUSTEntry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style/homepage.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'asset/logo.png' %}" alt="TRUSTEntry">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="{% url 'history' %}">History</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Automate Student Data Entry</h1>
+        <p>Streamline the registration process while ensuring data accuracy and efficiency.</p>
+        <p>Choose your destination website to begin the entry process.</p>
+    </section>
+
+    <section class="options">
+        <div class="option">
+            <a href="https://lkpdispendik.surabaya.go.id" target="_blank" onclick="redirectToUpload(event)">
+                <img src="{% static 'asset/lkp.png' %}" alt="Lembaga Kursus dan Pelatihan">
+            </a>
+        </div>
+        <div class="option">
+            <a href="https://manajemen.vokasi.kemdikbud.go.id/login" target="_blank" onclick="redirectToUpload(event)">
+                <img src="{% static 'asset/dapodik.png' %}" alt="Dapodik">
+            </a>
+        </div>
+    </section>
+    
+    <script>
+        function redirectToUpload(event) {
+            event.preventDefault(); // Mencegah link langsung membuka di tab yang sama
+            window.open(event.currentTarget.href, '_blank'); // Membuka link di tab baru
+            window.location.href = "{% url 'upload_page' %}"; // Pindah ke halaman upload.html
+        }
+    </script>
+    
+</body>
+</html>

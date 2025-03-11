@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar tetap seperti sebelumnya */
+.sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    max-width: 120px;
+    margin-bottom: 20px;
+}
+
+.nav {
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.nav-item {
+    margin: 10px 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #006D77;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #005f6b;
+}
+
+/* Tombol */
+.btn-primary {
+    background-color: #007b8f;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #005f6b;
+}
+
+.btn-light, .btn-danger {
+    width: 100%;
+    max-width: 150px;
+    height: 40px;
+    padding: 10px 0;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 300px;
+}
+
+.btn-danger {
+    background-color: #FF9191;
+    color: #FF0000;
+}
+
+.btn-light {
+    border: 2px solid black;
+}
+
+.btn-light:hover {
+    background-color: #f8f8f8;
+}
+
+.btn-danger:hover {
+    background-color: #ff6666;
+}
+
+.sidebar .btn-light {
+    margin-bottom: -50px; /* Atur jarak antar tombol */
+}

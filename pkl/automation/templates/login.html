@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <form method="POST">
+            {% csrf_token %}
+            <h2>LOGIN</h2>
+
+            <div class="input-group">
+                <input type="email" name="email" required>
+                <label>Email*</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" required>
+                <label>Password*</label>
+            </div>
+
+            <!-- Tombol Login -->
+            <button type="submit" class="btn btn-primary login-btn">LOGIN</button>
+
+            <!-- Tombol Register -->
+            <button type="button" class="btn register-btn" onclick="window.location.href='{% url 'register' %}'">REGISTER</button>
+
+            <!-- Forgot Password -->
+            <a href="{% url 'forgot_pw' %}" class="forgot-pw">Forgot Password</a>
+        </form>
+    </div>
+</body>
+</html>

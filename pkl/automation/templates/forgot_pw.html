@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="{% static 'style/forgotpw.css' %}">
+</head>
+<body>
+    <div class="forgot-container">
+        <h2>Reset Password</h2>
+        <p>Enter your email to reset password</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="email" name="email" required>
+                <label>Email*</label>
+            </div>
+            <button type="submit" class="reset-btn">Reset Password</button>
+        </form>
+        <p class="bottom-text">Not a member? <a href="{% url 'register' %}">Register</a></p>
+        <p class="bottom-text">Do you have an account? <a href="{% url 'login' %}">Login</a></p>
+
+    </div>
+</body>
+</html>

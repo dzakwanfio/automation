@@ -1,0 +1,105 @@
+/* Reset dasar */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #006D77;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.nav-links {
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-right: 5000px; 
+}
+
+.nav-links li {
+    margin-left: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.nav-links a.active {
+    text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin: 50px 20px;
+}
+
+.hero h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Option Section */
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.option a {
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    padding: 10px;
+}
+
+.option img {
+    width: 250px; /* Atur ukuran gambar */
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.option a:hover {
+    transform: scale(1.1);
+}

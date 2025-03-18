@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="{% static 'style/forgotpw.css' %}">
+</head>
+<body>
+    <div class="forgot-container">
+        <h2>Reset Password</h2>
+        <p>Masukkan email Anda untuk mereset password</p>
+        <form action="{% url 'forgot_password_notif' %}" method="GET">  
+            <div class="input-group">
+                <input type="email" name="email" required>
+                <label>Email*</label>
+            </div>
+            <button type="submit" class="reset-btn">Reset Password</button>
+        </form>
+        <p class="bottom-text">Belum punya akun? <a href="{% url 'register' %}">Daftar</a></p>
+        <p class="bottom-text">Sudah punya akun? <a href="{% url 'login' %}">Masuk</a></p>
+    </div>
+</body>
+</html>

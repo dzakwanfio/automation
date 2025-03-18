@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - TRUSTEntry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style/homepage.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'asset/logo.png' %}" alt="TRUSTEntry">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></li>
+        </ul>
+        
+    </nav>
+
+    <section class="hero">
+        <h1>Automate Student Data Entry</h1>
+        <p>Streamline the registration process while ensuring data accuracy and efficiency.</p>
+        <p>Choose your destination website to begin the entry process.</p>
+    </section>
+
+    <section class="options">
+        <div class="option">
+            <a href="{% url 'input_data' %}">
+                <img src="{% static 'asset/project1.png' %}" alt="Input Data">
+            </a>
+        </div>
+        <div class="option">
+            <a href="#" onclick="alert('Fitur ini masih dalam pengembangan');">
+                <img src="{% static 'asset/project2.png' %}" alt="Coming Soon">
+            </a>
+        </div>
+    </section>
+    
+    <script>
+        function redirectToUpload(event) {
+            event.preventDefault(); // Mencegah link langsung membuka di tab yang sama
+            window.open(event.currentTarget.href, '_blank'); // Membuka link di tab baru
+            window.location.href = "{% url 'upload_page' %}"; // Pindah ke halaman upload.html
+        }
+    </script>
+    
+</body>
+</html>

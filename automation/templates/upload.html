@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Excel Files</title>
+    <link rel="stylesheet" href="{% static 'style/upload.css' %}">  <!-- Link ke CSS -->
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'asset/logo.png' %}" alt="TRUSTEntry">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="{% url 'history' %}">History</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Automate Student Data Entry</h1>
+        <p>Streamline the registration process while ensuring data accuracy and efficiency.</p>
+
+        <!-- Drag & Drop Area -->
+        <div id="dropArea" class="upload-area">
+            <input type="file" id="fileInput" accept=".csv, .xls, .xlsx" style="display: none;">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click();">Select Excel files</button>
+            <p class="upload-hint">or drop Excel here</p>
+            <p id="fileName" class="file-name"></p>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const dropArea = document.getElementById('dropArea');
+        const fileNameDisplay = document.getElementById('fileName');
+
+        // Fungsi saat file dipilih manual
+        fileInput.addEventListener('change', function () {
+            if (this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+            }
+        });
+
+        // Mencegah event default saat drag & drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
+            dropArea.addEventListener(event, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        // Tambahkan efek saat file di-drag masuk
+        ['dragenter', 'dragover'].forEach(event => {
+            dropArea.addEventListener(event, () => {
+                dropArea.classList.add('drag-over');
+            });
+        });
+
+        // Hapus efek saat drag keluar
+        ['dragleave', 'drop'].forEach(event => {
+            dropArea.addEventListener(event, () => {
+                dropArea.classList.remove('drag-over');
+            });
+        });
+
+        // Tangani file saat dijatuhkan ke area
+        dropArea.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && (files[0].name.endsWith('.csv') || files[0].name.endsWith('.xls') || files[0].name.endsWith('.xlsx'))) {
+                fileInput.files = files;
+                fileNameDisplay.textContent = files[0].name;
+            } else {
+                alert('Hanya file CSV, XLS, atau XLSX yang diperbolehkan!');
+            }
+        });
+    </script>
+
+</body>
+</html>

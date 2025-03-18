@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Input Data{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/input_data.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container form-container">
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Course Name -->
+        <h2 class="form-title">INPUT DATA</h2>
+        <div class="form-group">
+            <label for="course_name">Course Name</label>
+            <input type="text" id="course_name" name="course_name" class="form-control">
+        </div>
+
+        <!-- Date -->
+        <div class="form-group date-group">
+            <label>Date</label>
+            <div class="date-inputs">
+                <div>
+                    <label for="start_date">From</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control">
+                </div>
+                <span class="date-separator">-</span>
+                <div>
+                    <label for="end_date">To</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Model -->
+        <div class="form-group">
+            <label>Course Model</label>
+            <div class="radio-group">
+                <input type="radio" id="online" name="course_model" value="Online" checked>
+                <label for="online">Online</label>
+                <input type="radio" id="offline" name="course_model" value="Offline">
+                <label for="offline">Offline</label>
+            </div>
+        </div>
+
+        <!-- Destination -->
+        <div class="form-group">
+            <label for="destination">Destination</label>
+            <select id="destination" name="destination" class="form-control">
+                <option value="">Choose your destination</option>
+                <option value="A">Option A</option>
+                <option value="B">Option B</option>
+            </select>
+        </div>
+
+        <!-- Upload File -->
+        <div class="form-group">
+            <label for="file_upload">Upload File</label>
+            <input type="file" id="file_upload" name="file_upload" accept=".csv, .xls, .xlsx" class="form-control file-upload">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">SUBMIT</button>
+    </form>
+</div>
+{% endblock %}

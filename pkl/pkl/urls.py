@@ -18,17 +18,22 @@ from automation import views as automation
 from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path
+from automation.views import verify_email
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', automation.user_login, name='home'),  
-    path('login/', automation.user_login, name='login'),
-    path('homepage/', automation.homepage, name='homepage'),  # Tambahkan path untuk homepage
-    path('upload/', automation.upload_page, name='upload_page'),
-    path('history/', automation.history, name='history'),
-    path('register/', automation.register, name='register'),
-    path('forgot_pw/', automation.forgot_pw, name='forgot_pw'),
-    path('input_data/', automation.input_data, name='input_data'),
-    path('otomatisasi/', automation.otomatisasi, name='otomatisasi'),
-    path('log-history/', automation.log_history, name='log_history'),
+    path("verify/<str:token>/", verify_email, name="verify_email"),
+    path("admin/", admin.site.urls),
+    path("", automation.user_login, name="login"),
+    path("login/", automation.user_login, name="login"),
+    path(
+        "homepage/", automation.homepage, name="homepage"
+    ),  # Tambahkan path untuk homepage
+    path("upload/", automation.upload_page, name="upload_page"),
+    path("register/", automation.register, name="register"),
+    path("forgot_pw/", automation.forgot_pw, name="forgot_pw"),
+    path("input_data/", automation.input_data, name="input_data"),
+    path("otomatisasi/", automation.otomatisasi, name="otomatisasi"),
+    path("log-history/", automation.log_history, name="log_history"),
+    path("logout/", automation.logoutview, name="logout"),
 ]

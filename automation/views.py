@@ -216,3 +216,19 @@ def upload_data(request):
             return redirect("otomatisasi")
 
     return render(request, "upload.html")
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import UploadedFile
+from .forms import OtomatisasiForm
+
+def edit_otomatisasi(request, id):
+    file_obj = get_object_or_404(UploadedFile, pk=id)
+    if request.method == 'POST':
+        form = OtomatisasiForm(request.POST, request.FILES, instance=file_obj)
+        if form.is_valid():
+            form.save()
+            return redirect('otomatisasi')  # Ubah 'otomatisasi_list' dengan URL name yang sesuai
+    else:
+        form = OtomatisasiForm(instance=file_obj)
+    return render(request, 'edit_otomatisasi.html', {'form': form, 'file_obj': file_obj})
+

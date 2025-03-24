@@ -34,25 +34,31 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for file in files %}
                     <tr class="text-center">
-                        <td><input type="checkbox" checked></td> <!-- Checkbox tetap di kiri -->
-                        <td>data_siswa_januari.xlsx</td>
-                        <td>2023-02-15</td>
-                        <td>2023-02-15</td>
-                        <td>Pemrograman</td>
-                        <td>Online</td>
+                        <td><input type="checkbox"></td>
+                        <td>{{ file.file.name }}</td>
+                        <td>{{ file.start_date }}</td>
+                        <td>{{ file.end_date }}</td>
+                        <td>{{ file.course_name }}</td>
+                        <td>{{ file.course_model }}</td>
                         <td>
-                            <button class="btn-action edit"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn-action delete"><i class="fas fa-trash-alt"></i></button>
+                            <a href="{% url 'edit_otomatisasi' file.id %}" class="btn-action edit">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            
+                            <a href="{% url 'delete_otomatisasi' file.id %}" class="btn-action delete" 
+                               onclick="return confirm('Apakah Anda yakin ingin menghapus file ini?');">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
                         </td>
                     </tr>
-                    {% for _ in empty_rows %}
-                    <tr>
-                        <td><input type="checkbox"></td> <!-- Checkbox tetap di kiri -->
-                        <td colspan="6"></td>
+                    {% empty %}
+                    <tr class="text-center">
+                        <td colspan="7">No data available</td>
                     </tr>
                     {% endfor %}
-                </tbody>                
+                </tbody>      
                 </table>
             
             <!-- Pagination (Previous & Next) -->

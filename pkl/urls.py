@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path
 from automation.views import verify_email
+from django.urls import path
 
 
 urlpatterns = [
@@ -34,8 +35,12 @@ urlpatterns = [
     path("forgot_pw/", automation.forgot_pw, name="forgot_pw"),
     path("input_data/", automation.input_data, name="input_data"),
     path("otomatisasi/", automation.otomatisasi, name="otomatisasi"),
+    path('otomatisasi/delete/<int:id>/', automation.delete_otomatisasi, name='delete_otomatisasi'),
+    path("otomatisasi/edit/<int:id>/", automation.edit_otomatisasi, name="edit_otomatisasi"),
     path("log-history/", automation.log_history, name="log_history"),
     path("logout/", automation.logoutview, name="logout"),
     path("forgot-password-notif/", automation.forgot_password_notification, name='forgot_password_notif'),
     path("reset-password/", automation.reset_password, name="reset_password"),
+
+
 ]

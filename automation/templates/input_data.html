@@ -9,7 +9,14 @@
 
 {% block content %}
 <div class="container form-container">
-    
+
+    <!-- Elemen ini menyimpan pesan Django -->
+    <div id="django-messages" style="display: none;">
+        {% for message in messages %}
+            <span data-message="{{ message }}" data-type="{{ message.tags }}"></span>
+        {% endfor %}
+    </div>
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -63,4 +70,8 @@
         <button type="submit" class="btn-submit">SUBMIT</button>
     </form>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/notifications.js' %}"></script>
 {% endblock %}

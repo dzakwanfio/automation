@@ -183,8 +183,8 @@ def input_data(request):
                     if not empty_rows.empty:
                         empty_row_indices = empty_rows.index + 2  # Menyesuaikan agar sesuai dengan nomor baris di Excel
 
-                        if len(empty_row_indices) > 2:
-                            errors.append(f"Ada lebih dari 2 baris yang memiliki setidaknya satu nilai kosong.")
+                        if len(empty_row_indices) > 1:
+                            errors.append(f"Ada lebih dari 1 baris yang memiliki setidaknya satu nilai kosong.")
                         else:
                             for index, row in empty_rows.iterrows():
                                 empty_columns = row[row.isna()].index.tolist()

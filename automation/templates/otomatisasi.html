@@ -7,6 +7,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'style/otomatisasi.css' %}">
 <!-- SweetAlert2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- FontAwesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -18,37 +20,40 @@
         <div class="card-header bg-teal text-white d-flex justify-content-between align-items-center">
             <span class="fw-bold">Manage Files</span>
             <div>
-                <label for="search" class="me-2">Search :</label>
-                <input type="text" id="search" class="form-control d-inline-block w-auto">
+                <label for="search" class="me-2">Search Course :</label>
+                <input type="text" id="search" class="form-control d-inline-block w-auto" onkeyup="searchCourse()">
             </div>
         </div>
         <div class="card-body">
             <table class="table table-hover">
                 <thead class="border-bottom">
                     <tr class="text-center">
-                        <th></th> <!-- Kolom kosong untuk checkbox -->
+                        <th><input type="checkbox" id="select-all"></th> <!-- Checkbox Select All -->
                         <th>Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th onclick="sortTable(2, this)" data-sort="asc">
+                            Start Date <i class="fas fa-sort"></i>
+                        </th>
+                        <th onclick="sortTable(3, this)" data-sort="asc">
+                            End Date <i class="fas fa-sort"></i>
+                        </th>
                         <th>Course Name</th>
                         <th>Course Model</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-body">
                     {% for file in files %}
                     <tr class="text-center">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" class="row-checkbox"></td>
                         <td>{{ file.file.name }}</td>
                         <td>{{ file.start_date }}</td>
                         <td>{{ file.end_date }}</td>
-                        <td>{{ file.course_name }}</td>
+                        <td class="course-name">{{ file.course_name }}</td>
                         <td>{{ file.course_model }}</td>
                         <td>
                             <a href="{% url 'edit_otomatisasi' file.id %}" class="btn-action edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            
                             <a href="#" class="btn-action delete" 
                                onclick="confirmDelete(event, '{% url 'delete_otomatisasi' file.id %}')">
                                 <i class="fas fa-trash-alt"></i>
@@ -62,6 +67,8 @@
                     {% endfor %}
                 </tbody>      
             </table>
+
+            <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
             
             <!-- Pagination (Previous & Next) -->
             <div class="pagination-container">
@@ -79,8 +86,38 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+document.getElementById("select-all").addEventListener("change", function() {
+    let checkboxes = document.querySelectorAll(".row-checkbox");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+    });
+});
+
+function searchCourse() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("#table-body tr");
+    let noResults = document.getElementById("no-results");
+    let found = false;
+
+    rows.forEach(row => {
+        let courseName = row.querySelector(".course-name")?.textContent.toLowerCase() || "";
+        if (courseName.includes(input)) {
+            row.dataset.match = "true";
+            found = true;
+        } else {
+            row.dataset.match = "false";
+        }
+    });
+
+    noResults.style.display = found ? "none" : "block";
+
+    // Tampilkan halaman pertama dari hasil pencarian
+    currentPage = 1;
+    showPage(currentPage);
+}
+
 function confirmDelete(event, deleteUrl) {
-    event.preventDefault(); // Mencegah navigasi langsung ke URL
+    event.preventDefault();
 
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -93,10 +130,102 @@ function confirmDelete(event, deleteUrl) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = deleteUrl; // Redirect ke URL penghapusan
+            window.location.href = deleteUrl;
         }
     });
 }
+
+function sortTable(columnIndex, header) {
+    let table = document.querySelector("#table-body");
+    let rows = Array.from(table.rows);
+    let isAscending = header.getAttribute("data-sort") === "asc";
+
+    rows.sort((rowA, rowB) => {
+        let cellA = rowA.cells[columnIndex].textContent.trim();
+        let cellB = rowB.cells[columnIndex].textContent.trim();
+
+        let dateA = new Date(cellA);
+        let dateB = new Date(cellB);
+
+        if (isNaN(dateA) || isNaN(dateB)) return 0;
+
+        return isAscending ? dateA - dateB : dateB - dateA;
+    });
+
+    table.innerHTML = "";
+    rows.forEach(row => table.appendChild(row));
+
+    header.setAttribute("data-sort", isAscending ? "desc" : "asc");
+    updateSortIcons(header, isAscending);
+
+    // Setelah sorting, pastikan pagination diterapkan
+    showPage(currentPage);
+}
+
+function updateSortIcons(header, isAscending) {
+    document.querySelectorAll("th i").forEach(icon => {
+        icon.classList.remove("fa-sort-up", "fa-sort-down");
+        icon.classList.add("fa-sort");
+        icon.style.color = "#6c757d";
+    });
+
+    let icon = header.querySelector("i");
+    icon.classList.remove("fa-sort");
+    icon.classList.add(isAscending ? "fa-sort-up" : "fa-sort-down");
+    icon.style.color = "#007bff";
+}
+
+// Pagination
+let currentPage = 1;
+const rowsPerPage = 10;
+
+function showPage(page) {
+    // Ambil semua baris yang match (data-match="true") atau jika belum diset, anggap semua baris match
+    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    let filteredRows = allRows.filter(row => {
+        return row.dataset.match !== "false"; // jika atribut data-match tidak ada atau bukan "false", anggap cocok
+    });
+
+    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+    if(page > totalPages) page = totalPages;
+    if(page < 1) page = 1;
+    currentPage = page;
+    
+    // Sembunyikan semua baris pada filteredRows, lalu tampilkan baris untuk halaman saat ini
+    filteredRows.forEach((row, index) => {
+        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? "" : "none";
+    });
+
+    // Perbarui nomor halaman dan status tombol
+    document.querySelector(".pagination-number").textContent = page;
+    document.querySelector(".prev-btn").disabled = page === 1;
+    document.querySelector(".next-btn").disabled = page === totalPages;
+}
+
+document.querySelector(".prev-btn").addEventListener("click", function() {
+    if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+    }
+});
+
+document.querySelector(".next-btn").addEventListener("click", function() {
+    // Ambil baris yang match
+    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+    if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+    }
+});
+
+// Tampilkan halaman pertama saat halaman dimuat
+window.addEventListener("load", function() {
+    // Tandai semua baris sebagai match jika belum ada filter
+    document.querySelectorAll("#table-body tr").forEach(row => row.dataset.match = "true");
+    showPage(currentPage);
+});
 </script>
 
 {% endblock %}

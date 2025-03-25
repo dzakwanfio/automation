@@ -181,3 +181,7 @@ input[type="checkbox"] {
 .submit-btn:hover {
     background-color: #006400; /* Warna lebih gelap saat hover */
 }
+
+th[onclick] {
+    cursor: pointer !important;
+}

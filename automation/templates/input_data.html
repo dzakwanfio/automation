@@ -5,45 +5,71 @@
 
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'style/input_data.css' %}">
+<style>
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+        margin-top: 5px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <div class="container form-container">
-
-    <!-- Elemen ini menyimpan pesan Django -->
-    <div id="django-messages" style="display: none;">
+    {% if errors %}
+    <script>
+        Swal.fire({
+            title: 'Error!',
+            text: '{{ errors.0 }}',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endif %}
+    
+    {% if messages %}
         {% for message in messages %}
-            <span data-message="{{ message }}" data-type="{{ message.tags }}"></span>
+        <script>
+            Swal.fire({
+                title: '{{ message.tags|capfirst }}',
+                text: '{{ message }}',
+                icon: '{{ message.tags }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
         {% endfor %}
-    </div>
-
-    <form method="POST" enctype="multipart/form-data">
+    {% endif %}
+    
+    <form method="POST" enctype="multipart/form-data" id="inputForm">
         {% csrf_token %}
-
-        <!-- Course Name -->
+        
         <h2 class="form-title">INPUT DATA</h2>
+        
         <div class="form-group">
             <label for="course_name">Course Name</label>
             <input type="text" id="course_name" name="course_name" class="form-control">
+            <span class="error-message" id="error-course-name"></span>
         </div>
-
-        <!-- Date -->
+        
         <div class="form-group date-group">
             <label>Date</label>
             <div class="date-inputs">
                 <div>
                     <label for="start_date">From</label>
                     <input type="date" id="start_date" name="start_date" class="form-control">
+                    <span class="error-message" id="error-start-date"></span>
                 </div>
                 <span class="date-separator">-</span>
                 <div>
                     <label for="end_date">To</label>
                     <input type="date" id="end_date" name="end_date" class="form-control">
+                    <span class="error-message" id="error-end-date"></span>
                 </div>
             </div>
         </div>
-
-        <!-- Course Model -->
+        
         <div class="form-group">
             <label>Course Model</label>
             <div class="radio-group">
@@ -53,42 +79,91 @@
                 <label for="offline">Offline</label>
             </div>
         </div>
-
-        <!-- Destination (Updated) -->
+        
         <div class="form-group">
             <label for="destination">Destination Link</label>
             <input type="url" id="destination" name="destination" class="form-control" placeholder="Enter destination URL">
+            <span class="error-message" id="error-destination"></span>
         </div>
-
-        <!-- Upload File -->
+        
         <div class="form-group">
             <label for="file_upload">Upload File</label>
             <input type="file" id="file_upload" name="file_upload" accept=".csv, .xls, .xlsx" class="form-control file-upload">
+            <span class="error-message" id="error-file-upload"></span>
         </div>
-
-        <!-- Submit Button -->
+        
         <button type="submit" class="btn-submit">SUBMIT</button>
     </form>
 </div>
 
 <script>
+    document.getElementById('inputForm').addEventListener('submit', function(event) {
+        let isValid = true;
+        
+        function showError(id, message) {
+            document.getElementById(id).textContent = message;
+        }
+        
+        function clearError(id) {
+            document.getElementById(id).textContent = '';
+        }
+        
+        const courseName = document.getElementById('course_name');
+        if (!courseName.value.trim()) {
+            showError('error-course-name', 'Course Name is required');
+            isValid = false;
+        } else {
+            clearError('error-course-name');
+        }
+        
+        const startDate = document.getElementById('start_date');
+        if (!startDate.value) {
+            showError('error-start-date', 'Start Date is required');
+            isValid = false;
+        } else {
+            clearError('error-start-date');
+        }
+        
+        const endDate = document.getElementById('end_date');
+        if (!endDate.value) {
+            showError('error-end-date', 'End Date is required');
+            isValid = false;
+        } else {
+            clearError('error-end-date');
+        }
+        
+        const destination = document.getElementById('destination');
+        if (!destination.value.trim()) {
+            showError('error-destination', 'Destination Link is required');
+            isValid = false;
+        } else {
+            clearError('error-destination');
+        }
+        
+        const fileUpload = document.getElementById('file_upload');
+        if (!fileUpload.files.length) {
+            showError('error-file-upload', 'Please upload a file');
+            isValid = false;
+        } else {
+            clearError('error-file-upload');
+        }
+        
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+    
     document.addEventListener('DOMContentLoaded', function(){
         const startDateInput = document.getElementById('start_date');
         const endDateInput = document.getElementById('end_date');
     
-        // Jika sudah ada nilai di start_date saat halaman dimuat, set min end_date
         if(startDateInput.value) {
             endDateInput.min = startDateInput.value;
         }
     
-        // Update min pada end_date setiap kali start_date berubah
         startDateInput.addEventListener('change', function(){
             endDateInput.min = this.value;
         });
     });
-    </script>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/notifications.js' %}"></script>
+</script>
 {% endblock %}

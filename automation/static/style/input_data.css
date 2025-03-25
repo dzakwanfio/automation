@@ -2,7 +2,19 @@
 /* =============================== */
 /*        FORM INPUT DATA          */
 /* =============================== */
+.error-container {
+    background-color: #ffe5e5;
+    color: red;
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
 
+.error-message {
+    font-size: 0.875em;
+    font-weight: bold;
+}
 .form-container {
     flex: 1;
     display: flex;

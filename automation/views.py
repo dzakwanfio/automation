@@ -10,7 +10,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
-
+import pandas as pd
+import openpyxl
 from .models import UploadedFile  # Menggunakan UploadedFile untuk upload dan delete
 
 
@@ -105,8 +106,17 @@ def verify_email(request, token):
     return redirect("register")
 
 
+import pandas as pd
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import UploadedFile
+
+
 @login_required(login_url="login")
 def input_data(request):
+    errors = [] 
+
     if request.method == "POST":
         course_name = request.POST.get("course_name")
         start_date = request.POST.get("start_date")
@@ -115,23 +125,94 @@ def input_data(request):
         destination = request.POST.get("destination")
         upload_file = request.FILES.get("file_upload")
 
-        print(f"Received: {course_name}, {start_date}, {end_date}, {course_model}, {destination}, {upload_file}")
+        required_columns = [
+            "No",
+            "Nama",
+            "Jenis_Kelamin",
+            "NIK",
+            "Tempat_Lahir",
+            "Tanggal_Lahir",
+            "NISN",
+            "Agama_LKP",
+            "Handphone",
+            "Kewarganegaraan",
+            "Jenis_Tinggal",
+            "Tanggal_Masuk",
+            "Email",
+            "Nama_Ortu",
+            "NIK_Ortu",
+            "Pekerjaan_Ortu",
+            "Pendidikan_Ortu",
+            "Penghasilan_Ortu",
+            "Handphone_Ortu",
+            "Tempat_Lahir_Ortu",
+            "Tanggal_Lahir_Ortu",
+            "Asal",
+            "Alamat",
+            "RT_RW",
+            "Kecamatan",
+            "Kelurahan",
+            "Kab/Kota",
+            "Propinsi",
+            "Nama_Ibu_kandung",
+            "Nama_Ayah",
+            "Agama_Kemdikbud",
+            "Penerima_KPS",
+            "Layak_PIP",
+            "Penerima_KIP",
+            "Kode_Pos",
+            "Jenis_tinggal",
+            "Alat_Transportasi",
+        ]
 
         if upload_file:
-            UploadedFile.objects.create(
-                course_name=course_name,
-                start_date=start_date,
-                end_date=end_date,
-                course_model=course_model,
-                destination=destination,
-                file=upload_file,
-            )
-            print("Data berhasil disimpan!")  # Tambahkan debug log
-            messages.success(request, "File berhasil diunggah!")
+            try:
+                df = pd.read_excel(upload_file, sheet_name="all", dtype=str)  # Paksa jadi string
+                df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)  # Hapus spasi tersembunyi
 
-        return redirect("input_data")
+                missing_columns = [col for col in required_columns if col not in df.columns]
+                if missing_columns:
+                    errors.append(f"Kolom berikut tidak ditemukan: {', '.join(missing_columns)}")
 
-    return render(request, "input_data.html")
+                if not missing_columns:
+                    df_required = df[required_columns].replace(["", " "], pd.NA)  # Ganti kosong ke pd.NA
+
+                    # Periksa apakah ada baris yang memiliki setidaknya satu nilai kosong
+                    empty_rows = df_required[df_required.isna().any(axis=1)]
+                    
+                    if not empty_rows.empty:
+                        empty_row_indices = empty_rows.index + 2  # Menyesuaikan agar sesuai dengan nomor baris di Excel
+
+                        if len(empty_row_indices) > 2:
+                            errors.append(f"Ada lebih dari 2 baris yang memiliki setidaknya satu nilai kosong.")
+                        else:
+                            for index, row in empty_rows.iterrows():
+                                empty_columns = row[row.isna()].index.tolist()
+                                errors.append(f"Baris {index + 2} pada file memiliki sel kosong pada kolom: {', '.join(empty_columns)}")
+
+
+                if errors:
+                    return render(request, "input_data.html", {"errors": errors})
+
+                # Jika semua baris lengkap, simpan ke database
+                UploadedFile.objects.create(
+                    course_name=course_name,
+                    start_date=start_date,
+                    end_date=end_date,
+                    course_model=course_model,
+                    destination=destination,
+                    file=upload_file,
+                )
+                messages.success(request, "File berhasil diunggah dan validasi berhasil!")
+                return redirect("input_data")
+
+            except Exception as e:
+                errors.append(f"Terjadi kesalahan saat membaca file: {str(e)}")
+                return render(request, "input_data.html", {"errors": errors})
+
+
+
+    return render(request, "input_data.html", {"errors": errors})
 
 
 @login_required(login_url="login")
@@ -221,6 +302,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import UploadedFile
 from .forms import OtomatisasiForm
 
+@login_required(login_url='login')
 def edit_otomatisasi(request, id):
     file_obj = get_object_or_404(UploadedFile, pk=id)
     if request.method == 'POST':
@@ -231,4 +313,3 @@ def edit_otomatisasi(request, id):
     else:
         form = OtomatisasiForm(instance=file_obj)
     return render(request, 'edit_otomatisasi.html', {'form': form, 'file_obj': file_obj})
-

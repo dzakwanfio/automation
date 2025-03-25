@@ -3,12 +3,14 @@
 
 {% block title %}Otomatisasi{% endblock %}
 
-
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'style/otomatisasi.css' %}">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 {% endblock %}
 
 {% block content %}
+
 <div class="container mt-4">
     <h2 class="fw-bold">OTOMATISASI</h2>
     
@@ -47,8 +49,8 @@
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             
-                            <a href="{% url 'delete_otomatisasi' file.id %}" class="btn-action delete" 
-                               onclick="return confirm('Apakah Anda yakin ingin menghapus file ini?');">
+                            <a href="#" class="btn-action delete" 
+                               onclick="confirmDelete(event, '{% url 'delete_otomatisasi' file.id %}')">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
@@ -59,7 +61,7 @@
                     </tr>
                     {% endfor %}
                 </tbody>      
-                </table>
+            </table>
             
             <!-- Pagination (Previous & Next) -->
             <div class="pagination-container">
@@ -72,5 +74,29 @@
     
     <button class="btn btn-success submit-btn">SUBMIT</button>
 </div>
+
+<!-- SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function confirmDelete(event, deleteUrl) {
+    event.preventDefault(); // Mencegah navigasi langsung ke URL
+
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "File ini akan dihapus secara permanen!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = deleteUrl; // Redirect ke URL penghapusan
+        }
+    });
+}
+</script>
 
 {% endblock %}

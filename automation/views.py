@@ -1,5 +1,8 @@
 import datetime
+
 import jwt
+import openpyxl
+import pandas as pd
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -7,12 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-import pandas as pd
-import openpyxl
-from .models import UploadedFile  # Menggunakan UploadedFile untuk upload dan delete
+
+from .models import \
+    UploadedFile  # Menggunakan UploadedFile untuk upload dan delete
 
 
 @login_required(login_url="login")
@@ -108,8 +111,9 @@ def verify_email(request, token):
 
 import pandas as pd
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
+
 from .models import UploadedFile
 
 
@@ -298,9 +302,11 @@ def upload_data(request):
 
     return render(request, "upload.html")
 
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import UploadedFile
+from django.shortcuts import get_object_or_404, redirect, render
+
 from .forms import OtomatisasiForm
+from .models import UploadedFile
+
 
 @login_required(login_url='login')
 def edit_otomatisasi(request, id):
@@ -313,3 +319,20 @@ def edit_otomatisasi(request, id):
     else:
         form = OtomatisasiForm(instance=file_obj)
     return render(request, 'edit_otomatisasi.html', {'form': form, 'file_obj': file_obj})
+
+
+from django.http import FileResponse, Http404
+import os
+@login_required(login_url="login")
+def download_file(request, file_id):
+    file_obj = get_object_or_404(UploadedFile, id=file_id)
+
+    # Pastikan path file benar
+    file_path = file_obj.file.path  
+    if not os.path.exists(file_path):
+        raise Http404("File tidak ditemukan.")
+
+    # Kirim file sebagai respons HTTP
+    response = FileResponse(open(file_path, "rb"))
+    response["Content-Disposition"] = f'attachment; filename="{os.path.basename(file_path)}"'
+    return response

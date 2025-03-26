@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     height: 100vh;
@@ -19,6 +23,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    flex-grow: 1;
 }
 
 .logo {
@@ -68,6 +73,7 @@ body {
 .btn-light, .btn-danger {
     width: 100%;
     max-width: 150px;
+    min-width: 120px;
     height: 40px;
     padding: 10px 0;
     border-radius: 20px;
@@ -76,7 +82,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 300px;
+    flex-shrink: 0;
 }
 
 .btn-danger {
@@ -96,6 +102,32 @@ body {
     background-color: #ff6666;
 }
 
+/* Posisi tombol lebih fleksibel */
 .sidebar .btn-light {
-    margin-bottom: -50px; /* Atur jarak antar tombol */
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+/* Form Input Data */
+.container-form {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        padding: 15px;
+    }
+
+    .btn-light, .btn-danger {
+        width: 90%;
+    }
+    
+    .container-form {
+        max-width: 90%; /* Lebih fleksibel di layar kecil */
+    }
 }

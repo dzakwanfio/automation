@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.urls import path
+
 from automation import views as automation
+from django.contrib import admin
+from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -20,3 +26,6 @@ urlpatterns = [
     path("reset-password/", automation.reset_password, name="reset_password"),
     path("verify/<str:token>/", automation.verify_email, name="verify_email"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

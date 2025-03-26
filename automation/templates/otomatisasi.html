@@ -18,17 +18,23 @@
     
     <div class="card shadow-sm">
         <div class="card-header bg-teal text-white d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Manage Files</span>
+            <span class="fw-bold" style="font-size: 18px;">Manage Files</span>
             <div>
-                <label for="search" class="me-2">Search Course :</label>
-                <input type="text" id="search" class="form-control d-inline-block w-auto" onkeyup="searchCourse()">
+                <label for="search" class="me-2" style="font-size: 16px;">Search:</label>
+                <input type="text" id="search" class="form-control d-inline-block" 
+                       style="width: 150px; font-size: 12px; padding: 4px 8px; height: auto;" 
+                       placeholder="Course Name" 
+                       onkeyup="searchCourse()">
             </div>
         </div>
         <div class="card-body">
             <table class="table table-hover">
                 <thead class="border-bottom">
                     <tr class="text-center">
-                        <th><input type="checkbox" id="select-all"></th> <!-- Checkbox Select All -->
+                        <th>
+                            <input type="checkbox" id="select-all"> 
+                            <span id="selected-count" style="font-size: 12px; margin-left: 5px; color: gray;">0</span>
+                        </th> <!-- Checkbox Select All -->
                         <th>Name</th>
                         <th onclick="sortTable(2, this)" data-sort="asc">
                             Start Date <i class="fas fa-sort"></i>
@@ -91,7 +97,18 @@ document.getElementById("select-all").addEventListener("change", function() {
     checkboxes.forEach(checkbox => {
         checkbox.checked = this.checked;
     });
+    updateSelectedCount();
 });
+
+document.querySelectorAll(".row-checkbox").forEach(checkbox => {
+    checkbox.addEventListener("change", updateSelectedCount);
+});
+
+function updateSelectedCount() {
+    let selected = document.querySelectorAll(".row-checkbox:checked").length;
+    document.getElementById("selected-count").textContent = selected;
+}
+
 
 function searchCourse() {
     let input = document.getElementById("search").value.toLowerCase();

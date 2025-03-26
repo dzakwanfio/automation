@@ -7,7 +7,7 @@ class UploadedFile(models.Model):
     end_date = models.DateField()
     course_model = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
-    file = models.FileField(upload_to="uploads/")  # Simpan di uploads/
+    file = models.FileField(upload_to="") 
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -21,7 +21,7 @@ class UploadedFile(models.Model):
         super().delete(*args, **kwargs)
 
 class Otomatisasi(models.Model):
-    file = models.FileField(upload_to="uploads/", null=True, blank=True)  # Simpan di uploads/
+    file = models.FileField(upload_to="", null=True, blank=True) 
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     course_name = models.CharField(max_length=255, default="Unknown Course")  # Default

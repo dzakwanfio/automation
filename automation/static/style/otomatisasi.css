@@ -163,23 +163,23 @@ input[type="checkbox"] {
     outline: none;
 }
 
-/* ====== Tombol Submit ====== */
 .submit-btn {
-    background-color: #008000; /* Warna hijau */
-    padding: 8px 16px; /* Ukuran tombol lebih kecil */
-    font-size: 14px; /* Ukuran teks lebih kecil */
+    background-color: #008000; /* Hijau */
+    padding: 8px 16px;
+    font-size: 14px;
     font-weight: bold;
     border-radius: 5px;
     transition: 0.3s ease-in-out;
-    position: absolute;
-    right: 100px;
-    bottom: 7px;
-    width: auto; /* Biar gak terlalu lebar */
+    /* Hapus atau komentar baris absolute positioning */
+    /* position: absolute; */
+    /* right: 100px; */
+    /* bottom: 7px; */
+    width: auto;
+    margin-top: 10px; /* Tambahkan jarak atas */
 }
 
-/* Hover efek */
 .submit-btn:hover {
-    background-color: #006400; /* Warna lebih gelap saat hover */
+    background-color: #006400; /* Hijau lebih gelap saat hover */
 }
 
 th[onclick] {

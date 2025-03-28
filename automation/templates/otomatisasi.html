@@ -24,7 +24,7 @@
                 <input type="text" id="search" class="form-control d-inline-block" 
                        style="width: 150px; font-size: 12px; padding: 4px 8px; height: auto;" 
                        placeholder="Course Name" 
-                       onkeyup="searchCourse()">
+                       oninput="searchCourse()">
             </div>
         </div>
         <div class="card-body">
@@ -73,25 +73,31 @@
                     {% endfor %}
                 </tbody>      
             </table>
-
+        
             <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
             
-            <!-- Pagination (Previous & Next) -->
-            <div class="pagination-container">
+            <!-- Pagination (Previous & Next) dengan margin bawah tambahan -->
+            <div class="pagination-container mb-4">
                 <button class="btn-pagination prev-btn" disabled>Previous</button>
                 <span class="pagination-number">1</span>
                 <button class="btn-pagination next-btn">Next</button>
             </div>
-        </div>
+        
+            <!-- Tombol SUBMIT diletakkan di bawah pagination dengan margin atas yang lebih besar -->
+            <div class="text-end mt-5">
+                <button class="btn btn-success submit-btn">SUBMIT</button>
+            </div>
+        </div>        
     </div>
-    
-    <button class="btn btn-success submit-btn">SUBMIT</button>
 </div>
 
 <!-- SweetAlert2 Script -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+// ---------------------------------------------------
+// 1. Checkbox Select All & Update Selected Count
+// ---------------------------------------------------
 document.getElementById("select-all").addEventListener("change", function() {
     let checkboxes = document.querySelectorAll(".row-checkbox");
     checkboxes.forEach(checkbox => {
@@ -110,15 +116,19 @@ function updateSelectedCount() {
 }
 
 
+// ---------------------------------------------------
+// 2. Search Course (by .course-name column)
+// ---------------------------------------------------
 function searchCourse() {
+    console.log("searchCourse() terpanggil");
     let input = document.getElementById("search").value.toLowerCase();
     let rows = document.querySelectorAll("#table-body tr");
     let noResults = document.getElementById("no-results");
     let found = false;
 
     rows.forEach(row => {
-        let courseName = row.querySelector(".course-name")?.textContent.toLowerCase() || "";
-        if (courseName.includes(input)) {
+        let rowText = row.textContent.toLowerCase();
+        if (rowText.includes(input)) {
             row.dataset.match = "true";
             found = true;
         } else {
@@ -127,12 +137,15 @@ function searchCourse() {
     });
 
     noResults.style.display = found ? "none" : "block";
-
-    // Tampilkan halaman pertama dari hasil pencarian
     currentPage = 1;
     showPage(currentPage);
 }
 
+
+
+// ---------------------------------------------------
+// 3. Konfirmasi Delete (SweetAlert2)
+// ---------------------------------------------------
 function confirmDelete(event, deleteUrl) {
     event.preventDefault();
 
@@ -152,6 +165,10 @@ function confirmDelete(event, deleteUrl) {
     });
 }
 
+
+// ---------------------------------------------------
+// 4. Sorting Tabel (khusus Start Date & End Date)
+// ---------------------------------------------------
 function sortTable(columnIndex, header) {
     let table = document.querySelector("#table-body");
     let rows = Array.from(table.rows);
@@ -161,64 +178,78 @@ function sortTable(columnIndex, header) {
         let cellA = rowA.cells[columnIndex].textContent.trim();
         let cellB = rowB.cells[columnIndex].textContent.trim();
 
+        // Ubah ke Date agar bisa di-sort
         let dateA = new Date(cellA);
         let dateB = new Date(cellB);
 
+        // Jika format tanggal tidak valid, urutan tidak berubah
         if (isNaN(dateA) || isNaN(dateB)) return 0;
 
         return isAscending ? dateA - dateB : dateB - dateA;
     });
 
+    // Pasang ulang baris yang sudah diurutkan
     table.innerHTML = "";
     rows.forEach(row => table.appendChild(row));
 
+    // Toggle data-sort
     header.setAttribute("data-sort", isAscending ? "desc" : "asc");
     updateSortIcons(header, isAscending);
 
-    // Setelah sorting, pastikan pagination diterapkan
+    // Setelah sorting, tetap terapkan pagination
     showPage(currentPage);
 }
 
 function updateSortIcons(header, isAscending) {
+    // Reset ikon sort di semua th
     document.querySelectorAll("th i").forEach(icon => {
         icon.classList.remove("fa-sort-up", "fa-sort-down");
         icon.classList.add("fa-sort");
         icon.style.color = "#6c757d";
     });
 
+    // Ganti ikon di th yang diklik
     let icon = header.querySelector("i");
     icon.classList.remove("fa-sort");
     icon.classList.add(isAscending ? "fa-sort-up" : "fa-sort-down");
     icon.style.color = "#007bff";
 }
 
-// Pagination
+
+// ---------------------------------------------------
+// 5. Pagination
+// ---------------------------------------------------
 let currentPage = 1;
 const rowsPerPage = 10;
 
 function showPage(page) {
-    // Ambil semua baris yang match (data-match="true") atau jika belum diset, anggap semua baris match
+    // Ambil semua baris
     let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    // Filter baris yang masih "match" (data-match="true")
     let filteredRows = allRows.filter(row => {
-        return row.dataset.match !== "false"; // jika atribut data-match tidak ada atau bukan "false", anggap cocok
+        return row.dataset.match !== "false"; 
     });
 
+    // Hitung total halaman
     let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
-    if(page > totalPages) page = totalPages;
-    if(page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    if (page < 1) page = 1;
     currentPage = page;
     
-    // Sembunyikan semua baris pada filteredRows, lalu tampilkan baris untuk halaman saat ini
+    // Sembunyikan semua baris, tampilkan hanya baris di halaman saat ini
     filteredRows.forEach((row, index) => {
-        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? "" : "none";
+        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
+            ? "" 
+            : "none";
     });
 
-    // Perbarui nomor halaman dan status tombol
+    // Perbarui tampilan nomor halaman
     document.querySelector(".pagination-number").textContent = page;
-    document.querySelector(".prev-btn").disabled = page === 1;
-    document.querySelector(".next-btn").disabled = page === totalPages;
+    document.querySelector(".prev-btn").disabled = (page === 1);
+    document.querySelector(".next-btn").disabled = (page === totalPages);
 }
 
+// Tombol "Previous" pagination
 document.querySelector(".prev-btn").addEventListener("click", function() {
     if (currentPage > 1) {
         currentPage--;
@@ -226,8 +257,8 @@ document.querySelector(".prev-btn").addEventListener("click", function() {
     }
 });
 
+// Tombol "Next" pagination
 document.querySelector(".next-btn").addEventListener("click", function() {
-    // Ambil baris yang match
     let allRows = Array.from(document.querySelectorAll("#table-body tr"));
     let filteredRows = allRows.filter(row => row.dataset.match !== "false");
     let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
@@ -237,10 +268,13 @@ document.querySelector(".next-btn").addEventListener("click", function() {
     }
 });
 
-// Tampilkan halaman pertama saat halaman dimuat
+// Saat halaman pertama kali dimuat
 window.addEventListener("load", function() {
-    // Tandai semua baris sebagai match jika belum ada filter
-    document.querySelectorAll("#table-body tr").forEach(row => row.dataset.match = "true");
+    // Tandai semua baris sebagai match jika belum ada filter pencarian
+    document.querySelectorAll("#table-body tr").forEach(row => {
+        row.dataset.match = "true";
+    });
+    // Tampilkan halaman pertama
     showPage(currentPage);
 });
 </script>

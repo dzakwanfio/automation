@@ -27,10 +27,11 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'otomatisasi' %}" class="btn {% if request.path == '/otomatisasi/' %}btn-primary{% else %}nav-link{% endif %}">
+                <a href="{% url 'otomatisasi' %}" class="btn {% if '/otomatisasi/' in request.path %}btn-primary{% else %}nav-link{% endif %}">
                     Otomatisasi
                 </a>
             </li>
+            
             <li class="nav-item">
                 <a href="{% url 'log_history' %}" class="btn {% if request.resolver_match.url_name == 'log_history' %}btn-primary{% else %}nav-link{% endif %}">
                     Log History

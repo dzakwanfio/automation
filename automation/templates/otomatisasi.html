@@ -127,19 +127,23 @@ function searchCourse() {
     let found = false;
 
     rows.forEach(row => {
-        let rowText = row.textContent.toLowerCase();
-        if (rowText.includes(input)) {
-            row.dataset.match = "true";
-            found = true;
-        } else {
-            row.dataset.match = "false";
+        let courseNameCell = row.querySelector(".course-name"); // Ambil hanya elemen dalam kolom "Course Name"
+        if (courseNameCell) {
+            let courseText = courseNameCell.textContent.toLowerCase();
+            if (courseText.includes(input)) {
+                row.dataset.match = "true";
+                row.style.display = ""; // Tampilkan baris yang cocok
+                found = true;
+            } else {
+                row.dataset.match = "false";
+                row.style.display = "none"; // Sembunyikan yang tidak cocok
+            }
         }
     });
 
     noResults.style.display = found ? "none" : "block";
-    currentPage = 1;
-    showPage(currentPage);
 }
+
 
 
 

@@ -50,7 +50,7 @@
                 <tbody id="table-body">
                     {% for file in files %}
                     <tr class="text-center">
-                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td><input type="checkbox" class="row-checkbox" value = "{{ file.id }}"></td>
                         <td>{{ file.file.name }}</td>
                         <td>{{ file.start_date }}</td>
                         <td>{{ file.end_date }}</td>
@@ -85,7 +85,7 @@
         
             <!-- Tombol SUBMIT diletakkan di bawah pagination dengan margin atas yang lebih besar -->
             <div class="text-end mt-5">
-                <button class="btn btn-success submit-btn">SUBMIT</button>
+                <button id="processFiles" class="btn btn-success submit-btn">SUBMIT</button>
             </div>
         </div>        
     </div>
@@ -283,4 +283,36 @@ window.addEventListener("load", function() {
 });
 </script>
 
+<script>
+    document.getElementById("processFiles").addEventListener("click", function () {
+        const selectedFiles = Array.from(document.querySelectorAll(".row-checkbox:checked"))
+            .map(checkbox => checkbox.value);
+
+        if (selectedFiles.length === 0) {
+            alert("Please select at least one file to process.");
+            return;
+        }
+
+        fetch("{% url 'process_files' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({ file_ids: selectedFiles }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert("All files processed successfully!");
+            } else {
+                alert("Error processing files: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while processing files.");
+        });
+    });
+</script>
 {% endblock %}

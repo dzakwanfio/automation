@@ -153,7 +153,8 @@ def input_data(request):
             "Tanggal_Lahir_Ortu",
             "Asal",
             "Alamat",
-            "RT_RW",
+            "RT",
+            "RW",
             "Kecamatan",
             "Kelurahan",
             "Kab/Kota",
@@ -336,3 +337,47 @@ def download_file(request, file_id):
     response = FileResponse(open(file_path, "rb"))
     response["Content-Disposition"] = f'attachment; filename="{os.path.basename(file_path)}"'
     return response
+
+import json
+import subprocess
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from .models import UploadedFile
+
+
+@csrf_exempt
+@login_required(login_url="login")
+def process_files(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            file_ids = data.get("file_ids", [])
+
+            if not file_ids:
+                return JsonResponse(
+                    {"status": "error", "message": "No files selected."}
+                )
+
+            # Ambil file berdasarkan ID
+            files = UploadedFile.objects.filter(id__in=file_ids)
+
+            # Buat array file paths
+            file_paths = [file.file.path for file in files]
+
+            # Jalankan otomatisasi.py dengan semua file path sebagai argumen
+            result = subprocess.run(
+                ["python", "automation/otomatisasi.py", *file_paths],
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode != 0:
+                return JsonResponse({"status": "error", "message": result.stderr})
+
+            return JsonResponse(
+                {"status": "success", "message": "All files processed successfully."}
+            )
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)})
+
+    return JsonResponse({"status": "error", "message": "Invalid request method."})

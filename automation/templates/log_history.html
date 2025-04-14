@@ -23,16 +23,9 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
-                    <colgroup>
-                        <col style="width: 30%;"> <!-- Name -->
-                        <col style="width: 25%;"> <!-- Upload Date -->
-                        <col style="width: 25%;"> <!-- Course Name -->
-                        <col style="width: 15%;"> <!-- Status -->
-                        <col style="width: 25%;"> <!-- Process Time -->
-                    </colgroup>
                     <thead class="border-bottom bg-teal text-white">
                         <tr class="text-center">
-                            <th>Name</th>
+                            <th>Nama File</th>  <!-- Ubah label kolom -->
                             <th>Upload Date</th>
                             <th>Course Name</th>
                             <th>Status</th>
@@ -40,13 +33,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for log in logs %}
                         <tr class="text-center">
-                            <td>data_siswa_januari.xlsx</td>
-                            <td>2023-02-15 08:10</td>
-                            <td>Pemrograman</td>
-                            <td>Sedang Diproses</td>
-                            <td>2023-02-15 08:15</td>
+                            <td>{{ log.name }}</td>  <!-- Akan menampilkan nama file -->
+                            <td>{{ log.upload_date|date:"Y-m-d H:i" }}</td>
+                            <td>{{ log.course_name }}</td>
+                            <td>
+                                <span class="badge bg-{% if log.status == 'Success' %}success{% else %}danger{% endif %}">
+                                    {{ log.status }}
+                                </span>
+                            </td>
+                            <td>{{ log.process_time|date:"Y-m-d H:i" }}</td>
                         </tr>
+                        {% empty %}
+                        <tr class="text-center">
+                            <td colspan="5">No history available</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>            

@@ -1,5 +1,7 @@
 import os
 from django.db import models
+from django.db import models
+from django.utils import timezone
 
 class UploadedFile(models.Model):
     course_name = models.CharField(max_length=255)
@@ -29,3 +31,13 @@ class Otomatisasi(models.Model):
 
     def __str__(self):
         return self.course_name
+
+class LogHistory(models.Model):
+    name = models.CharField(max_length=255)  # Ini akan menyimpan nama file
+    upload_date = models.DateTimeField(default=timezone.now)
+    course_name = models.CharField(max_length=255)
+    status = models.CharField(max_length=20, default='Success')
+    process_time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.name} - {self.status}"

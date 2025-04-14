@@ -105,11 +105,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'id-id' #en-us
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
@@ -145,3 +147,10 @@ from django.contrib.messages import constants as messages
 MESSAGE_STORAGE = "django.contrib.messages.storage.fallback.FallbackStorage"
 
 LOGIN_URL = "/login/"
+
+from django.utils.translation import gettext_lazy as _
+USE_L10N = True
+
+FORMAT_MODULE_PATH = [
+    'automation.formats',
+]

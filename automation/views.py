@@ -14,8 +14,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import \
-    UploadedFile  # Menggunakan UploadedFile untuk upload dan delete
+from .models import UploadedFile, LogHistory 
 
 
 @login_required(login_url="login")
@@ -230,10 +229,13 @@ def otomatisasi(request):
     files = UploadedFile.objects.all()
     return render(request, "otomatisasi.html", {"files": files})
 
-
+from django.utils.timezone import localtime
 @login_required(login_url="login")
 def log_history(request):
-    return render(request, "log_history.html")
+    logs = LogHistory.objects.all()
+    for log in logs:
+        log.local_time = localtime(log.upload_date).strftime("%d %b %Y %H:%M")
+    return render(request, "log_history.html", {"logs": logs})
 
 
 @login_required(login_url="login")
@@ -360,10 +362,8 @@ def process_files(request):
             files = UploadedFile.objects.filter(id__in=file_ids)
             file_paths = [file.file.path for file in files]
 
-            # Path ke otomatisasi.py (sejajar dengan views.py)
             script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'otomatisasi.py')
             
-            # Verifikasi file script ada
             if not os.path.exists(script_path):
                 return JsonResponse({
                     "status": "error",
@@ -371,21 +371,41 @@ def process_files(request):
                     "detail": f"Path yang dicari: {script_path}"
                 })
 
-            # Jalankan proses
             result = subprocess.run(
                 ["python", script_path] + file_paths,
                 capture_output=True,
                 text=True,
-                cwd=os.path.dirname(os.path.abspath(__file__))  # Set working directory
+                cwd=os.path.dirname(os.path.abspath(__file__))
             )
 
             if result.returncode == 0:
+                # Catat log history dan hapus dari otomatisasi
+                for file in files:
+                    LogHistory.objects.create(
+                        name=os.path.basename(file.file.name),  # Nama file saja
+                        upload_date=timezone.now(),
+                        course_name=file.course_name,
+                        status='Success',
+                        process_time=timezone.now()
+                    )
+                    file.delete()  # Hapus dari tabel otomatisasi
+                
                 return JsonResponse({
                     "status": "success",
                     "message": f"Semua {len(file_paths)} file berhasil diproses!",
                     "output": result.stdout
                 })
             else:
+                # Hanya catat log error tanpa menghapus file
+                for file in files:
+                    LogHistory.objects.create(
+                        name=os.path.basename(file.file.name),
+                        upload_date=timezone.now(),
+                        course_name=file.course_name,
+                        status='Failed',
+                        process_time=timezone.now()
+                    )
+                
                 return JsonResponse({
                     "status": "error",
                     "message": "Terjadi kesalahan saat memproses file",

@@ -335,6 +335,7 @@ document.getElementById("processFiles").addEventListener("click", async function
         const data = await response.json();
         
         if (data.status === "success") {
+            window.location.reload();
             await Swal.fire({
                 title: 'Berhasil!',
                 text: data.message,

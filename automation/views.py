@@ -338,13 +338,13 @@ def download_file(request, file_id):
     response["Content-Disposition"] = f'attachment; filename="{os.path.basename(file_path)}"'
     return response
 
-import json
+import os
+from django.conf import settings
 import subprocess
+import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from .models import UploadedFile
-
 
 @csrf_exempt
 @login_required(login_url="login")
@@ -355,29 +355,43 @@ def process_files(request):
             file_ids = data.get("file_ids", [])
 
             if not file_ids:
-                return JsonResponse(
-                    {"status": "error", "message": "No files selected."}
-                )
+                return JsonResponse({"status": "error", "message": "No files selected."})
 
-            # Ambil file berdasarkan ID
             files = UploadedFile.objects.filter(id__in=file_ids)
-
-            # Buat array file paths
             file_paths = [file.file.path for file in files]
 
-            # Jalankan otomatisasi.py dengan semua file path sebagai argumen
+            # Path ke otomatisasi.py (sejajar dengan views.py)
+            script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'otomatisasi.py')
+            
+            # Verifikasi file script ada
+            if not os.path.exists(script_path):
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Script otomatisasi tidak ditemukan",
+                    "detail": f"Path yang dicari: {script_path}"
+                })
+
+            # Jalankan proses
             result = subprocess.run(
-                ["python", "automation/otomatisasi.py", *file_paths],
+                ["python", script_path] + file_paths,
                 capture_output=True,
                 text=True,
+                cwd=os.path.dirname(os.path.abspath(__file__))  # Set working directory
             )
-            if result.returncode != 0:
-                return JsonResponse({"status": "error", "message": result.stderr})
 
-            return JsonResponse(
-                {"status": "success", "message": "All files processed successfully."}
-            )
+            if result.returncode == 0:
+                return JsonResponse({
+                    "status": "success",
+                    "message": f"Semua {len(file_paths)} file berhasil diproses!",
+                    "output": result.stdout
+                })
+            else:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Terjadi kesalahan saat memproses file",
+                    "detail": result.stderr,
+                    "output": result.stdout
+                })
+                
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)})
-
-    return JsonResponse({"status": "error", "message": "Invalid request method."})

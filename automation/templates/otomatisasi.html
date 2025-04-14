@@ -281,38 +281,80 @@ window.addEventListener("load", function() {
     // Tampilkan halaman pertama
     showPage(currentPage);
 });
-</script>
+document.getElementById("processFiles").addEventListener("click", async function () {
+    const selectedFiles = Array.from(document.querySelectorAll(".row-checkbox:checked"))
+        .map(checkbox => checkbox.value);
 
-<script>
-    document.getElementById("processFiles").addEventListener("click", function () {
-        const selectedFiles = Array.from(document.querySelectorAll(".row-checkbox:checked"))
-            .map(checkbox => checkbox.value);
+    if (selectedFiles.length === 0) {
+        await Swal.fire('Peringatan', 'Silakan pilih setidaknya satu file!', 'warning');
+        return;
+    }
 
-        if (selectedFiles.length === 0) {
-            alert("Please select at least one file to process.");
-            return;
-        }
+    const { value: accept } = await Swal.fire({
+        title: `Proses ${selectedFiles.length} File Sekaligus?`,
+        html: `File yang akan diproses:<br><ul>${
+            selectedFiles.map(id => {
+                const row = document.querySelector(`.row-checkbox[value="${id}"]`).closest('tr');
+                return `<li>${row.cells[1].textContent}</li>`;
+            }).join('')
+        }</ul>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Proses Sekarang',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+    });
 
-        fetch("{% url 'process_files' %}", {
+    if (!accept) return;
+
+    const progressPopup = Swal.fire({
+        title: 'Memproses File',
+        html: `Mempersiapkan proses...<br><br>
+              <div class="progress" style="height: 20px; margin-top:10px;">
+                <div id="file-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar" style="width: 0%;">0%</div>
+              </div>
+              <div id="current-status" class="mt-2 text-muted">Menyiapkan browser...</div>`,
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    try {
+        // Update status
+        document.getElementById('current-status').textContent = 'Mengumpulkan file...';
+        
+        const response = await fetch("{% url 'process_files' %}", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": "{{ csrf_token }}",
             },
             body: JSON.stringify({ file_ids: selectedFiles }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                alert("All files processed successfully!");
-            } else {
-                alert("Error processing files: " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while processing files.");
         });
-    });
+
+        const data = await response.json();
+        
+        if (data.status === "success") {
+            await Swal.fire({
+                title: 'Berhasil!',
+                text: data.message,
+                icon: 'success'
+            });
+        } else {
+            await Swal.fire({
+                title: 'Ada Masalah',
+                html: `<div>${data.message}</div>${
+                    data.detail ? `<pre class="text-start mt-3">${data.detail}</pre>` : ''
+                }`,
+                icon: 'error'
+            });
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        await Swal.fire('Error', 'Gagal memproses file', 'error');
+    } finally {
+        Swal.close();
+    }
+});
 </script>
 {% endblock %}

@@ -7,101 +7,116 @@ body {
     padding: 0;
 }
 
+/* Mengatur lebar kontainer agar responsif */
 .container {
-    max-width: 90%;
+    max-width: 95%; 
     margin: auto;
-    padding: 20px;
+    padding-top: 20px; 
 }
 
+/* Judul utama */
 h2 {
-    color: #000;
+    font-size: 24px; 
     font-weight: bold;
+    text-align: left; 
+    color: #000; /* Hitam agar lebih profesional */
 }
 
-/* Card styling */
+/* Card untuk tabel */
 .card {
-    border-radius: 10px;
+    border: 3px; 
+    border-radius: 8px; 
     overflow: hidden;
+    max-width: 100%; 
 }
 
 /* Tabel Styling */
 .table-responsive {
-    overflow-x: auto; /* Scroll jika tabel terlalu lebar */
+    overflow-x: auto; /* Scroll jika tabel terlalu lebar, sesuai otomatisasi.css */
 }
 
 .table {
     width: 100%;
+    table-layout: fixed; /* Biar kolom ukurannya tetap, sama dengan otomatisasi.css */
     border-collapse: collapse;
-    table-layout: fixed; /* Biarkan tabel menyesuaikan */
+    margin-top: 10px; 
+    background-color: white; 
 }
 
+/* Header dan isi tabel */
 .table th, .table td {
+    padding: 12px; 
     text-align: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    white-space: nowrap; /* Hindari teks turun */
+    border-bottom: 1px solid #ddd; 
+    overflow: hidden; /* Hindari teks keluar dari kolom, sama dengan otomatisasi.css */
+    white-space: nowrap; /* Jangan turun ke bawah, sama dengan otomatisasi.css */
+    text-overflow: ellipsis; /* Tambahkan "..." jika teks terlalu panjang, sama dengan otomatisasi.css */
 }
 
-/* Warna hanya untuk header tabel */
+/* Header tabel */
 .table thead th {
-    background-color: #006D77; /* Hijau tua */
-    color: white; /* Warna teks putih */
+    background-color: #006D77; /* Hijau tua, sama dengan otomatisasi.css */
+    color: white; /* Warna teks putih, sama dengan otomatisasi.css */
+    font-weight: bold; 
 }
 
-/* Isi tabel tetap warna default */
-.table tbody td {
-    background-color: white; /* Warna isi tabel tetap putih */
-    color: black; /* Warna teks isi tabel hitam */
-}
-
-
-
-/* Atur ukuran minimal per kolom agar tidak terpotong */
-th:nth-child(1), td:nth-child(1) { min-width: 200px; } /* Name */
-th:nth-child(2), td:nth-child(2) { min-width: 140px; } /* Upload Date */
-th:nth-child(3), td:nth-child(3) { min-width: 180px; } /* Course Name */
-th:nth-child(4), td:nth-child(4) { min-width: 130px; } /* Status */
-th:nth-child(5), td:nth-child(5) { min-width: 140px; } /* Process Time */
+/* Atur lebar kolom */
+th:nth-child(1), td:nth-child(1) { width: 20%; } /* Name */
+th:nth-child(2), td:nth-child(2) { width: 20%; } /* Upload Date */
+th:nth-child(3), td:nth-child(3) { width: 20%; } /* Course Name */
+th:nth-child(4), td:nth-child(4) { width: 20%; } /* Status */
+th:nth-child(5), td:nth-child(5) { width: 20%; } /* Process Time */
 
 /* Hover effect */
 .table tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; 
 }
 
 /* Form input date styling */
 .d-flex {
-    align-items: center;
+    align-items: center; /* Dipertahankan dari log_history.css */
 }
 
 .d-flex input[type="date"] {
-    padding: 5px;
+    padding: 5px; /* Dipertahankan dari log_history.css */
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.table th {
-    padding: 5px 8px; /* Kurangi padding */
-    font-size: 15px;  /* Perkecil ukuran font */
-}
-.table td {
-    padding: 5px 8px; /* Kurangi padding */
-    font-size: 14px;  /* Perkecil ukuran font */
-}
-
-/* Header tabel (th) lebih rapi */
-.table thead th {
-    padding: 10px;  /* Tambah sedikit padding agar lebih jelas */
-    height: 40px;  /* Sesuaikan tinggi header */
-    background-color: #006D77; /* Warna header */
-    color: white;  /* Warna teks */
-    border-bottom: 2px solid #ddd; /* Batas bawah lebih tegas */
-    vertical-align: middle; /* Pastikan teks ada di tengah */
+/* Pagination Styling */
+.pagination-container {
+    display: flex;
+    justify-content: right; 
+    align-items: center;
+    gap: 8px; 
+    margin-top: 20px; 
 }
 
+.btn-pagination {
+    background-color: #f0f0f0; 
+    color: #000; 
+    border: 1px solid #ccc; 
+    padding: 8px 20px; 
+    font-size: system's prompt
+    font-weight: bold; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
 
-/* Styling sel (td) agar tidak terlalu besar */
-.table tbody td {
-    padding: 6px 8px;  /* Perkecil padding */
-    height: 35px; /* Sesuaikan tinggi */
-    vertical-align: middle; /* Teks di tengah */
+.btn-pagination:hover {
+    background-color: #ddd; 
+}
+
+.btn-pagination:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.pagination-number {
+    background-color: #006D77;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-weight: bold;
 }

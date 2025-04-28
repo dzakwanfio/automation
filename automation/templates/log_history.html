@@ -5,38 +5,45 @@
 
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'style/log_history.css' %}">
+<!-- FontAwesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 {% endblock %}
 
 {% block content %}
+<!-- SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <div class="container mt-4">
     <h2 class="fw-bold">HISTORY</h2>
 
-    <!-- Filter Section (dipindahkan ke atas tabel) -->
+    <!-- Filter Section (diletakkan di atas tabel) -->
     <div class="d-flex justify-content-end mt-3">
         <label class="me-2">Past 30 Days</label>
-        <input type="date" class="form-control w-auto">
+        <input type="date" id="start-date" class="form-control w-auto">
         <span class="mx-2">to</span>
-        <input type="date" class="form-control w-auto">
+        <input type="date" id="end-date" class="form-control w-auto">
     </div>
 
-    <div class="card shadow-sm mt-3"> <!-- Tambahkan margin-top agar ada jarak -->
+    <div class="card shadow-sm mt-3">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="border-bottom bg-teal text-white">
                         <tr class="text-center">
-                            <th>Nama File</th>  <!-- Ubah label kolom -->
+                            <th>Nama File</th>
                             <th>Upload Date</th>
                             <th>Course Name</th>
                             <th>Status</th>
                             <th>Process Time</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="table-body">
                         {% for log in logs %}
-                        <tr class="text-center">
-                            <td>{{ log.name }}</td>  <!-- Akan menampilkan nama file -->
-                            <td>{{ log.upload_date|date:"Y-m-d H:i" }}</td>
+                        <tr class="text-center" data-match="true">
+                            <td>{{ log.name }}</td>
+                            <td class="upload-date">{{ log.upload_date|date:"Y-m-d H:i" }}</td>
                             <td>{{ log.course_name }}</td>
                             <td>
                                 <span class="badge bg-{% if log.status == 'Success' %}success{% else %}danger{% endif %}">
@@ -52,8 +59,157 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>            
+            </div>
+
+            <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
+
+            <!-- Pagination (Previous & Next) -->
+            <div class="pagination-container mb-4">
+                <button class="btn-pagination prev-btn" disabled>Previous</button>
+                <span class="pagination-number">1</span>
+                <button class="btn-pagination next-btn">Next</button>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+// ---------------------------------------------------
+// Pagination Logic
+// ---------------------------------------------------
+let currentPage = 1;
+const rowsPerPage = 10;
+
+function showPage(page) {
+    // Ambil semua baris
+    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    // Filter baris yang masih "match" (data-match="true")
+    let filteredRows = allRows.filter(row => {
+        return row.dataset.match !== "false";
+    });
+
+    // Hitung total halaman
+    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+    if (page > totalPages) page = totalPages;
+    if (page < 1) page = 1;
+    currentPage = page;
+
+    // Sembunyikan semua baris, tampilkan hanya baris di halaman saat ini
+    filteredRows.forEach((row, index) => {
+        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
+            ? ""
+            : "none";
+    });
+
+    // Perbarui tampilan nomor halaman
+    document.querySelector(".pagination-number").textContent = page;
+    document.querySelector(".prev-btn").disabled = (page === 1);
+    document.querySelector(".next-btn").disabled = (page === totalPages);
+
+    // Tampilkan pesan "No matching results" jika tidak ada baris yang cocok
+    document.getElementById("no-results").style.display = filteredRows.length === 0 ? "block" : "none";
+}
+
+// Tombol "Previous" pagination
+document.querySelector(".prev-btn").addEventListener("click", function() {
+    if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+    }
+});
+
+// Tombol "Next" pagination
+document.querySelector(".next-btn").addEventListener("click", function() {
+    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+    if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+    }
+});
+
+// ---------------------------------------------------
+// Filter Tanggal dengan Validasi
+// ---------------------------------------------------
+function filterByDate() {
+    let startDateInput = document.getElementById("start-date").value;
+    let endDateInput = document.getElementById("end-date").value;
+    let rows = document.querySelectorAll("#table-body tr");
+    let noResults = document.getElementById("no-results");
+    let found = false;
+
+    // Konversi input tanggal ke objek Date
+    let startDate = startDateInput ? new Date(startDateInput) : null;
+    let endDate = endDateInput ? new Date(endDateInput) : null;
+
+    // Validasi: endDate tidak boleh sebelum startDate
+    if (startDate && endDate && endDate < startDate) {
+        Swal.fire({
+            title: 'Peringatan!',
+            text: 'Tanggal akhir tidak boleh sebelum tanggal awal!',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        // Kosongkan endDate dan hapus nilai input
+        document.getElementById("end-date").value = "";
+        endDate = null;
+    }
+
+    // Jika endDate ada, set ke akhir hari (23:59:59)
+    if (endDate) {
+        endDate.setHours(23, 59, 59, 999);
+    }
+
+    rows.forEach(row => {
+        let uploadDateCell = row.querySelector(".upload-date");
+        if (uploadDateCell) {
+            // Ambil teks tanggal dari kolom Upload Date (format: YYYY-MM-DD HH:MM)
+            let uploadDateText = uploadDateCell.textContent.trim();
+            // Konversi ke objek Date
+            let uploadDate = new Date(uploadDateText.replace(" ", "T")); // Ganti spasi dengan T untuk format ISO
+
+            // Periksa apakah tanggal upload berada dalam rentang
+            let isMatch = true;
+            if (startDate && uploadDate < startDate) {
+                isMatch = false;
+            }
+            if (endDate && uploadDate > endDate) {
+                isMatch = false;
+            }
+
+            row.dataset.match = isMatch ? "true" : "false";
+            row.style.display = isMatch ? "" : "none";
+            if (isMatch) found = true;
+        }
+    });
+
+    // Tampilkan pesan jika tidak ada hasil
+    noResults.style.display = found ? "none" : "block";
+
+    // Reset ke halaman pertama setelah filter
+    currentPage = 1;
+    showPage(currentPage);
+}
+
+// Update atribut min pada end-date saat start-date berubah
+document.getElementById("start-date").addEventListener("change", function() {
+    let startDate = this.value;
+    document.getElementById("end-date").setAttribute("min", startDate);
+    filterByDate();
+});
+
+// Validasi dan filter saat end-date berubah
+document.getElementById("end-date").addEventListener("change", filterByDate);
+
+// Saat halaman pertama kali dimuat
+window.addEventListener("load", function() {
+    // Tandai semua baris sebagai match jika belum ada filter pencarian
+    document.querySelectorAll("#table-body tr").forEach(row => {
+        row.dataset.match = "true";
+    });
+    // Tampilkan halaman pertama
+    showPage(currentPage);
+});
+</script>
 {% endblock %}

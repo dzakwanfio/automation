@@ -12,6 +12,20 @@
 {% endblock %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire({
+            title: '{{ message.tags|capfirst }}',
+            text: '{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    {% endfor %}
+{% endif %}
 
 <div class="container mt-4">
     <h2 class="fw-bold">OTOMATISASI</h2>
@@ -286,7 +300,12 @@ document.getElementById("processFiles").addEventListener("click", async function
         .map(checkbox => checkbox.value);
 
     if (selectedFiles.length === 0) {
-        await Swal.fire('Peringatan', 'Silakan pilih setidaknya satu file!', 'warning');
+        await Swal.fire({
+            title: 'Peringatan!',
+            text: 'Silakan pilih setidaknya satu file!',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
         return;
     }
 
@@ -320,7 +339,6 @@ document.getElementById("processFiles").addEventListener("click", async function
     });
 
     try {
-        // Update status
         document.getElementById('current-status').textContent = 'Mengumpulkan file...';
         
         const response = await fetch("{% url 'process_files' %}", {
@@ -335,24 +353,24 @@ document.getElementById("processFiles").addEventListener("click", async function
         const data = await response.json();
         
         if (data.status === "success") {
-            window.location.reload();
-            await Swal.fire({
-                title: 'Berhasil!',
-                text: data.message,
-                icon: 'success'
-            });
+            // Tidak perlu Swal.fire di sini karena akan dihandle oleh messages template
+            window.location.href = "{% url 'otomatisasi' %}?success=true";
         } else {
             await Swal.fire({
-                title: 'Ada Masalah',
-                html: `<div>${data.message}</div>${
-                    data.detail ? `<pre class="text-start mt-3">${data.detail}</pre>` : ''
-                }`,
-                icon: 'error'
+                title: 'Error!',
+                text: data.message || 'Terjadi kesalahan saat memproses file',
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
         }
     } catch (error) {
         console.error("Error:", error);
-        await Swal.fire('Error', 'Gagal memproses file', 'error');
+        await Swal.fire({
+            title: 'Error!',
+            text: 'Gagal memproses file',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
     } finally {
         Swal.close();
     }

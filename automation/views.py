@@ -382,21 +382,24 @@ def process_files(request):
                 # Catat log history dan hapus dari otomatisasi
                 for file in files:
                     LogHistory.objects.create(
-                        name=os.path.basename(file.file.name),  # Nama file saja
+                        name=os.path.basename(file.file.name),
                         upload_date=timezone.now(),
                         course_name=file.course_name,
                         status='Success',
                         process_time=timezone.now()
                     )
-                    file.delete()  # Hapus dari tabel otomatisasi
-                
+                    file.delete()
+
+                # Tambahkan pesan sukses ke Django messages
+                messages.success(request, f"{len(file_paths)} file berhasil diproses!")
+
                 return JsonResponse({
                     "status": "success",
                     "message": f"Semua {len(file_paths)} file berhasil diproses!",
                     "output": result.stdout
                 })
             else:
-                # Hanya catat log error tanpa menghapus file
+                # Catat log error tanpa menghapus file
                 for file in files:
                     LogHistory.objects.create(
                         name=os.path.basename(file.file.name),
@@ -412,6 +415,6 @@ def process_files(request):
                     "detail": result.stderr,
                     "output": result.stdout
                 })
-                
+
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)})

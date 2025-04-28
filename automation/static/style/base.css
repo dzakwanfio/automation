@@ -11,9 +11,9 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Sidebar tetap seperti sebelumnya */
+/* Sidebar dengan posisi fixed */
 .sidebar {
-    width: 250px;
+    width: 250px !important; /* Gunakan !important untuk spesifisitas tinggi */
     background-color: white;
     padding: 20px;
     height: 100vh;
@@ -23,7 +23,20 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    flex-grow: 1;
+    flex-shrink: 0; /* Pastikan sidebar tidak menyusut */
+    position: fixed; /* Sidebar tetap di posisi */
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* Jika konten sidebar terlalu panjang */
+    z-index: 1000; /* Pastikan sidebar di atas konten */
+}
+
+/* Konten dengan margin kiri untuk menghindari tumpang tindih */
+.content {
+    margin-left: 250px; /* Sesuaikan dengan lebar sidebar */
+    padding: 20px;
+    overflow-y: auto; /* Hanya konten yang discroll */
+    height: 100vh; /* Pastikan konten mengisi tinggi layar */
 }
 
 .logo {
@@ -123,11 +136,26 @@ body {
         padding: 15px;
     }
 
+    .content {
+        margin-left: 200px; /* Sesuaikan dengan lebar sidebar pada layar kecil */
+    }
+
     .btn-light, .btn-danger {
         width: 90%;
     }
     
     .container-form {
         max-width: 90%; /* Lebih fleksibel di layar kecil */
+    }
+}
+
+/* Opsional: Sembunyikan sidebar pada layar sangat kecil */
+@media (max-width: 576px) {
+    .sidebar {
+        display: none; /* Sembunyikan sidebar */
+    }
+
+    .content {
+        margin-left: 0; /* Hilangkan margin */
     }
 }

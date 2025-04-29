@@ -1,4 +1,9 @@
 import datetime
+import json
+import logging
+import os
+import re
+import subprocess
 
 import jwt
 import openpyxl
@@ -9,18 +14,26 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
-from .models import UploadedFile, LogHistory 
+# Setup logging untuk debugging
+logging.basicConfig(
+    filename='process_files.log',
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+from .forms import OtomatisasiForm
+from .models import LogHistory, Otomatisasi, UploadedFile
 
 
 @login_required(login_url="login")
 def homepage(request):
     return render(request, "homepage.html")
-
 
 def user_login(request):
     if request.method == "POST":
@@ -35,7 +48,6 @@ def user_login(request):
         messages.error(request, "Email atau password salah")
 
     return render(request, "login.html")
-
 
 def register(request):
     if request.method == "POST":
@@ -74,7 +86,6 @@ def register(request):
 
     return render(request, "register.html")
 
-
 def generate_verification_token(email):
     payload = {
         "email": email,
@@ -82,7 +93,6 @@ def generate_verification_token(email):
         "iat": datetime.datetime.utcnow(),
     }
     return jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-
 
 def verify_email(request, token):
     try:
@@ -106,15 +116,6 @@ def verify_email(request, token):
         messages.error(request, "Token tidak valid.")
 
     return redirect("register")
-
-
-import pandas as pd
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
-
-from .models import UploadedFile
-
 
 @login_required(login_url="login")
 def input_data(request):
@@ -171,21 +172,20 @@ def input_data(request):
 
         if upload_file:
             try:
-                df = pd.read_excel(upload_file, sheet_name="all", dtype=str)  # Paksa jadi string
-                df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)  # Hapus spasi tersembunyi
+                df = pd.read_excel(upload_file, sheet_name="all", dtype=str)
+                df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
                 missing_columns = [col for col in required_columns if col not in df.columns]
                 if missing_columns:
                     errors.append(f"Kolom berikut tidak ditemukan: {', '.join(missing_columns)}")
 
                 if not missing_columns:
-                    df_required = df[required_columns].replace(["", " "], pd.NA)  # Ganti kosong ke pd.NA
+                    df_required = df[required_columns].replace(["", " "], pd.NA)
 
-                    # Periksa apakah ada baris yang memiliki setidaknya satu nilai kosong
                     empty_rows = df_required[df_required.isna().any(axis=1)]
                     
                     if not empty_rows.empty:
-                        empty_row_indices = empty_rows.index + 2  # Menyesuaikan agar sesuai dengan nomor baris di Excel
+                        empty_row_indices = empty_rows.index + 2
 
                         if len(empty_row_indices) > 1:
                             errors.append(f"Ada lebih dari 1 baris yang memiliki setidaknya satu nilai kosong.")
@@ -194,11 +194,9 @@ def input_data(request):
                                 empty_columns = row[row.isna()].index.tolist()
                                 errors.append(f"Baris {index + 2} pada file memiliki sel kosong pada kolom: {', '.join(empty_columns)}")
 
-
                 if errors:
                     return render(request, "input_data.html", {"errors": errors})
 
-                # Jika semua baris lengkap, simpan ke database
                 UploadedFile.objects.create(
                     course_name=course_name,
                     start_date=start_date,
@@ -214,15 +212,11 @@ def input_data(request):
                 errors.append(f"Terjadi kesalahan saat membaca file: {str(e)}")
                 return render(request, "input_data.html", {"errors": errors})
 
-
-
     return render(request, "input_data.html", {"errors": errors})
-
 
 @login_required(login_url="login")
 def upload_page(request):
     return render(request, "upload.html")
-
 
 @login_required(login_url="login")
 def otomatisasi(request):
@@ -230,6 +224,8 @@ def otomatisasi(request):
     return render(request, "otomatisasi.html", {"files": files})
 
 from django.utils.timezone import localtime
+
+
 @login_required(login_url="login")
 def log_history(request):
     logs = LogHistory.objects.all()
@@ -237,20 +233,16 @@ def log_history(request):
         log.local_time = localtime(log.upload_date).strftime("%d %b %Y %H:%M")
     return render(request, "log_history.html", {"logs": logs})
 
-
 @login_required(login_url="login")
 def logoutview(request):
     logout(request)
     return redirect("login")
 
-
 def forgot_pw(request):
     return render(request, "forgot_pw.html")
 
-
 def forgot_password_notification(request):
     return render(request, "forgot_pwnotif.html")
-
 
 def reset_password(request):
     if request.method == "POST":
@@ -265,32 +257,26 @@ def reset_password(request):
 
     return render(request, "reset_password.html")
 
-
 @login_required(login_url="login")
 def delete_otomatisasi(request, id):
     item = get_object_or_404(UploadedFile, id=id)
-    print(f"Deleting item with id {id}")  # Debug log
+    print(f"Deleting item with id {id}")
     item.delete()
     messages.success(request, "Data berhasil dihapus!")
     return redirect("otomatisasi")
 
-
 @login_required(login_url="login")
 def edit_otomatisasi(request, id):
-    otomatisasi_item = get_object_or_404(UploadedFile, id=id)
-
-    if request.method == "POST":
-        otomatisasi_item.course_name = request.POST.get("course_name")
-        otomatisasi_item.course_model = request.POST.get("course_model")
-        otomatisasi_item.destination = request.POST.get("destination")
-        otomatisasi_item.start_date = request.POST.get("start_date")
-        otomatisasi_item.end_date = request.POST.get("end_date")
-        otomatisasi_item.save()
-        messages.success(request, "Data berhasil diperbarui!")
-        return redirect("otomatisasi")
-
-    return render(request, "edit_otomatisasi.html", {"otomatisasi": otomatisasi_item})
-
+    file_obj = get_object_or_404(UploadedFile, pk=id)
+    if request.method == 'POST':
+        form = OtomatisasiForm(request.POST, request.FILES, instance=file_obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Data berhasil diperbarui!")
+            return redirect('otomatisasi')
+    else:
+        form = OtomatisasiForm(instance=file_obj)
+    return render(request, 'edit_otomatisasi.html', {'form': form, 'file_obj': file_obj})
 
 @login_required(login_url="login")
 def upload_data(request):
@@ -305,48 +291,17 @@ def upload_data(request):
 
     return render(request, "upload.html")
 
-from django.shortcuts import get_object_or_404, redirect, render
-
-from .forms import OtomatisasiForm
-from .models import UploadedFile
-
-
-@login_required(login_url='login')
-def edit_otomatisasi(request, id):
-    file_obj = get_object_or_404(UploadedFile, pk=id)
-    if request.method == 'POST':
-        form = OtomatisasiForm(request.POST, request.FILES, instance=file_obj)
-        if form.is_valid():
-            form.save()
-            return redirect('otomatisasi')  # Ubah 'otomatisasi_list' dengan URL name yang sesuai
-    else:
-        form = OtomatisasiForm(instance=file_obj)
-    return render(request, 'edit_otomatisasi.html', {'form': form, 'file_obj': file_obj})
-
-
-from django.http import FileResponse, Http404
-import os
 @login_required(login_url="login")
 def download_file(request, file_id):
     file_obj = get_object_or_404(UploadedFile, id=file_id)
 
-    # Pastikan path file benar
     file_path = file_obj.file.path  
     if not os.path.exists(file_path):
         raise Http404("File tidak ditemukan.")
 
-    # Kirim file sebagai respons HTTP
     response = FileResponse(open(file_path, "rb"))
     response["Content-Disposition"] = f'attachment; filename="{os.path.basename(file_path)}"'
     return response
-
-import os
-from django.conf import settings
-import subprocess
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 
 @csrf_exempt
 @login_required(login_url="login")
@@ -357,7 +312,8 @@ def process_files(request):
             file_ids = data.get("file_ids", [])
 
             if not file_ids:
-                return JsonResponse({"status": "error", "message": "No files selected."})
+                logging.warning("No files selected in process_files")
+                return JsonResponse({"status": "error", "message": "No files selected.", "last_row": 0})
 
             files = UploadedFile.objects.filter(id__in=file_ids)
             file_paths = [file.file.path for file in files]
@@ -365,12 +321,15 @@ def process_files(request):
             script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'otomatisasi.py')
             
             if not os.path.exists(script_path):
+                logging.error(f"Script not found at: {script_path}")
                 return JsonResponse({
                     "status": "error",
                     "message": "Script otomatisasi tidak ditemukan",
+                    "last_row": 0,
                     "detail": f"Path yang dicari: {script_path}"
                 })
 
+            # Jalankan otomatisasi.py dengan subprocess
             result = subprocess.run(
                 ["python", script_path] + file_paths,
                 capture_output=True,
@@ -378,7 +337,35 @@ def process_files(request):
                 cwd=os.path.dirname(os.path.abspath(__file__))
             )
 
-            if result.returncode == 0:
+            # Log output untuk debugging
+            logging.debug(f"Subprocess stdout: {result.stdout}")
+            logging.debug(f"Subprocess stderr: {result.stderr}")
+            logging.debug(f"Subprocess returncode: {result.returncode}")
+
+            # Parse output JSON dari otomatisasi.py
+            try:
+                script_output = json.loads(result.stdout.strip())
+                status = script_output.get("status", "error")
+                message = script_output.get("message", "Terjadi kesalahan saat memproses file")
+                last_row = script_output.get("last_row", 0)
+            except json.JSONDecodeError as e:
+                logging.error(f"JSON decode error: {str(e)}")
+                logging.error(f"Raw stdout: {result.stdout}")
+                logging.error(f"Raw stderr: {result.stderr}")
+                status = "error"
+                message = "Gagal memproses output dari script otomatisasi"
+                last_row = 0
+                return JsonResponse({
+                    "status": "error",
+                    "message": message,
+                    "last_row": last_row,
+                    "detail": result.stderr if result.stderr else "No stderr output"
+                })
+
+            # Simpan path file sebelum menghapus entri dari UploadedFile
+            file_path_dict = {file.id: file.file.name for file in files}
+
+            if status == "success":
                 # Catat log history dan hapus dari otomatisasi
                 for file in files:
                     LogHistory.objects.create(
@@ -386,35 +373,176 @@ def process_files(request):
                         upload_date=timezone.now(),
                         course_name=file.course_name,
                         status='Success',
-                        process_time=timezone.now()
+                        process_time=timezone.now(),
+                        file_path=file_path_dict[file.id]  # Simpan path relatif file
                     )
-                    file.delete()
 
                 # Tambahkan pesan sukses ke Django messages
                 messages.success(request, f"{len(file_paths)} file berhasil diproses!")
+                logging.info(f"Successfully processed {len(file_paths)} files")
+
+                # Hapus semua entri dari UploadedFile (termasuk file fisik)
+                for file in files:
+                    file.delete()
 
                 return JsonResponse({
                     "status": "success",
-                    "message": f"Semua {len(file_paths)} file berhasil diproses!",
-                    "output": result.stdout
+                    "message": message,
+                    "last_row": last_row
                 })
             else:
-                # Catat log error tanpa menghapus file
+                # Catat log error tanpa menghapus file fisik
                 for file in files:
                     LogHistory.objects.create(
                         name=os.path.basename(file.file.name),
                         upload_date=timezone.now(),
                         course_name=file.course_name,
-                        status='Failed',
-                        process_time=timezone.now()
+                        status=f'Failed (Stopped at row {last_row})',
+                        process_time=timezone.now(),
+                        file_path=file_path_dict[file.id]  # Simpan path relatif file
                     )
+
+                # Hapus entri dari UploadedFile tetapi pertahankan file fisik untuk resume
+                for file in files:
+                    file_path = file.file.path
+                    file.file = None  # Putuskan hubungan dengan file fisik
+                    file.delete()     # Hapus entri dari database tanpa menghapus file fisik
+                    logging.info(f"Retained file for resume: {file_path}")
+
+                logging.warning(f"Process failed at row {last_row}: {message}")
                 
                 return JsonResponse({
                     "status": "error",
-                    "message": "Terjadi kesalahan saat memproses file",
-                    "detail": result.stderr,
-                    "output": result.stdout
+                    "message": message,
+                    "last_row": last_row,
+                    "detail": result.stderr if result.stderr else "No stderr output"
                 })
 
         except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)})
+            logging.error(f"Unexpected error in process_files: {str(e)}")
+            return JsonResponse({"status": "error", "message": str(e), "last_row": 0})
+
+    logging.warning("Invalid method in process_files")
+    return JsonResponse({"status": "error", "message": "Metode tidak diizinkan", "last_row": 0})
+
+@csrf_exempt
+@login_required(login_url="login")
+def resume_process(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            log_id = data.get("log_id")
+
+            if not log_id:
+                logging.warning("No log_id provided in resume_process")
+                return JsonResponse({"status": "error", "message": "No log ID provided.", "last_row": 0})
+
+            # Ambil entri LogHistory
+            log_entry = get_object_or_404(LogHistory, id=log_id)
+
+            # Ekstrak baris terakhir yang gagal dari status
+            match = re.search(r"Stopped at row (\d+)", log_entry.status)
+            if not match:
+                logging.error(f"Could not extract last row from status: {log_entry.status}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Cannot determine the last processed row.",
+                    "last_row": 0
+                })
+
+            last_row = int(match.group(1))
+            file_path = log_entry.file_path  # Gunakan file_path dari LogHistory
+
+            # Jika file_path tidak ada (entri lama), gunakan file_name sebagai fallback
+            if not file_path:
+                file_path = log_entry.name
+
+            # Cari file di direktori media
+            media_path = os.path.join(settings.MEDIA_ROOT, file_path)
+            if not os.path.exists(media_path):
+                logging.error(f"File not found: {media_path}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": "File tidak ditemukan di server.",
+                    "last_row": 0
+                })
+
+            script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'otomatisasi.py')
+            if not os.path.exists(script_path):
+                logging.error(f"Script not found at: {script_path}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Script otomatisasi tidak ditemukan",
+                    "last_row": 0,
+                    "detail": f"Path yang dicari: {script_path}"
+                })
+
+            # Jalankan otomatisasi.py dengan parameter resume
+            result = subprocess.run(
+                ["python", script_path, media_path, "--resume-from", str(last_row)],
+                capture_output=True,
+                text=True,
+                cwd=os.path.dirname(os.path.abspath(__file__))
+            )
+
+            # Log output untuk debugging
+            logging.debug(f"Resume subprocess stdout: {result.stdout}")
+            logging.debug(f"Resume subprocess stderr: {result.stderr}")
+            logging.debug(f"Resume subprocess returncode: {result.returncode}")
+
+            # Parse output JSON dari otomatisasi.py
+            try:
+                script_output = json.loads(result.stdout.strip())
+                status = script_output.get("status", "error")
+                message = script_output.get("message", "Terjadi kesalahan saat melanjutkan proses")
+                last_row = script_output.get("last_row", last_row)
+            except json.JSONDecodeError as e:
+                logging.error(f"JSON decode error in resume_process: {str(e)}")
+                logging.error(f"Raw stdout: {result.stdout}")
+                logging.error(f"Raw stderr: {result.stderr}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Gagal memproses output dari script otomatisasi",
+                    "last_row": last_row,
+                    "detail": result.stderr if result.stderr else "No stderr output"
+                })
+
+            if status == "success":
+                # Perbarui entri LogHistory
+                log_entry.status = "Success"
+                log_entry.process_time = timezone.now()
+                log_entry.save()
+
+                # Hapus file setelah berhasil resume
+                try:
+                    os.remove(media_path)
+                    logging.info(f"File deleted after successful resume: {media_path}")
+                except Exception as e:
+                    logging.warning(f"Failed to delete file after resume: {e}")
+
+                logging.info(f"Successfully resumed processing for log ID {log_id}")
+                return JsonResponse({
+                    "status": "success",
+                    "message": "Proses berhasil dilanjutkan dan selesai!",
+                    "last_row": last_row
+                })
+            else:
+                # Jika gagal lagi, perbarui status dengan baris terakhir
+                log_entry.status = f"Failed (Stopped at row {last_row})"
+                log_entry.process_time = timezone.now()
+                log_entry.save()
+
+                logging.error(f"Resume process failed at row {last_row}: {message}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": message,
+                    "last_row": last_row,
+                    "detail": result.stderr if result.stderr else "No stderr output"
+                })
+
+        except Exception as e:
+            logging.error(f"Unexpected error in resume_process: {str(e)}")
+            return JsonResponse({"status": "error", "message": str(e), "last_row": 0})
+
+    logging.warning("Invalid method in resume_process")
+    return JsonResponse({"status": "error", "message": "Metode tidak diizinkan", "last_row": 0})

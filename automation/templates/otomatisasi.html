@@ -48,7 +48,7 @@
                         <th>
                             <input type="checkbox" id="select-all"> 
                             <span id="selected-count" style="font-size: 12px; margin-left: 5px; color: gray;">0</span>
-                        </th> <!-- Checkbox Select All -->
+                        </th>
                         <th>Name</th>
                         <th onclick="sortTable(2, this)" data-sort="asc">
                             Start Date <i class="fas fa-sort"></i>
@@ -64,7 +64,7 @@
                 <tbody id="table-body">
                     {% for file in files %}
                     <tr class="text-center">
-                        <td><input type="checkbox" class="row-checkbox" value = "{{ file.id }}"></td>
+                        <td><input type="checkbox" class="row-checkbox" value="{{ file.id }}"></td>
                         <td>{{ file.file.name }}</td>
                         <td>{{ file.start_date }}</td>
                         <td>{{ file.end_date }}</td>
@@ -90,14 +90,12 @@
         
             <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
             
-            <!-- Pagination (Previous & Next) dengan margin bawah tambahan -->
             <div class="pagination-container mb-4">
                 <button class="btn-pagination prev-btn" disabled>Previous</button>
                 <span class="pagination-number">1</span>
                 <button class="btn-pagination next-btn">Next</button>
             </div>
         
-            <!-- Tombol SUBMIT diletakkan di bawah pagination dengan margin atas yang lebih besar -->
             <div class="text-end mt-5">
                 <button id="processFiles" class="btn btn-success submit-btn">SUBMIT</button>
             </div>
@@ -105,13 +103,10 @@
     </div>
 </div>
 
-<!-- SweetAlert2 Script -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-// ---------------------------------------------------
-// 1. Checkbox Select All & Update Selected Count
-// ---------------------------------------------------
+// Checkbox Select All & Update Selected Count
 document.getElementById("select-all").addEventListener("change", function() {
     let checkboxes = document.querySelectorAll(".row-checkbox");
     checkboxes.forEach(checkbox => {
@@ -129,10 +124,7 @@ function updateSelectedCount() {
     document.getElementById("selected-count").textContent = selected;
 }
 
-
-// ---------------------------------------------------
-// 2. Search Course (by .course-name column)
-// ---------------------------------------------------
+// Search Course
 function searchCourse() {
     console.log("searchCourse() terpanggil");
     let input = document.getElementById("search").value.toLowerCase();
@@ -141,29 +133,25 @@ function searchCourse() {
     let found = false;
 
     rows.forEach(row => {
-        let courseNameCell = row.querySelector(".course-name"); // Ambil hanya elemen dalam kolom "Course Name"
+        let courseNameCell = row.querySelector(".course-name");
         if (courseNameCell) {
             let courseText = courseNameCell.textContent.toLowerCase();
             if (courseText.includes(input)) {
                 row.dataset.match = "true";
-                row.style.display = ""; // Tampilkan baris yang cocok
+                row.style.display = "";
                 found = true;
             } else {
                 row.dataset.match = "false";
-                row.style.display = "none"; // Sembunyikan yang tidak cocok
+                row.style.display = "none";
             }
         }
     });
 
     noResults.style.display = found ? "none" : "block";
+    showPage(1); // Reset ke halaman 1 setelah search
 }
 
-
-
-
-// ---------------------------------------------------
-// 3. Konfirmasi Delete (SweetAlert2)
-// ---------------------------------------------------
+// Konfirmasi Delete
 function confirmDelete(event, deleteUrl) {
     event.preventDefault();
 
@@ -183,10 +171,7 @@ function confirmDelete(event, deleteUrl) {
     });
 }
 
-
-// ---------------------------------------------------
-// 4. Sorting Tabel (khusus Start Date & End Date)
-// ---------------------------------------------------
+// Sorting Tabel
 function sortTable(columnIndex, header) {
     let table = document.querySelector("#table-body");
     let rows = Array.from(table.rows);
@@ -196,78 +181,62 @@ function sortTable(columnIndex, header) {
         let cellA = rowA.cells[columnIndex].textContent.trim();
         let cellB = rowB.cells[columnIndex].textContent.trim();
 
-        // Ubah ke Date agar bisa di-sort
         let dateA = new Date(cellA);
         let dateB = new Date(cellB);
 
-        // Jika format tanggal tidak valid, urutan tidak berubah
         if (isNaN(dateA) || isNaN(dateB)) return 0;
 
         return isAscending ? dateA - dateB : dateB - dateA;
     });
 
-    // Pasang ulang baris yang sudah diurutkan
     table.innerHTML = "";
     rows.forEach(row => table.appendChild(row));
 
-    // Toggle data-sort
     header.setAttribute("data-sort", isAscending ? "desc" : "asc");
     updateSortIcons(header, isAscending);
 
-    // Setelah sorting, tetap terapkan pagination
     showPage(currentPage);
 }
 
 function updateSortIcons(header, isAscending) {
-    // Reset ikon sort di semua th
     document.querySelectorAll("th i").forEach(icon => {
         icon.classList.remove("fa-sort-up", "fa-sort-down");
         icon.classList.add("fa-sort");
         icon.style.color = "#6c757d";
     });
 
-    // Ganti ikon di th yang diklik
     let icon = header.querySelector("i");
     icon.classList.remove("fa-sort");
     icon.classList.add(isAscending ? "fa-sort-up" : "fa-sort-down");
     icon.style.color = "#007bff";
 }
 
-
-// ---------------------------------------------------
-// 5. Pagination
-// ---------------------------------------------------
+// Pagination
 let currentPage = 1;
 const rowsPerPage = 10;
 
 function showPage(page) {
-    // Ambil semua baris
     let allRows = Array.from(document.querySelectorAll("#table-body tr"));
-    // Filter baris yang masih "match" (data-match="true")
     let filteredRows = allRows.filter(row => {
         return row.dataset.match !== "false"; 
     });
 
-    // Hitung total halaman
     let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
     if (page > totalPages) page = totalPages;
     if (page < 1) page = 1;
     currentPage = page;
     
-    // Sembunyikan semua baris, tampilkan hanya baris di halaman saat ini
     filteredRows.forEach((row, index) => {
         row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
             ? "" 
             : "none";
     });
 
-    // Perbarui tampilan nomor halaman
     document.querySelector(".pagination-number").textContent = page;
     document.querySelector(".prev-btn").disabled = (page === 1);
     document.querySelector(".next-btn").disabled = (page === totalPages);
 }
 
-// Tombol "Previous" pagination
 document.querySelector(".prev-btn").addEventListener("click", function() {
     if (currentPage > 1) {
         currentPage--;
@@ -275,7 +244,6 @@ document.querySelector(".prev-btn").addEventListener("click", function() {
     }
 });
 
-// Tombol "Next" pagination
 document.querySelector(".next-btn").addEventListener("click", function() {
     let allRows = Array.from(document.querySelectorAll("#table-body tr"));
     let filteredRows = allRows.filter(row => row.dataset.match !== "false");
@@ -286,15 +254,14 @@ document.querySelector(".next-btn").addEventListener("click", function() {
     }
 });
 
-// Saat halaman pertama kali dimuat
 window.addEventListener("load", function() {
-    // Tandai semua baris sebagai match jika belum ada filter pencarian
     document.querySelectorAll("#table-body tr").forEach(row => {
         row.dataset.match = "true";
     });
-    // Tampilkan halaman pertama
     showPage(currentPage);
 });
+
+// Proses File dengan AJAX
 document.getElementById("processFiles").addEventListener("click", async function () {
     const selectedFiles = Array.from(document.querySelectorAll(".row-checkbox:checked"))
         .map(checkbox => checkbox.value);
@@ -352,25 +319,59 @@ document.getElementById("processFiles").addEventListener("click", async function
 
         const data = await response.json();
         
+        // Kosongkan tabel secara langsung
+        let tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
+        
+        // Nonaktifkan pagination
+        document.querySelector(".prev-btn").disabled = true;
+        document.querySelector(".next-btn").disabled = true;
+        document.querySelector(".pagination-number").textContent = "1";
+        
+        // Reset selected count
+        document.getElementById("selected-count").textContent = "0";
+
         if (data.status === "success") {
-            // Tidak perlu Swal.fire di sini karena akan dihandle oleh messages template
-            window.location.href = "{% url 'otomatisasi' %}?success=true";
+            await Swal.fire({
+                title: 'Sukses!',
+                text: data.message,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            // Arahkan ke halaman Log History
+            window.location.href = "{% url 'log_history' %}";
         } else {
             await Swal.fire({
                 title: 'Error!',
-                text: data.message || 'Terjadi kesalahan saat memproses file',
+                text: `Process failed at row ${data.last_row}: ${data.message}`,
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+            // Arahkan ke halaman Log History
+            window.location.href = "{% url 'log_history' %}";
         }
     } catch (error) {
         console.error("Error:", error);
+        // Kosongkan tabel secara langsung bahkan jika terjadi error
+        let tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
+        
+        // Nonaktifkan pagination
+        document.querySelector(".prev-btn").disabled = true;
+        document.querySelector(".next-btn").disabled = true;
+        document.querySelector(".pagination-number").textContent = "1";
+        
+        // Reset selected count
+        document.getElementById("selected-count").textContent = "0";
+
         await Swal.fire({
             title: 'Error!',
-            text: 'Gagal memproses file',
+            text: 'Gagal memproses file: ' + error.message,
             icon: 'error',
             confirmButtonText: 'OK'
         });
+        // Arahkan ke halaman Log History bahkan jika terjadi error
+        window.location.href = "{% url 'log_history' %}";
     } finally {
         Swal.close();
     }

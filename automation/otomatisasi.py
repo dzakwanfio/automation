@@ -1,25 +1,33 @@
-
 # Import library yang diperlukan
-import sys
+import argparse
+import json
+import logging
 import os
+import sys
+import time
+
 import openpyxl
 import pandas as pd
 from openpyxl import load_workbook
 from selenium import webdriver
+from selenium.common.exceptions import (NoSuchElementException,
+                                        NoSuchWindowException,
+                                        TimeoutException, WebDriverException)
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import logging
+from selenium.webdriver.support.ui import WebDriverWait
 
-# Setup logging
+# Setup logging ke file, bukan stdout
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("otomatisasi.log"),
+    ]
 )
 
-def process_files(file_paths):
+def process_files(file_paths, resume_from=2):
+    driver = None
     try:
         # Inisialisasi WebDriver Edge
         driver = webdriver.Edge()
@@ -40,10 +48,16 @@ def process_files(file_paths):
             except NoSuchElementException:
                 time.sleep(2)
                 wait_time += 2
+            except (NoSuchWindowException, WebDriverException) as e:
+                logging.error(f"❌ Browser ditutup atau tidak dapat diakses: {e}")
+                result = {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+                print(json.dumps(result))
+                return result
         else:
             logging.error("❌ Timeout: Login tidak terdeteksi dalam 2 menit.")
-            driver.quit()
-            return False
+            result = {"status": "error", "message": "Timeout: Login tidak terdeteksi dalam 2 menit", "last_row": 0}
+            print(json.dumps(result))
+            return result
 
         # Klik link ke halaman daftar siswa aktif
         try:
@@ -55,10 +69,11 @@ def process_files(file_paths):
             time.sleep(1)
             driver.execute_script("arguments[0].click();", link_daftar_siswa)
             logging.info("✅ Berhasil klik link 'Daftar Siswa Aktif'")
-        except Exception as e:
+        except (NoSuchElementException, NoSuchWindowException, WebDriverException) as e:
             logging.error(f"❌ Gagal klik link 'Daftar Siswa Aktif': {e}")
-            driver.quit()
-            return False
+            result = {"status": "error", "message": f"Gagal mengakses halaman daftar siswa: {str(e)}", "last_row": 0}
+            print(json.dumps(result))
+            return result
 
         time.sleep(3)
 
@@ -76,55 +91,53 @@ def process_files(file_paths):
                 wb = load_workbook(file_path)
                 sheet = wb.worksheets[0]
 
-                # Looping untuk membaca data dari Excel
-                i = 2
+                # Looping untuk membaca data dari Excel, mulai dari resume_from
+                i = resume_from
                 while True:
                     if sheet[f"A{i}"].value is None or str(sheet[f"A{i}"].value).strip() == "":
                         break
 
                     try:
-                        # Membaca data dari Excel
-                        nama = safe_str(sheet[f"B{i}"].value)
-                        jenis_kelamin = safe_str(sheet[f"C{i}"].value)
-                        NIK = safe_str(sheet[f"D{i}"].value)
-                        tempat_lahir = safe_str(sheet[f"E{i}"].value)
-                        tanggal_lahir = safe_str(sheet[f"F{i}"].value)
-                        NISN = safe_str(sheet["G" + str(i)].value)
-                        Agama = safe_str(sheet["H" + str(i)].value)
-                        Handphone = safe_str(sheet["I" + str(i)].value)
-                        Kewarganeraan = safe_str(sheet["J" + str(i)].value)
-                        Jenis_Tinggal = safe_str(sheet["K" + str(i)].value)
-                        Tanggal_Masuk = safe_str(sheet["L" + str(i)].value)
-                        Email = safe_str(sheet["M" + str(i)].value)
-                        Nama_Ibu = safe_str(sheet["N" + str(i)].value)
-                        NIK_Ibu = safe_str(sheet["O" + str(i)].value)
-                        Pekerjaan_Ibu = safe_str(sheet["P" + str(i)].value)
-                        Pendidikan_Ibu = safe_str(sheet["Q" + str(i)].value)
-                        Penghasilan_Ibu = safe_str(sheet["R" + str(i)].value)
-                        Handphone_Ibu = safe_str(sheet["S" + str(i)].value)
-                        Tempat_Lahir_Ibu = safe_str(sheet["T" + str(i)].value)
-                        Tanggal_Lahir_Ibu = safe_str(sheet["U" + str(i)].value)
-                        Nama_Ayah = safe_str(Nama_Ibu)
-                        NIK_Ayah = safe_str(NIK_Ibu)
-                        Pekerjaan_Ayah = safe_str(Pekerjaan_Ibu)
-                        Pendidikan_Ayah = safe_str(Pendidikan_Ibu)
-                        Penghasilan_Ayah = safe_str(Penghasilan_Ibu)
-                        Handphone_Ayah = safe_str(Handphone_Ibu)
-                        Tempat_Lahir_Ayah = safe_str(Tempat_Lahir_Ibu)
-                        Tanggal_Lahir_Ayah = safe_str(Tanggal_Lahir_Ibu)
-                        Asal_Domisili = safe_str(sheet["V" + str(i)].value)
-                        Alamat_Domisili = safe_str(sheet["W" + str(i)].value)
-                        RT_Domisili = safe_str(sheet["X" + str(i)].value)
-                        RW_Domisili = safe_str(sheet["Y" + str(i)].value)
-                        Kecamatan_Domisili = safe_str(sheet["Z" + str(i)].value)
-                        Kelurahan_Domisili = safe_str(sheet["AA" + str(i)].value)
-                        Asal_KK = safe_str(Asal_Domisili)
-                        Alamat_KK = safe_str(Alamat_Domisili)
-                        RT_KK = safe_str(RT_Domisili)
-                        RW_KK = safe_str(RW_Domisili)
-                        Kecamatan_KK = safe_str(Kecamatan_Domisili)
-                        Kelurahan_KK = safe_str(Kelurahan_Domisili)
-                        logging.info(f"Memproses data: {nama}, {jenis_kelamin}, {NIK}, {tempat_lahir}, {tanggal_lahir}, {NISN}, {Agama}, {Handphone}, {Kewarganeraan}, {Jenis_Tinggal}, {Tanggal_Masuk}, {Email}, {Nama_Ibu}, {NIK_Ibu}, {Pekerjaan_Ibu}, {Pendidikan_Ibu}, {Penghasilan_Ibu}, {Handphone_Ibu}, {Tempat_Lahir_Ibu}, {Tanggal_Lahir_Ibu}, {Nama_Ayah}, {NIK_Ayah}, {Pekerjaan_Ayah}, {Pendidikan_Ayah}, {Penghasilan_Ayah}, {Handphone_Ayah}, {Tempat_Lahir_Ayah}, {Tanggal_Lahir_Ayah}, {Asal_Domisili}, {Alamat_Domisili}, {RT_Domisili}, {RW_Domisili}, {Kecamatan_Domisili}, {Kelurahan_Domisili}, {Asal_KK}, {Alamat_KK}, {RT_KK}, {RW_KK}, {Kecamatan_KK}, {Kelurahan_KK}")
+                        # Membaca data dari Excel sesuai kolom di input_data
+                        nama = safe_str(sheet[f"B{i}"].value)  # Nama
+                        jenis_kelamin = safe_str(sheet[f"C{i}"].value)  # Jenis_Kelamin
+                        NIK = safe_str(sheet[f"D{i}"].value)  # NIK
+                        tempat_lahir = safe_str(sheet[f"E{i}"].value)  # Tempat_Lahir
+                        tanggal_lahir = safe_str(sheet[f"F{i}"].value)  # Tanggal_Lahir
+                        NISN = safe_str(sheet[f"G{i}"].value)  # NISN
+                        Agama = safe_str(sheet[f"H{i}"].value)  # Agama_LKP
+                        Handphone = safe_str(sheet[f"I{i}"].value)  # Handphone
+                        Kewarganeraan = safe_str(sheet[f"J{i}"].value)  # Kewarganegaraan
+                        Jenis_Tinggal = safe_str(sheet[f"K{i}"].value)  # Jenis_Tinggal
+                        Tanggal_Masuk = safe_str(sheet[f"L{i}"].value)  # Tanggal_Masuk
+                        Email = safe_str(sheet[f"M{i}"].value)  # Email
+                        Nama_Ortu = safe_str(sheet[f"N{i}"].value)  # Nama_Ortu
+                        NIK_Ortu = safe_str(sheet[f"O{i}"].value)  # NIK_Ortu
+                        Pekerjaan_Ortu = safe_str(sheet[f"P{i}"].value)  # Pekerjaan_Ortu
+                        Pendidikan_Ortu = safe_str(sheet[f"Q{i}"].value)  # Pendidikan_Ortu
+                        Penghasilan_Ortu = safe_str(sheet[f"R{i}"].value)  # Penghasilan_Ortu
+                        Handphone_Ortu = safe_str(sheet[f"S{i}"].value)  # Handphone_Ortu
+                        Tempat_Lahir_Ortu = safe_str(sheet[f"T{i}"].value)  # Tempat_Lahir_Ortu
+                        Tanggal_Lahir_Ortu = safe_str(sheet[f"U{i}"].value)  # Tanggal_Lahir_Ortu
+                        Asal = safe_str(sheet[f"V{i}"].value)  # Asal
+                        Alamat = safe_str(sheet[f"W{i}"].value)  # Alamat
+                        RT = safe_str(sheet[f"X{i}"].value)  # RT
+                        RW = safe_str(sheet[f"Y{i}"].value)  # RW
+                        Kecamatan = safe_str(sheet[f"Z{i}"].value)  # Kecamatan
+                        Kelurahan = safe_str(sheet[f"AA{i}"].value)  # Kelurahan
+                        Kab_Kota = safe_str(sheet[f"AB{i}"].value)  # Kab/Kota
+                        Propinsi = safe_str(sheet[f"AC{i}"].value)  # Propinsi
+                        Nama_Ibu_kandung = safe_str(sheet[f"AD{i}"].value)  # Nama_Ibu_kandung
+                        Nama_Ayah = safe_str(sheet[f"AE{i}"].value)  # Nama_Ayah
+                        Agama_Kemdikbud = safe_str(sheet[f"AF{i}"].value)  # Agama_Kemdikbud
+                        Penerima_KPS = safe_str(sheet[f"AG{i}"].value)  # Penerima_KPS
+                        Layak_PIP = safe_str(sheet[f"AH{i}"].value)  # Layak_PIP
+                        Penerima_KIP = safe_str(sheet[f"AI{i}"].value)  # Penerima_KIP
+                        Kode_Pos = safe_str(sheet[f"AJ{i}"].value)  # Kode_Pos
+                        Jenis_tinggal = safe_str(sheet[f"AK{i}"].value)  # Jenis_tinggal
+                        Alat_Transportasi = safe_str(sheet[f"AL{i}"].value)  # Alat_Transportasi
+
+                        logging.info(f"Memproses data baris {i}: {nama}")
 
                         # Klik link ke halaman tambah siswa
                         link_tambah_siswa = driver.find_element(
@@ -155,83 +168,115 @@ def process_files(file_paths):
                         driver.find_element(By.NAME, "jenis_tinggal").send_keys(Jenis_Tinggal)
                         driver.find_element(By.NAME, "tgl_masuk").send_keys(Tanggal_Masuk)
                         driver.find_element(By.NAME, "email").send_keys(Email)
-                        driver.find_element(By.NAME, "nama_ibu").send_keys(Nama_Ibu)
-                        driver.find_element(By.NAME, "nik_ibu").send_keys(NIK_Ibu)
-                        driver.find_element(By.NAME, "pekerjaan_ibu").send_keys(Pekerjaan_Ibu)
-                        driver.find_element(By.NAME, "pendidikan_ibu").send_keys(Pendidikan_Ibu)
-                        driver.find_element(By.NAME, "penghasilan_ibu").send_keys(Penghasilan_Ibu)
-                        driver.find_element(By.NAME, "hp_ibu").send_keys(Handphone_Ibu)
-                        driver.find_element(By.NAME, "tempat_lahir_ibu").send_keys(Tempat_Lahir_Ibu)
-                        driver.find_element(By.NAME, "tgl_lahir_ibu").send_keys(Tanggal_Lahir_Ibu)
-                        driver.find_element(By.NAME, "nama_ayah").send_keys(Nama_Ayah)
-                        driver.find_element(By.NAME, "nik_ayah").send_keys(NIK_Ayah)
-                        driver.find_element(By.NAME, "pekerjaan_ayah").send_keys(Pekerjaan_Ayah)
-                        driver.find_element(By.NAME, "pendidikan_ayah").send_keys(Pendidikan_Ayah)
-                        driver.find_element(By.NAME, "penghasilan_ayah").send_keys(Penghasilan_Ayah)
-                        driver.find_element(By.NAME, "hp_ayah").send_keys(Handphone_Ayah)
-                        driver.find_element(By.NAME, "tempat_lahir_ayah").send_keys(Tempat_Lahir_Ayah)
-                        driver.find_element(By.NAME, "tgl_lahir_ayah").send_keys(Tanggal_Lahir_Ayah)
-                        driver.find_element(By.NAME, "asal_domisili").send_keys(Asal_Domisili)
-                        driver.find_element(By.NAME, "alamat_domisili").send_keys(Alamat_Domisili)
-                        driver.find_element(By.NAME, "rt_domisili").send_keys(RT_Domisili)
-                        driver.find_element(By.NAME, "rw_domisili").send_keys(RW_Domisili)
-                        driver.find_element(By.NAME, "kecamatan_domisili").send_keys(Kecamatan_Domisili)
-                        driver.find_element(By.NAME, "kelurahan_domisili").send_keys(Kelurahan_Domisili)
-                        driver.find_element(By.NAME, "asal_kk").send_keys(Asal_KK)
-                        driver.find_element(By.NAME, "alamat_kk").send_keys(Alamat_KK)
-                        driver.find_element(By.NAME, "rt_kk").send_keys(RT_KK)
-                        driver.find_element(By.NAME, "rw_kk").send_keys(RW_KK)
-                        driver.find_element(By.NAME, "kecamatan_kk").send_keys(Kecamatan_KK)
-                        driver.find_element(By.NAME, "kelurahan_kk").send_keys(Kelurahan_KK)
-                        
-                        driver.find_element(By.XPATH, "//button[@type='submit']").click()  # Klik tombol submit
-                    except NoSuchElementException as e:
-                        logging.error(f"❌ Element tidak ditemukan pada baris {i}: {e}")
-                    except TimeoutException as e:
-                        logging.error(f"❌ Timeout pada baris {i}: {e}")
+                        driver.find_element(By.NAME, "nama_ibu").send_keys(Nama_Ibu_kandung or Nama_Ortu)
+                        driver.find_element(By.NAME, "nik_ibu").send_keys(NIK_Ortu)
+                        driver.find_element(By.NAME, "pekerjaan_ibu").send_keys(Pekerjaan_Ortu)
+                        driver.find_element(By.NAME, "pendidikan_ibu").send_keys(Pendidikan_Ortu)
+                        driver.find_element(By.NAME, "penghasilan_ibu").send_keys(Penghasilan_Ortu)
+                        driver.find_element(By.NAME, "hp_ibu").send_keys(Handphone_Ortu)
+                        driver.find_element(By.NAME, "tempat_lahir_ibu").send_keys(Tempat_Lahir_Ortu)
+                        driver.find_element(By.NAME, "tgl_lahir_ibu").send_keys(Tanggal_Lahir_Ortu)
+                        driver.find_element(By.NAME, "nama_ayah").send_keys(Nama_Ayah or Nama_Ortu)
+                        driver.find_element(By.NAME, "nik_ayah").send_keys(NIK_Ortu)
+                        driver.find_element(By.NAME, "pekerjaan_ayah").send_keys(Pekerjaan_Ortu)
+                        driver.find_element(By.NAME, "pendidikan_ayah").send_keys(Pendidikan_Ortu)
+                        driver.find_element(By.NAME, "penghasilan_ayah").send_keys(Penghasilan_Ortu)
+                        driver.find_element(By.NAME, "hp_ayah").send_keys(Handphone_Ortu)
+                        driver.find_element(By.NAME, "tempat_lahir_ayah").send_keys(Tempat_Lahir_Ortu)
+                        driver.find_element(By.NAME, "tgl_lahir_ayah").send_keys(Tanggal_Lahir_Ortu)
+                        driver.find_element(By.NAME, "asal_domisili").send_keys(Asal)
+                        driver.find_element(By.NAME, "alamat_domisili").send_keys(Alamat)
+                        driver.find_element(By.NAME, "rt_domisili").send_keys(RT)
+                        driver.find_element(By.NAME, "rw_domisili").send_keys(RW)
+                        driver.find_element(By.NAME, "kecamatan_domisili").send_keys(Kecamatan)
+                        driver.find_element(By.NAME, "kelurahan_domisili").send_keys(Kelurahan)
+                        driver.find_element(By.NAME, "asal_kk").send_keys(Asal)
+                        driver.find_element(By.NAME, "alamat_kk").send_keys(Alamat)
+                        driver.find_element(By.NAME, "rt_kk").send_keys(RT)
+                        driver.find_element(By.NAME, "rw_kk").send_keys(RW)
+                        driver.find_element(By.NAME, "kecamatan_kk").send_keys(Kecamatan)
+                        driver.find_element(By.NAME, "kelurahan_kk").send_keys(Kelurahan)
+
+                        driver.find_element(By.XPATH, "//button[@type='submit']").click()
+                        logging.info(f"✅ Baris {i} berhasil diproses")
+                    except (NoSuchWindowException, WebDriverException) as e:
+                        logging.error(f"❌ Browser ditutup pada baris {i}: {e}")
+                        result = {"status": "error", "message": f"Terdeteksi berhenti pada baris {i}", "last_row": i}
+                        print(json.dumps(result))
+                        return result
+                    except (NoSuchElementException, TimeoutException) as e:
+                        logging.error(f"❌ Gagal memproses baris {i}: {e}")
+                        result = {"status": "error", "message": f"Gagal memproses baris {i}: {str(e)}", "last_row": i}
+                        print(json.dumps(result))
+                        return result
                     except Exception as e:
-                        logging.error(f"❌ Error tidak terduga pada baris {i}: {e}") 
+                        logging.error(f"❌ Error tidak terduga pada baris {i}: {e}")
+                        result = {"status": "error", "message": f"Error tidak terduga pada baris {i}: {str(e)}", "last_row": i}
+                        print(json.dumps(result))
+                        return result
 
                     i += 1
 
                 logging.info(f"✅ File {file_path} berhasil diproses!")
             
-                
+            except (NoSuchWindowException, WebDriverException) as e:
+                logging.error(f"❌ Browser ditutup saat memproses file {file_path}: {e}")
+                result = {"status": "error", "message": f"Terdeteksi berhenti pada baris {i}", "last_row": i}
+                print(json.dumps(result))
+                return result
             except Exception as e:
                 logging.error(f"❌ Error saat memproses file {file_path}: {e}")
-                continue
+                result = {"status": "error", "message": f"Error memproses file {file_path}: {str(e)}", "last_row": i}
+                print(json.dumps(result))
+                return result
 
         logging.info("✅ Semua file telah diproses!")
-        input("🔚 Tekan Enter untuk menutup browser...")
+        result = {"status": "success", "message": f"Semua {len(file_paths)} file berhasil diproses!", "last_row": i}
+        print(json.dumps(result))
+        return result
 
-        if data.get("status") == "success":
-            driver.quit() 
-
-        return True
-        
+    except (NoSuchWindowException, WebDriverException) as e:
+        logging.error(f"❌ Browser ditutup: {e}")
+        result = {"status": "error", "message": "Browser ditutup secara tidak sengaja", "last_row": 0}
+        print(json.dumps(result))
+        return result
     except Exception as e:
         logging.error(f"❌ Error utama: {e}")
-        return False
+        result = {"status": "error", "message": str(e), "last_row": 0}
+        print(json.dumps(result))
+        return result
+    finally:
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
 
 if __name__ == "__main__":
-    # Debugging info
-    print("=== DEBUG INFO ===")
-    print(f"Current directory: {os.getcwd()}")
-    print(f"Script location: {os.path.abspath(__file__)}")
-    print(f"Args received: {sys.argv}")
+    # Parse argumen baris perintah
+    parser = argparse.ArgumentParser(description="Script otomatisasi pengentry-an data siswa")
+    parser.add_argument("file_paths", nargs='+', help="Path ke file Excel yang akan diproses")
+    parser.add_argument("--resume-from", type=int, default=2, help="Baris mulai untuk melanjutkan proses")
+    args = parser.parse_args()
+
+    # Debugging info, dicetak ke stderr
+    print("=== DEBUG INFO ===", file=sys.stderr)
+    print(f"Current directory: {os.getcwd()}", file=sys.stderr)
+    print(f"Script location: {os.path.abspath(__file__)}", file=sys.stderr)
+    print(f"Args received: {sys.argv}", file=sys.stderr)
     
-    if len(sys.argv) < 2:
-        print("Error: No file paths provided")
+    if len(args.file_paths) < 1:
+        print(json.dumps({"status": "error", "message": "No file paths provided", "last_row": 0}))
         sys.exit(1)
     
     # Verifikasi file input
-    for i, file_path in enumerate(sys.argv[1:]):
+    for i, file_path in enumerate(args.file_paths):
         if not os.path.exists(file_path):
-            print(f"Error: File {i+1} not found - {file_path}")
+            print(json.dumps({"status": "error", "message": f"File {i+1} not found - {file_path}", "last_row": 0}))
             sys.exit(1)
-        print(f"File {i+1} found: {file_path}")
+        print(f"File {i+1} found: {file_path}", file=sys.stderr)
     
-    print("=================")
+    print("=================", file=sys.stderr)
     
     # Jalankan proses utama
-    process_files(sys.argv[1:])
+    result = process_files(args.file_paths, resume_from=args.resume_from)

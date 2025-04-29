@@ -1,12 +1,9 @@
 from django.contrib import admin
 from django.urls import path
-
-from automation import views as automation
-from django.contrib import admin
-from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from automation import views as automation
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,6 +35,7 @@ urlpatterns = [
     path("reset-password/", automation.reset_password, name="reset_password"),
     path("verify/<str:token>/", automation.verify_email, name="verify_email"),
     path("process-files/", automation.process_files, name="process_files"),
+    path("resume-process/", automation.resume_process, name="resume_process"),  # Endpoint baru
 ]
 
 if settings.DEBUG:

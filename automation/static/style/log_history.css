@@ -32,12 +32,16 @@ h2 {
 
 /* Tabel Styling */
 .table-responsive {
-    overflow-x: auto; /* Scroll jika tabel terlalu lebar, sesuai otomatisasi.css */
+    overflow-x: auto; /* Aktifkan scroll horizontal */
+    -webkit-overflow-scrolling: touch; /* Dukungan scroll yang lebih mulus di perangkat touch */
+    min-height: 0.01%; /* Fix untuk memastikan scroll bekerja di beberapa browser */
 }
 
+/* Pastikan tabel cukup lebar untuk memicu scroll */
 .table {
     width: 100%;
-    table-layout: fixed; /* Biar kolom ukurannya tetap, sama dengan otomatisasi.css */
+    min-width: 1000px; /* Lebar minimum untuk memastikan scroll muncul */
+    table-layout: fixed; /* Biar kolom ukurannya tetap */
     border-collapse: collapse;
     margin-top: 10px; 
     background-color: white; 
@@ -48,28 +52,46 @@ h2 {
     padding: 12px; 
     text-align: center;
     border-bottom: 1px solid #ddd; 
-    overflow: hidden; /* Hindari teks keluar dari kolom, sama dengan otomatisasi.css */
-    white-space: nowrap; /* Jangan turun ke bawah, sama dengan otomatisasi.css */
-    text-overflow: ellipsis; /* Tambahkan "..." jika teks terlalu panjang, sama dengan otomatisasi.css */
+    overflow: hidden; /* Hindari teks keluar dari kolom */
+    white-space: nowrap; /* Jangan turun ke bawah */
+    text-overflow: ellipsis; /* Tambahkan "..." jika teks terlalu panjang */
 }
 
 /* Header tabel */
 .table thead th {
-    background-color: #006D77; /* Hijau tua, sama dengan otomatisasi.css */
-    color: white; /* Warna teks putih, sama dengan otomatisasi.css */
+    background-color: #006D77; /* Hijau tua */
+    color: white; /* Warna teks putih */
     font-weight: bold; 
 }
 
 /* Atur lebar kolom */
 th:nth-child(1), td:nth-child(1) { width: 20%; } /* Name */
 th:nth-child(2), td:nth-child(2) { width: 20%; } /* Upload Date */
-th:nth-child(3), td:nth-child(3) { width: 20%; } /* Course Name */
-th:nth-child(4), td:nth-child(4) { width: 20%; } /* Status */
+th:nth-child(3), td:nth-child(3) { width: 15%; } /* Course Name */
+th:nth-child(4), td:nth-child(4) { width: 15%; } /* Status */
 th:nth-child(5), td:nth-child(5) { width: 20%; } /* Process Time */
+th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
 
 /* Hover effect */
 .table tbody tr:hover {
     background-color: #f1f1f1; 
+}
+
+/* Styling untuk tombol Resume */
+.resume-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Jarak antara ikon dan teks */
+    padding: 5px 10px; /* Padding agar tombol lebih nyaman diklik */
+    font-size: 14px; /* Ukuran font kecil */
+    font-weight: 500; /* Sedikit tebal untuk teks */
+    border-radius: 5px; /* Sudut membulat */
+    white-space: nowrap; /* Pastikan teks tidak membungkus */
+}
+
+/* Pastikan ikon FontAwesome terlihat rapi */
+.resume-btn i {
+    font-size: 12px; /* Ukuran ikon kecil */
 }
 
 /* Form input date styling */
@@ -97,7 +119,7 @@ th:nth-child(5), td:nth-child(5) { width: 20%; } /* Process Time */
     color: #000; 
     border: 1px solid #ccc; 
     padding: 8px 20px; 
-    font-size: system's prompt
+    font-size: 14px; 
     font-weight: bold; 
     border-radius: 5px; 
     cursor: pointer; 

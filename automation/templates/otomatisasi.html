@@ -343,7 +343,7 @@ document.getElementById("processFiles").addEventListener("click", async function
         } else {
             await Swal.fire({
                 title: 'Error!',
-                text: `Process failed at row ${data.last_row}: ${data.message}`,
+                text: `Proses gagal pada baris ${data.last_row}: ${data.message}`,
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
@@ -364,9 +364,14 @@ document.getElementById("processFiles").addEventListener("click", async function
         // Reset selected count
         document.getElementById("selected-count").textContent = "0";
 
+        let errorMessage = 'Proses gagal: Browser ditutup sebelum login. Lanjutkan di Log History.';
+        if (error.message && !error.message.includes('<!DOCTYPE')) {
+            errorMessage = 'Gagal memproses file: ' + error.message;
+        }
+
         await Swal.fire({
             title: 'Error!',
-            text: 'Gagal memproses file: ' + error.message,
+            text: errorMessage,
             icon: 'error',
             confirmButtonText: 'OK'
         });

@@ -64,13 +64,34 @@ h2 {
     font-weight: bold; 
 }
 
-/* Atur lebar kolom */
+* Atur lebar kolom */
 th:nth-child(1), td:nth-child(1) { width: 20%; } /* Name */
 th:nth-child(2), td:nth-child(2) { width: 20%; } /* Upload Date */
 th:nth-child(3), td:nth-child(3) { width: 15%; } /* Course Name */
-th:nth-child(4), td:nth-child(4) { width: 15%; } /* Status */
-th:nth-child(5), td:nth-child(5) { width: 20%; } /* Process Time */
+th:nth-child(4), td:nth-child(4) { width: 20%; } /* Status - Increased width */
+th:nth-child(5), td:nth-child(5) { width: 15%; } /* Process Time - Adjusted */
 th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
+
+/* Header dan isi tabel */
+.table th, .table td {
+    padding: 12px; 
+    text-align: center;
+    border-bottom: 1px solid #ddd; 
+}
+
+/* Specific styling for the Status column to allow text wrapping */
+.table td:nth-child(4) {
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
+    text-overflow: unset; /* Remove ellipsis */
+}
+
+/* Header tabel */
+.table thead th {
+    background-color: #006D77; /* Hijau tua */
+    color: white; /* Warna teks putih */
+    font-weight: bold; 
+}
 
 /* Hover effect */
 .table tbody tr:hover {
@@ -79,19 +100,23 @@ th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
 
 /* Styling untuk tombol Resume */
 .resume-btn {
-    display: flex;
+    width: 30px; /* Smaller width */
+    height: 30px; /* Smaller height */
+    padding: 0; /* Remove padding to make it compact */
+    font-size: 12px; /* Smaller font size for icon */
+    border-radius: 5px; /* Keep rounded corners */
+    display: center; /* Keep flex for centering */
     align-items: center;
-    gap: 5px; /* Jarak antara ikon dan teks */
-    padding: 5px 10px; /* Padding agar tombol lebih nyaman diklik */
-    font-size: 14px; /* Ukuran font kecil */
-    font-weight: 500; /* Sedikit tebal untuk teks */
-    border-radius: 5px; /* Sudut membulat */
-    white-space: nowrap; /* Pastikan teks tidak membungkus */
+    justify-content: center; /* Center the icon */
+    line-height: 1; /* Fix vertical alignment */
+    background-color: #28a745; /* Set background color to green */
+    border-color: #28a745; /* Set border color to match */
 }
 
 /* Pastikan ikon FontAwesome terlihat rapi */
 .resume-btn i {
-    font-size: 12px; /* Ukuran ikon kecil */
+    font-size: 12px; /* Smaller icon size */
+    margin: 0; /* Remove any margin */
 }
 
 /* Form input date styling */

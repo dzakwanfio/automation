@@ -2592,3 +2592,1634 @@ Arguments: ()
 2025-04-29 16:36:33,236 - DEBUG - Resume subprocess returncode: 0
 2025-04-29 16:36:33,239 - INFO - File deleted after successful resume: D:\Internship\automation\automation\uploads\lkp23_aQu3B9l.xlsx
 2025-04-29 16:36:33,239 - INFO - Successfully resumed processing for log ID 27
+2025-04-30 22:59:15,635 - WARNING - Not Found: /favicon.ico
+2025-04-30 23:11:32,588 - WARNING - Not Found: /favicon.ico
+2025-04-30 23:17:56,560 - WARNING - Not Found: /favicon.ico
+2025-05-01 00:02:54,451 - WARNING - Not Found: /favicon.ico
+2025-05-01 00:07:14,074 - WARNING - Not Found: /favicon.ico
+2025-05-01 00:32:55,781 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-05-01 00:33:53,277 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-05-01 00:45:04,044 - DEBUG - Subprocess stdout: {"status": "error", "message": "Terdeteksi berhenti pada baris 2", "last_row": 2}
+
+2025-05-01 00:45:04,044 - DEBUG - Subprocess stderr: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_UaOMQ27.xlsx', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_qWj34pO.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_UaOMQ27.xlsx
+File 2 found: D:\Internship\automation\automation\uploads\lkp23_qWj34pO.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 71, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 90, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp23_UaOMQ27.xlsx'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 181, in process_files
+    driver.find_element(By.NAME, "pekerjaan_ayah").send_keys(Pekerjaan_Ortu)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF648347A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF64829AC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF6485CE0EA+2011274]
+	(No symbol) [0x00007FF64804C2B5]
+	(No symbol) [0x00007FF6480DEBF0]
+	(No symbol) [0x00007FF6480F61EA]
+	(No symbol) [0x00007FF6480D8E03]
+	(No symbol) [0x00007FF6480AD686]
+	(No symbol) [0x00007FF6480ACB92]
+	(No symbol) [0x00007FF6480AD4B3]
+	(No symbol) [0x00007FF6481A900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF6481B6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF6481AFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF64842A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF6482A7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF6482A0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF6482A0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF648292E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 203, in process_files
+    logging.error(f"\u274c Browser ditutup pada baris {i}: {e}")
+Message: '\u274c Browser ditutup pada baris 2: Message: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF648347A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF64829AC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF6485CE0EA+2011274]\n\t(No symbol) [0x00007FF64804C2B5]\n\t(No symbol) [0x00007FF6480DEBF0]\n\t(No symbol) [0x00007FF6480F61EA]\n\t(No symbol) [0x00007FF6480D8E03]\n\t(No symbol) [0x00007FF6480AD686]\n\t(No symbol) [0x00007FF6480ACB92]\n\t(No symbol) [0x00007FF6480AD4B3]\n\t(No symbol) [0x00007FF6481A900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF6481B6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF6481AFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF64842A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF6482A7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF6482A0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF6482A0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF648292E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-01 00:45:04,044 - DEBUG - Subprocess returncode: 0
+2025-05-01 00:45:04,065 - INFO - Retained file for resume: D:\Internship\automation\automation\uploads\lkp23_UaOMQ27.xlsx
+2025-05-01 00:45:04,070 - INFO - Retained file for resume: D:\Internship\automation\automation\uploads\lkp23_qWj34pO.xlsx
+2025-05-01 00:45:04,070 - WARNING - Process failed at row 2: Terdeteksi berhenti pada baris 2
+2025-05-01 00:51:54,047 - INFO - D:\Internship\automation\automation\automation\views.py changed, reloading.
+2025-05-01 00:55:03,019 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp23_utLTZpD.xlsx: {"status": "error", "message": "Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))", "last_row": 2}
+
+2025-05-01 00:55:03,019 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp23_utLTZpD.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_utLTZpD.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_utLTZpD.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 71, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 90, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp23_utLTZpD.xlsx'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 183, in process_files
+    driver.find_element(By.NAME, "penghasilan_ayah").send_keys(Penghasilan_Ortu)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 427, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 404, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 428, in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 144, in request
+    return self.request_encode_body(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 279, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\poolmanager.py", line 444, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\retry.py", line 470, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 213, in process_files
+    logging.error(f"\u274c Error tidak terduga pada baris {i}: {e}")
+Message: "\u274c Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+Arguments: ()
+
+2025-05-01 00:55:03,019 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp23_utLTZpD.xlsx: 0
+2025-05-01 00:55:03,040 - INFO - Removed UploadedFile entry for: D:\Internship\automation\automation\uploads\lkp23_utLTZpD.xlsx
+2025-05-01 00:55:03,049 - INFO - Removed UploadedFile entry for: D:\Internship\automation\automation\uploads\lkp23_PPGSNpK.xlsx
+2025-05-01 00:55:03,049 - WARNING - Process failed: Process failed at file lkp23_utLTZpD.xlsx: Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-05-01 00:57:51,488 - INFO - D:\Internship\automation\automation\automation\views.py changed, reloading.
+2025-05-01 00:59:13,088 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp23_pF6WZ9f.xlsx: {"status": "error", "message": "Error tidak terduga pada baris 2: 'NoneType' object has no attribute 'send_keys'", "last_row": 2}
+
+2025-05-01 00:59:13,091 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp23_pF6WZ9f.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_pF6WZ9f.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_pF6WZ9f.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 71, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 90, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp23_pF6WZ9f.xlsx'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 175, in process_files
+    driver.find_element(By.NAME, "penghasilan_ibu").send_keys(Penghasilan_Ortu)
+AttributeError: 'NoneType' object has no attribute 'send_keys'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 213, in process_files
+    logging.error(f"\u274c Error tidak terduga pada baris {i}: {e}")
+Message: "\u274c Error tidak terduga pada baris 2: 'NoneType' object has no attribute 'send_keys'"
+Arguments: ()
+
+2025-05-01 00:59:13,091 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp23_pF6WZ9f.xlsx: 0
+2025-05-01 00:59:13,117 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp23_pF6WZ9f.xlsx
+2025-05-01 00:59:13,117 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-01 00:59:13,313 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-01 01:00:24,013 - INFO - D:\Internship\automation\automation\automation\views.py changed, reloading.
+2025-05-02 09:20:38,325 - WARNING - Not Found: /favicon.ico
+2025-05-02 09:23:44,745 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp23_gcvHwoD.xlsx: {"status": "error", "message": "Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))", "last_row": 2}
+
+2025-05-02 09:23:44,745 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp23_gcvHwoD.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_gcvHwoD.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_gcvHwoD.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 71, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 90, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp23_gcvHwoD.xlsx'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 189, in process_files
+    driver.find_element(By.NAME, "rt_domisili").send_keys(RT)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webelement.py", line 303, in send_keys
+    self._execute(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webelement.py", line 572, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 427, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 404, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 428, in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 144, in request
+    return self.request_encode_body(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 279, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\poolmanager.py", line 444, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\retry.py", line 470, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 213, in process_files
+    logging.error(f"\u274c Error tidak terduga pada baris {i}: {e}")
+Message: "\u274c Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+Arguments: ()
+
+2025-05-02 09:23:44,745 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp23_gcvHwoD.xlsx: 0
+2025-05-02 09:23:44,760 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp23_gcvHwoD.xlsx
+2025-05-02 09:23:44,760 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:23:45,103 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:26:23,825 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx: {"status": "error", "message": "Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))", "last_row": 2}
+
+2025-05-02 09:26:23,825 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_c5uXkAI.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 71, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 90, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp23_c5uXkAI.xlsx'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 178, in process_files
+    driver.find_element(By.NAME, "tgl_lahir_ibu").send_keys(Tanggal_Lahir_Ortu)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webelement.py", line 303, in send_keys
+    self._execute(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webelement.py", line 572, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 427, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 404, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 428, in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 144, in request
+    return self.request_encode_body(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 279, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\poolmanager.py", line 444, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\retry.py", line 470, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 213, in process_files
+    logging.error(f"\u274c Error tidak terduga pada baris {i}: {e}")
+Message: "\u274c Error tidak terduga pada baris 2: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+Arguments: ()
+
+2025-05-02 09:26:23,825 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx: 0
+2025-05-02 09:26:23,849 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx
+2025-05-02 09:26:23,849 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:26:23,894 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:28:15,692 - DEBUG - Resume subprocess stdout: {"status": "error", "message": "Error tidak terduga pada baris 3: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))", "last_row": 3}
+
+2025-05-02 09:28:15,692 - DEBUG - Resume subprocess stderr: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_c5uXkAI.xlsx', '--resume-from', '2']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 71, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 90, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp23_c5uXkAI.xlsx'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 201, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 2 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 171, in process_files
+    driver.find_element(By.NAME, "nama_ibu").send_keys(Nama_Ibu_kandung or Nama_Ortu)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webelement.py", line 303, in send_keys
+    self._execute(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webelement.py", line 572, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 427, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 404, in execute
+    return self._request(command_info[0], url, body=data)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\remote_connection.py", line 428, in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 144, in request
+    return self.request_encode_body(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\_request_methods.py", line 279, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\poolmanager.py", line 444, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\retry.py", line 470, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\urllib3\connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 1375, in getresponse
+    response.begin()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\http\client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 213, in process_files
+    logging.error(f"\u274c Error tidak terduga pada baris {i}: {e}")
+Message: "\u274c Error tidak terduga pada baris 3: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+Arguments: ()
+
+2025-05-02 09:28:15,692 - DEBUG - Resume subprocess returncode: 0
+2025-05-02 09:28:15,710 - ERROR - Resume process failed at row 3: Error tidak terduga pada baris 3: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-05-02 09:35:28,782 - DEBUG - Resume subprocess stdout: {"status": "error", "message": "Gagal mengakses halaman daftar siswa: Message: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD35C2B5]\n\t(No symbol) [0x00007FF7CD3EEBF0]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n", "last_row": 0}
+
+2025-05-02 09:35:28,782 - DEBUG - Resume subprocess stderr: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_c5uXkAI.xlsx', '--resume-from', '3']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 46, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 64, in process_files
+    link_daftar_siswa = driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD35C2B5]
+	(No symbol) [0x00007FF7CD3EEBF0]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 73, in process_files
+    logging.error(f"\u274c Gagal klik link 'Daftar Siswa Aktif': {e}")
+Message: "\u274c Gagal klik link 'Daftar Siswa Aktif': Message: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD35C2B5]\n\t(No symbol) [0x00007FF7CD3EEBF0]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n"
+Arguments: ()
+
+2025-05-02 09:35:28,782 - DEBUG - Resume subprocess returncode: 0
+2025-05-02 09:35:28,799 - ERROR - Resume process failed at row 0: Gagal mengakses halaman daftar siswa: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD35C2B5]
+	(No symbol) [0x00007FF7CD3EEBF0]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+2025-05-02 09:36:10,485 - DEBUG - Resume subprocess stdout: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-02 09:36:10,485 - DEBUG - Resume subprocess stderr: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_c5uXkAI.xlsx', '--resume-from', '0']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_c5uXkAI.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD36B880]
+	(No symbol) [0x00007FF7CD38A24A]
+	(No symbol) [0x00007FF7CD3EED66]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 52, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD36B880]\n\t(No symbol) [0x00007FF7CD38A24A]\n\t(No symbol) [0x00007FF7CD3EED66]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-02 09:36:10,485 - DEBUG - Resume subprocess returncode: 0
+2025-05-02 09:36:10,507 - ERROR - Resume process failed at row 0: Browser ditutup sebelum login selesai
+2025-05-02 09:37:06,335 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp23_diyfpQD.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-02 09:37:06,335 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp23_diyfpQD.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_diyfpQD.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_diyfpQD.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD36B880]
+	(No symbol) [0x00007FF7CD38A24A]
+	(No symbol) [0x00007FF7CD3EED66]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 52, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD36B880]\n\t(No symbol) [0x00007FF7CD38A24A]\n\t(No symbol) [0x00007FF7CD3EED66]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-02 09:37:06,355 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp23_diyfpQD.xlsx: 0
+2025-05-02 09:37:06,365 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp23_diyfpQD.xlsx
+2025-05-02 09:37:06,365 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:37:06,400 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:39:31,434 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp23_tnhKEK4.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-02 09:39:31,434 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp23_tnhKEK4.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp23_tnhKEK4.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp23_tnhKEK4.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD36B880]
+	(No symbol) [0x00007FF7CD38A24A]
+	(No symbol) [0x00007FF7CD3EED66]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 52, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD36B880]\n\t(No symbol) [0x00007FF7CD38A24A]\n\t(No symbol) [0x00007FF7CD3EED66]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-02 09:39:31,434 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp23_tnhKEK4.xlsx: 0
+2025-05-02 09:39:31,468 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp23_tnhKEK4.xlsx
+2025-05-02 09:39:31,468 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:39:31,511 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:43:58,175 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp2.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-02 09:43:58,175 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp2.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp2.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD36B880]
+	(No symbol) [0x00007FF7CD38A24A]
+	(No symbol) [0x00007FF7CD3EED66]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 52, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD36B880]\n\t(No symbol) [0x00007FF7CD38A24A]\n\t(No symbol) [0x00007FF7CD3EED66]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-02 09:43:58,175 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp2.xlsx: 0
+2025-05-02 09:43:58,196 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp2.xlsx
+2025-05-02 09:43:58,196 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:43:58,232 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:44:45,607 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp2_M5HF0RV.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-02 09:44:45,607 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp2_M5HF0RV.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp2_M5HF0RV.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp2_M5HF0RV.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: target frame detached
+  (failed to check if window was closed: disconnected: Unable to receive message from renderer)
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	(No symbol) [0x00007FF7CD37BB20]
+	(No symbol) [0x00007FF7CD36CAAD]
+	(No symbol) [0x00007FF7CD36BA3C]
+	(No symbol) [0x00007FF7CD38A24A]
+	(No symbol) [0x00007FF7CD3EED66]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 52, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: target frame detached\n  (failed to check if window was closed: disconnected: Unable to receive message from renderer)\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\t(No symbol) [0x00007FF7CD37BB20]\n\t(No symbol) [0x00007FF7CD36CAAD]\n\t(No symbol) [0x00007FF7CD36BA3C]\n\t(No symbol) [0x00007FF7CD38A24A]\n\t(No symbol) [0x00007FF7CD3EED66]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-02 09:44:45,607 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp2_M5HF0RV.xlsx: 0
+2025-05-02 09:44:45,635 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp2_M5HF0RV.xlsx
+2025-05-02 09:44:45,637 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:44:45,670 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:48:39,959 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp2_3elxFMD.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-02 09:48:39,959 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp2_3elxFMD.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp2_3elxFMD.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp2_3elxFMD.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 35, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    driver.find_element(
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=135.0.3179.98)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7CD657A55+24981]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]
+	(No symbol) [0x00007FF7CD36B880]
+	(No symbol) [0x00007FF7CD38A24A]
+	(No symbol) [0x00007FF7CD3EED66]
+	(No symbol) [0x00007FF7CD4061EA]
+	(No symbol) [0x00007FF7CD3E8E03]
+	(No symbol) [0x00007FF7CD3BD686]
+	(No symbol) [0x00007FF7CD3BCB92]
+	(No symbol) [0x00007FF7CD3BD4B3]
+	(No symbol) [0x00007FF7CD4B900D]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]
+	Microsoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]
+	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]
+	BaseThreadInitThunk [0x00007FFB224B259D+29]
+	RtlUserThreadStart [0x00007FFB23BEAF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 282, in <module>
+    result = process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 52, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=135.0.3179.98)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7CD657A55+24981]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5AAC60+444240]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD8DE0EA+2011274]\n\t(No symbol) [0x00007FF7CD36B880]\n\t(No symbol) [0x00007FF7CD38A24A]\n\t(No symbol) [0x00007FF7CD3EED66]\n\t(No symbol) [0x00007FF7CD4061EA]\n\t(No symbol) [0x00007FF7CD3E8E03]\n\t(No symbol) [0x00007FF7CD3BD686]\n\t(No symbol) [0x00007FF7CD3BCB92]\n\t(No symbol) [0x00007FF7CD3BD4B3]\n\t(No symbol) [0x00007FF7CD4B900D]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4C6943+41539]\n\tMicrosoft::Applications::Events::EventProperty::~EventProperty [0x00007FF7CD4BFC79+13689]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7CD73A04A+290794]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B7D31+497697]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0BB4+468644]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5B0D03+468979]\n\tMicrosoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7CD5A2E16+411910]\n\tBaseThreadInitThunk [0x00007FFB224B259D+29]\n\tRtlUserThreadStart [0x00007FFB23BEAF38+40]\n'
+Arguments: ()
+
+2025-05-02 09:48:39,959 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp2_3elxFMD.xlsx: 0
+2025-05-02 09:48:39,976 - INFO - Removed UploadedFile entry but retained file for failed file: D:\Internship\automation\automation\uploads\lkp2_3elxFMD.xlsx
+2025-05-02 09:48:39,976 - ERROR - Unexpected error in process_files: expected str, bytes or os.PathLike object, not NoneType
+2025-05-02 09:48:40,008 - ERROR - Internal Server Error: /process-files/
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in process_files
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "D:\Internship\automation\automation\automation\views.py", line 426, in <listcomp>
+    logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Internship\automation\automation\automation\views.py", line 449, in process_files
+    name=os.path.basename(file.file.name),
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 242, in basename
+    return split(p)[1]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ntpath.py", line 211, in split
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not NoneType

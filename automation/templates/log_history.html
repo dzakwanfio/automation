@@ -37,7 +37,7 @@
                             <th>Course Name</th>
                             <th>Status</th>
                             <th>Process Time</th>
-                            <th>Action</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
@@ -55,7 +55,7 @@
                             <td>
                                 {% if "Failed" in log.status %}
                                 <button class="btn btn-sm btn-primary resume-btn">
-                                    <i class="fas fa-play"></i> Resume
+                                    <i class="fas fa-play"></i>
                                 </button>
                                 {% endif %}
                             </td>
@@ -186,7 +186,7 @@ function filterByDate() {
                 isMatch = false;
             }
 
-            row.dataset.match = isMatch ? "true" : "false";
+            row.dataset.match = isMatch ? "true contribution://xAI/grok3-python-sdk/main/docs/source/conf.py" : "false";
             row.style.display = isMatch ? "" : "none";
             if (isMatch) found = true;
         }
@@ -224,69 +224,88 @@ window.addEventListener("load", function() {
 // Resume Process Logic
 // ---------------------------------------------------
 document.querySelectorAll(".resume-btn").forEach(button => {
-    button.addEventListener("click", function() {
+    button.addEventListener("click", async function() {
         const row = this.closest("tr");
         const logId = row.dataset.logId;
 
-        Swal.fire({
+        const { value: accept } = await Swal.fire({
             title: "Melanjutkan Proses",
             text: "Apakah Anda yakin ingin melanjutkan proses pengentry-an ini?",
             icon: "question",
             showCancelButton: true,
             confirmButtonText: "Ya, Lanjutkan",
-            cancelButtonText: "Batal"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch("/resume-process/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRFToken": getCookie("csrftoken")
-                    },
-                    body: JSON.stringify({ log_id: logId })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "success") {
-                        Swal.fire({
-                            title: "Sukses!",
-                            text: data.message,
-                            icon: "success",
-                            confirmButtonText: "OK"
-                        }).then(() => {
-                            // Perbarui status di tabel
-                            const statusCell = row.querySelector(".badge");
-                            statusCell.classList.remove("bg-danger");
-                            statusCell.classList.add("bg-success");
-                            statusCell.textContent = "Success";
+            cancelButtonText: "Batal",
+            reverseButtons: true
+        });
 
-                            // Hapus tombol resume
-                            const actionCell = row.querySelector("td:last-child");
-                            actionCell.innerHTML = "";
+        if (!accept) return;
 
-                            // Perbarui process time
-                            const processTimeCell = row.querySelector("td:nth-child(5)");
-                            processTimeCell.textContent = new Date().toISOString().replace("T", " ").slice(0, 16);
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Error!",
-                            text: data.message,
-                            icon: "error",
-                            confirmButtonText: "OK"
-                        });
-                    }
-                })
-                .catch(error => {
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Terjadi kesalahan: " + error.message,
-                        icon: "error",
-                        confirmButtonText: "OK"
-                    });
+        const progressPopup = Swal.fire({
+            title: 'Memproses Data',
+            html: `Memproses pengentry-an data...<br><br>
+                  <div class="progress" style="height: 20px; margin-top:10px;">
+                    <div id="file-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 0%;">0%</div>
+                  </div>
+                  <div id="current-status" class="mt-2 text-muted">Memulai proses...</div>`,
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
+        try {
+            document.getElementById('current-status').textContent = 'Mengirim permintaan ke server...';
+
+            const response = await fetch("/resume-process/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken")
+                },
+                body: JSON.stringify({ log_id: logId })
+            });
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+                await Swal.fire({
+                    title: "Sukses!",
+                    text: data.message,
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+
+                // Perbarui status di tabel
+                const statusCell = row.querySelector(".badge");
+                statusCell.classList.remove("bg-danger");
+                statusCell.classList.add("bg-success");
+                statusCell.textContent = "Success";
+
+                // Hapus tombol resume
+                const actionCell = row.querySelector("td:last-child");
+                actionCell.innerHTML = "";
+
+                // Perbarui process time
+                const processTimeCell = row.querySelector("td:nth-child(5)");
+                processTimeCell.textContent = new Date().toISOString().replace("T", " ").slice(0, 16);
+            } else {
+                await Swal.fire({
+                    title: "Error!",
+                    text: data.message,
+                    icon: "error",
+                    confirmButtonText: "OK"
                 });
             }
-        });
+        } catch (error) {
+            console.error("Error:", error);
+            await Swal.fire({
+                title: "Error!",
+                text: "Gagal memproses data: " + error.message,
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        } finally {
+            Swal.close();
+        }
     });
 });
 

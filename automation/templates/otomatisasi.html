@@ -317,9 +317,19 @@ document.getElementById("processFiles").addEventListener("click", async function
             body: JSON.stringify({ file_ids: selectedFiles }),
         });
 
+        // Periksa apakah respons valid
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        if (!response.headers.get("content-type")?.includes("application/json")) {
+            throw new Error("Respons bukan JSON");
+        }
+
         const data = await response.json();
-        
-        // Kosongkan tabel secara langsung
+        console.log("Response data:", data); // Debugging
+
+        // Kosongkan tabel
         let tableBody = document.getElementById("table-body");
         tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
         
@@ -334,39 +344,27 @@ document.getElementById("processFiles").addEventListener("click", async function
         if (data.status === "success") {
             await Swal.fire({
                 title: 'Sukses!',
-                text: data.message,
+                text: data.message || 'File berhasil diproses!',
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
-            // Arahkan ke halaman Log History
             window.location.href = "{% url 'log_history' %}";
         } else {
             await Swal.fire({
                 title: 'Error!',
-                text: `Proses gagal pada baris ${data.last_row}: ${data.message}`,
+                text: data.message || 'Proses gagal. Silakan coba lagi.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            // Arahkan ke halaman Log History
-            window.location.href = "{% url 'log_history' %}";
+            window.location.href = "{% url 'otomatisasi' %}";
         }
     } catch (error) {
         console.error("Error:", error);
-        // Kosongkan tabel secara langsung bahkan jika terjadi error
-        let tableBody = document.getElementById("table-body");
-        tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
-        
-        // Nonaktifkan pagination
-        document.querySelector(".prev-btn").disabled = true;
-        document.querySelector(".next-btn").disabled = true;
-        document.querySelector(".pagination-number").textContent = "1";
-        
-        // Reset selected count
-        document.getElementById("selected-count").textContent = "0";
-
-        let errorMessage = 'Proses gagal: Browser ditutup sebelum login. Lanjutkan di Log History.';
-        if (error.message && !error.message.includes('<!DOCTYPE')) {
-            errorMessage = 'Gagal memproses file: ' + error.message;
+        let errorMessage = "Gagal memproses file. Silakan coba lagi.";
+        if (error.message.includes("JSON")) {
+            errorMessage = "Respons server tidak valid. Hubungi administrator.";
+        } else if (error.message.includes("HTTP")) {
+            errorMessage = `Kesalahan server: ${error.message}`;
         }
 
         await Swal.fire({
@@ -375,8 +373,7 @@ document.getElementById("processFiles").addEventListener("click", async function
             icon: 'error',
             confirmButtonText: 'OK'
         });
-        // Arahkan ke halaman Log History bahkan jika terjadi error
-        window.location.href = "{% url 'log_history' %}";
+        window.location.href = "{% url 'otomatisasi' %}";
     } finally {
         Swal.close();
     }

@@ -303,21 +303,36 @@ def download_file(request, file_id):
     response["Content-Disposition"] = f'attachment; filename="{os.path.basename(file_path)}"'
     return response
 
+import os
+import json
+import subprocess
+import logging
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from django.contrib import messages
+from .models import UploadedFile, LogHistory
+
 @csrf_exempt
 @login_required(login_url="login")
 def process_files(request):
     if request.method == "POST":
         try:
+            # Parse data dari request
             data = json.loads(request.body)
             file_ids = data.get("file_ids", [])
 
             if not file_ids:
                 logging.warning("No files selected in process_files")
-                return JsonResponse({"status": "error", "message": "No files selected.", "last_row": 0})
+                return JsonResponse({"status": "error", "message": "No files selected.", "last_row": 0}, status=400)
 
             files = UploadedFile.objects.filter(id__in=file_ids)
-            file_paths = [file.file.path for file in files]
+            if not files.exists():
+                logging.warning("No valid files found for the given IDs")
+                return JsonResponse({"status": "error", "message": "No valid files found.", "last_row": 0}, status=400)
 
+            file_path_dict = {file.id: file.file.name for file in files}
             script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'otomatisasi.py')
             
             if not os.path.exists(script_path):
@@ -327,16 +342,15 @@ def process_files(request):
                     "message": "Script otomatisasi tidak ditemukan",
                     "last_row": 0,
                     "detail": f"Path yang dicari: {script_path}"
-                })
+                }, status=400)
 
-            # Simpan path file sebelum menghapus entri dari UploadedFile
-            file_path_dict = {file.id: file.file.name for file in files}
-            processed_files = []  # Untuk melacak file yang sudah diproses
+            processed_files = []  # Melacak file yang sudah diproses
+            failed_files = []    # Melacak file yang gagal
             last_row = 0
             status = "success"
             message = "Semua file berhasil diproses!"
 
-            # Jalankan otomatisasi.py dengan subprocess untuk setiap file
+            # Jalankan otomatisasi.py untuk setiap file
             for file in files:
                 file_path = file.file.path
                 try:
@@ -344,27 +358,28 @@ def process_files(request):
                         ["python", script_path, file_path],
                         capture_output=True,
                         text=True,
-                        cwd=os.path.dirname(os.path.abspath(__file__))
+                        cwd=os.path.dirname(os.path.abspath(__file__)),
+                        check=False  # Hindari exception langsung, tangani returncode
                     )
 
-                    # Log output untuk debugging
                     logging.debug(f"Subprocess stdout for {file_path}: {result.stdout}")
                     logging.debug(f"Subprocess stderr for {file_path}: {result.stderr}")
                     logging.debug(f"Subprocess returncode for {file_path}: {result.returncode}")
 
                     # Parse output JSON dari otomatisasi.py
-                    try:
-                        script_output = json.loads(result.stdout.strip())
-                        file_status = script_output.get("status", "error")
-                        file_message = script_output.get("message", "Terjadi kesalahan saat memproses file")
-                        last_row = script_output.get("last_row", 0)
-                    except json.JSONDecodeError as e:
-                        logging.error(f"JSON decode error for {file_path}: {str(e)}")
-                        logging.error(f"Raw stdout: {result.stdout}")
-                        logging.error(f"Raw stderr: {result.stderr}")
-                        file_status = "error"
-                        file_message = "Gagal memproses output dari script otomatisasi"
-                        last_row = 0
+                    script_output = {}
+                    if result.stdout.strip():
+                        try:
+                            script_output = json.loads(result.stdout.strip())
+                        except json.JSONDecodeError as e:
+                            logging.error(f"JSON decode error for {file_path}: {str(e)}")
+                            logging.error(f"Raw stdout: {result.stdout}")
+                            logging.error(f"Raw stderr: {result.stderr}")
+                            script_output = {"status": "error", "message": "Gagal memproses output dari script otomatisasi"}
+
+                    file_status = script_output.get("status", "error")
+                    file_message = script_output.get("message", "Terjadi kesalahan saat memproses file")
+                    last_row = script_output.get("last_row", 0)
 
                     # Catat ke LogHistory
                     LogHistory.objects.create(
@@ -378,89 +393,61 @@ def process_files(request):
 
                     processed_files.append(file.id)
 
-                    # Hapus entri dari UploadedFile
+                    # Tangani file berdasarkan status
                     if file_status == "success":
-                        # Hapus file fisik jika sukses
                         try:
                             os.remove(file_path)
                             logging.info(f"File deleted after successful processing: {file_path}")
                         except Exception as e:
                             logging.warning(f"Failed to delete file {file_path}: {e}")
-                        file.file = None  # Putuskan hubungan dengan file fisik
-                        file.delete()     # Hapus entri dari database
+                        file.delete()  # Hapus entri database
                         logging.info(f"Removed UploadedFile entry for successful file: {file_path}")
                     else:
-                        # Pertahankan file fisik untuk file yang gagal
-                        file.file = None  # Putuskan hubungan dengan file fisik
-                        file.delete()     # Hapus entri dari database
-                        logging.info(f"Removed UploadedFile entry but retained file for failed file: {file_path}")
-
-                    if file_status != "success":
-                        status = "error"
+                        failed_files.append(file)
                         message = f"Process failed at file {os.path.basename(file_path)}: {file_message}"
-                        # Hentikan proses jika salah satu file gagal
-                        break
+                        status = "error"
 
                 except Exception as e:
                     logging.error(f"Unexpected error processing {file_path}: {str(e)}")
-                    # Catat ke LogHistory sebagai gagal
                     LogHistory.objects.create(
                         name=os.path.basename(file.file.name),
                         upload_date=timezone.now(),
                         course_name=file.course_name,
-                        status=f'Failed (Unexpected error)',
+                        status='Failed (Unexpected error)',
                         process_time=timezone.now(),
                         file_path=file_path_dict[file.id]
                     )
-                    # Pertahankan file fisik untuk file yang gagal
-                    file.file = None  # Putuskan hubungan dengan file fisik
-                    file.delete()     # Hapus entri dari database
-                    processed_files.append(file.id)
-                    status = "error"
+                    failed_files.append(file)
                     message = f"Unexpected error processing {os.path.basename(file_path)}: {str(e)}"
-                    break
+                    status = "error"
 
-            # File yang tidak diproses akan tetap di UploadedFile
-            remaining_files = [file for file in files if file.id not in processed_files]
-            if remaining_files:
-                logging.info(f"Remaining files not processed: {[os.path.basename(file.file.name) for file in remaining_files]}")
-                if status == "error":
-                    message += f". {len(remaining_files)} file(s) remain unprocessed and are still in the otomatisasi table."
+            # Bersihkan file yang gagal (hapus entri database, simpan file fisik)
+            for failed_file in failed_files:
+                failed_file.delete()
+                logging.info(f"Removed UploadedFile entry but retained file for failed file: {failed_file.file.path}")
 
             if status == "success":
                 messages.success(request, f"{len(processed_files)} file berhasil diproses!")
                 logging.info(f"Successfully processed {len(processed_files)} files")
             else:
                 messages.error(request, message)
-                logging.warning(f"Process failed: {message}")
+                logging.warning(f"Process failed: {message} with {len(failed_files)} failed files")
 
             return JsonResponse({
                 "status": status,
                 "message": message,
                 "last_row": last_row
-            })
+            }, status=200)
 
+        except json.JSONDecodeError as e:
+            logging.error(f"JSON decode error in request body: {str(e)}")
+            return JsonResponse({"status": "error", "message": "Data request tidak valid", "last_row": 0}, status=400)
         except Exception as e:
             logging.error(f"Unexpected error in process_files: {str(e)}")
-            # Catat semua file yang diproses ke LogHistory jika terjadi error tak terduga
-            for file in files:
-                if file.id not in processed_files:
-                    LogHistory.objects.create(
-                        name=os.path.basename(file.file.name),
-                        upload_date=timezone.now(),
-                        course_name=file.course_name,
-                        status=f'Failed (Unexpected error)',
-                        process_time=timezone.now(),
-                        file_path=file_path_dict.get(file.id, file.file.name)
-                    )
-                    file_path = file.file.path
-                    file.file = None
-                    file.delete()
-                    logging.info(f"Removed UploadedFile entry due to error: {file_path}")
-            return JsonResponse({"status": "error", "message": str(e), "last_row": 0})
+            return JsonResponse({"status": "error", "message": f"Error server: {str(e)}", "last_row": 0}, status=500)
 
     logging.warning("Invalid method in process_files")
-    return JsonResponse({"status": "error", "message": "Metode tidak diizinkan", "last_row": 0})
+    return JsonResponse({"status": "error", "message": "Metode tidak diizinkan", "last_row": 0}, status=405)
 
 @csrf_exempt
 @login_required(login_url="login")

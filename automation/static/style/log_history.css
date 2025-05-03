@@ -64,12 +64,12 @@ h2 {
     font-weight: bold; 
 }
 
-* Atur lebar kolom */
+/* Atur lebar kolom */
 th:nth-child(1), td:nth-child(1) { width: 20%; } /* Name */
 th:nth-child(2), td:nth-child(2) { width: 20%; } /* Upload Date */
 th:nth-child(3), td:nth-child(3) { width: 15%; } /* Course Name */
 th:nth-child(4), td:nth-child(4) { width: 20%; } /* Status - Increased width */
-th:nth-child(5), td:nth-child(5) { width: 15%; } /* Process Time - Adjusted */
+th:nth-child(5), td:nth-child(5) { width: 15%; } /* Process Time */
 th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
 
 /* Header dan isi tabel */
@@ -77,6 +77,9 @@ th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
     padding: 12px; 
     text-align: center;
     border-bottom: 1px solid #ddd; 
+    overflow: hidden; /* Hindari teks keluar dari kolom */
+    white-space: nowrap; /* Jangan turun ke bawah */
+    text-overflow: ellipsis; /* Tambahkan "..." jika teks terlalu panjang */
 }
 
 /* Specific styling for the Status column to allow text wrapping */
@@ -86,6 +89,12 @@ th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
     text-overflow: unset; /* Remove ellipsis */
 }
 
+/* Specific styling for the Process Time column to allow text wrapping */
+.table td:nth-child(5) {
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
+    text-overflow: unset; /* Remove ellipsis */
+}
 /* Header tabel */
 .table thead th {
     background-color: #006D77; /* Hijau tua */

@@ -17,7 +17,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-# Setup logging ke file, bukan stdout
+# Setup logging ke file
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -27,6 +27,13 @@ logging.basicConfig(
 )
 
 def process_files(file_paths, resume_from=2):
+    # Validasi resume_from
+    if not isinstance(resume_from, int) or resume_from < 1 or resume_from > 1048576:
+        logging.error(f"Nilai resume_from tidak valid: {resume_from}. Harus antara 1 dan 1048576.")
+        result = {"status": "error", "message": f"resume_from harus antara 1 dan 1048576. Nilai yang diberikan adalah {resume_from}", "last_row": 0}
+        print(json.dumps(result))
+        return result
+
     driver = None
     try:
         # Inisialisasi WebDriver Edge
@@ -86,8 +93,8 @@ def process_files(file_paths, resume_from=2):
 
         # Proses semua file yang dipilih
         for file_path in file_paths:
+            logging.info(f"🔵 Memulai proses file: {file_path}, exists: {os.path.exists(file_path)}")
             try:
-                logging.info(f"🔵 Memulai proses file: {file_path}")
                 wb = load_workbook(file_path)
                 sheet = wb.worksheets[0]
 
@@ -217,7 +224,7 @@ def process_files(file_paths, resume_from=2):
 
                     i += 1
 
-                logging.info(f"✅ File {file_path} berhasil diproses!")
+                logging.info(f"✅ File {file_path} selesai diproses, exists: {os.path.exists(file_path)}")
             
             except (NoSuchWindowException, WebDriverException) as e:
                 logging.error(f"❌ Browser ditutup saat memproses file {file_path}: {e}")
@@ -248,9 +255,16 @@ def process_files(file_paths, resume_from=2):
     finally:
         if driver:
             try:
-                driver.quit()
-            except:
-                pass
+                logging.info("Attempting to close all windows and quit driver...")
+                # Tutup semua jendela browser yang terbuka
+                for handle in driver.window_handles:
+                    driver.switch_to.window(handle)
+                    driver.close()
+                driver.quit()  # Pastikan driver benar-benar berhenti
+                logging.info("Driver quit successfully.")
+            except Exception as e:
+                logging.error(f"Failed to quit driver: {e}")
+                # Tidak perlu mengembalikan result lagi di sini karena sudah di-return di blok try/except
 
 if __name__ == "__main__":
     # Parse argumen baris perintah
@@ -279,4 +293,4 @@ if __name__ == "__main__":
     print("=================", file=sys.stderr)
     
     # Jalankan proses utama
-    result = process_files(args.file_paths, resume_from=args.resume_from)
+    process_files(args.file_paths, resume_from=args.resume_from)

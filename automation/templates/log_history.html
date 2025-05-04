@@ -42,7 +42,7 @@
                     </thead>
                     <tbody id="table-body">
                         {% for log in logs %}
-                        <tr class="text-center" data-match="true" data-log-id="{{ log.id }}">
+                        <tr class="text-center" data-match="true" data-log-id="{{ log.id }}" data-file-id="{{ log.file_id }}">
                             <td>{{ log.name }}</td>
                             <td class="upload-date">{{ log.upload_date|date:"Y-m-d H:i" }}</td>
                             <td>{{ log.course_name }}</td>
@@ -82,247 +82,218 @@
 </div>
 
 <script>
-// ---------------------------------------------------
-// Pagination Logic
-// ---------------------------------------------------
-let currentPage = 1;
-const rowsPerPage = 10;
-
-function showPage(page) {
-    // Ambil semua baris
-    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
-    // Filter baris yang masih "match" (data-match="true")
-    let filteredRows = allRows.filter(row => {
-        return row.dataset.match !== "false";
-    });
-
-    // Hitung total halaman
-    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
-    if (page > totalPages) page = totalPages;
-    if (page < 1) page = 1;
-    currentPage = page;
-
-    // Sembunyikan semua baris, tampilkan hanya baris di halaman saat ini
-    filteredRows.forEach((row, index) => {
-        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
-            ? ""
-            : "none";
-    });
-
-    // Perbarui tampilan nomor halaman
-    document.querySelector(".pagination-number").textContent = page;
-    document.querySelector(".prev-btn").disabled = (page === 1);
-    document.querySelector(".next-btn").disabled = (page === totalPages);
-
-    // Tampilkan pesan "No matching results" jika tidak ada baris yang cocok
-    document.getElementById("no-results").style.display = filteredRows.length === 0 ? "block" : "none";
-}
-
-// Tombol "Previous" pagination
-document.querySelector(".prev-btn").addEventListener("click", function() {
-    if (currentPage > 1) {
-        currentPage--;
-        showPage(currentPage);
-    }
-});
-
-// Tombol "Next" pagination
-document.querySelector(".next-btn").addEventListener("click", function() {
-    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
-    let filteredRows = allRows.filter(row => row.dataset.match !== "false");
-    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
-    if (currentPage < totalPages) {
-        currentPage++;
-        showPage(currentPage);
-    }
-});
-
-// ---------------------------------------------------
-// Filter Tanggal dengan Validasi
-// ---------------------------------------------------
-function filterByDate() {
-    let startDateInput = document.getElementById("start-date").value;
-    let endDateInput = document.getElementById("end-date").value;
-    let rows = document.querySelectorAll("#table-body tr");
-    let noResults = document.getElementById("no-results");
-    let found = false;
-
-    // Konversi input tanggal ke objek Date
-    let startDate = startDateInput ? new Date(startDateInput) : null;
-    let endDate = endDateInput ? new Date(endDateInput) : null;
-
-    // Validasi: endDate tidak boleh sebelum startDate
-    if (startDate && endDate && endDate < startDate) {
-        Swal.fire({
-            title: 'Peringatan!',
-            text: 'Tanggal akhir tidak boleh sebelum tanggal awal!',
-            icon: 'warning',
-            confirmButtonText: 'OK'
+    // ---------------------------------------------------
+    // Pagination Logic
+    // ---------------------------------------------------
+    let currentPage = 1;
+    const rowsPerPage = 10;
+    
+    function showPage(page) {
+        let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+        let filteredRows = allRows.filter(row => {
+            return row.dataset.match !== "false";
         });
-        // Kosongkan endDate dan hapus nilai input
-        document.getElementById("end-date").value = "";
-        endDate = null;
+    
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+        if (page > totalPages) page = totalPages;
+        if (page < 1) page = 1;
+        currentPage = page;
+    
+        filteredRows.forEach((row, index) => {
+            row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
+                ? ""
+                : "none";
+        });
+    
+        document.querySelector(".pagination-number").textContent = page;
+        document.querySelector(".prev-btn").disabled = (page === 1);
+        document.querySelector(".next-btn").disabled = (page === totalPages);
+    
+        document.getElementById("no-results").style.display = filteredRows.length === 0 ? "block" : "none";
     }
-
-    // Jika endDate ada, set ke akhir hari (23:59:59)
-    if (endDate) {
-        endDate.setHours(23, 59, 59, 999);
-    }
-
-    rows.forEach(row => {
-        let uploadDateCell = row.querySelector(".upload-date");
-        if (uploadDateCell) {
-            // Ambil teks tanggal dari kolom Upload Date (format: YYYY-MM-DD HH:MM)
-            let uploadDateText = uploadDateCell.textContent.trim();
-            // Konversi ke objek Date
-            let uploadDate = new Date(uploadDateText.replace(" ", "T")); // Ganti spasi dengan T untuk format ISO
-
-            // Periksa apakah tanggal upload berada dalam rentang
-            let isMatch = true;
-            if (startDate && uploadDate < startDate) {
-                isMatch = false;
-            }
-            if (endDate && uploadDate > endDate) {
-                isMatch = false;
-            }
-
-            row.dataset.match = isMatch ? "true contribution://xAI/grok3-python-sdk/main/docs/source/conf.py" : "false";
-            row.style.display = isMatch ? "" : "none";
-            if (isMatch) found = true;
+    
+    document.querySelector(".prev-btn").addEventListener("click", function() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
         }
     });
-
-    // Tampilkan pesan jika tidak ada hasil
-    noResults.style.display = found ? "none" : "block";
-
-    // Reset ke halaman pertama setelah filter
-    currentPage = 1;
-    showPage(currentPage);
-}
-
-// Update atribut min pada end-date saat start-date berubah
-document.getElementById("start-date").addEventListener("change", function() {
-    let startDate = this.value;
-    document.getElementById("end-date").setAttribute("min", startDate);
-    filterByDate();
-});
-
-// Validasi dan filter saat end-date berubah
-document.getElementById("end-date").addEventListener("change", filterByDate);
-
-// Saat halaman pertama kali dimuat
-window.addEventListener("load", function() {
-    // Tandai semua baris sebagai match jika belum ada filter pencarian
-    document.querySelectorAll("#table-body tr").forEach(row => {
-        row.dataset.match = "true";
+    
+    document.querySelector(".next-btn").addEventListener("click", function() {
+        let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+        let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+        }
     });
-    // Tampilkan halaman pertama
-    showPage(currentPage);
-});
-
-// ---------------------------------------------------
-// Resume Process Logic
-// ---------------------------------------------------
-document.querySelectorAll(".resume-btn").forEach(button => {
-    button.addEventListener("click", async function() {
-        const row = this.closest("tr");
-        const logId = row.dataset.logId;
-
-        const { value: accept } = await Swal.fire({
-            title: "Melanjutkan Proses",
-            text: "Apakah Anda yakin ingin melanjutkan proses pengentry-an ini?",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonText: "Ya, Lanjutkan",
-            cancelButtonText: "Batal",
-            reverseButtons: true
-        });
-
-        if (!accept) return;
-
-        const progressPopup = Swal.fire({
-            title: 'Memproses Data',
-            html: `Memproses pengentry-an data...<br><br>
-                  <div class="progress" style="height: 20px; margin-top:10px;">
-                    <div id="file-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
-                         role="progressbar" style="width: 0%;">0%</div>
-                  </div>
-                  <div id="current-status" class="mt-2 text-muted">Memulai proses...</div>`,
-            allowOutsideClick: false,
-            didOpen: () => Swal.showLoading()
-        });
-
-        try {
-            document.getElementById('current-status').textContent = 'Mengirim permintaan ke server...';
-
-            const response = await fetch("/resume-process/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": getCookie("csrftoken")
-                },
-                body: JSON.stringify({ log_id: logId })
+    
+    // ---------------------------------------------------
+    // Filter Tanggal dengan Validasi
+    // ---------------------------------------------------
+    function filterByDate() {
+        let startDateInput = document.getElementById("start-date").value;
+        let endDateInput = document.getElementById("end-date").value;
+        let rows = document.querySelectorAll("#table-body tr");
+        let noResults = document.getElementById("no-results");
+        let found = false;
+    
+        let startDate = startDateInput ? new Date(startDateInput) : null;
+        let endDate = endDateInput ? new Date(endDateInput) : null;
+    
+        if (startDate && endDate && endDate < startDate) {
+            Swal.fire({
+                title: 'Peringatan!',
+                text: 'Tanggal akhir tidak boleh sebelum tanggal awal!',
+                icon: 'warning',
+                confirmButtonText: 'OK'
             });
-
-            const data = await response.json();
-
-            if (data.status === "success") {
-                await Swal.fire({
-                    title: "Sukses!",
-                    text: data.message,
-                    icon: "success",
-                    confirmButtonText: "OK"
+            document.getElementById("end-date").value = "";
+            endDate = null;
+        }
+    
+        if (endDate) {
+            endDate.setHours(23, 59, 59, 999);
+        }
+    
+        rows.forEach(row => {
+            let uploadDateCell = row.querySelector(".upload-date");
+            if (uploadDateCell) {
+                let uploadDateText = uploadDateCell.textContent.trim();
+                let uploadDate = new Date(uploadDateText.replace(" ", "T"));
+    
+                let isMatch = true;
+                if (startDate && uploadDate < startDate) {
+                    isMatch = false;
+                }
+                if (endDate && uploadDate > endDate) {
+                    isMatch = false;
+                }
+    
+                row.dataset.match = isMatch ? "true" : "false";
+                row.style.display = isMatch ? "" : "none";
+                if (isMatch) found = true;
+            }
+        });
+    
+        noResults.style.display = found ? "none" : "block";
+        currentPage = 1;
+        showPage(currentPage);
+    }
+    
+    document.getElementById("start-date").addEventListener("change", function() {
+        let startDate = this.value;
+        document.getElementById("end-date").setAttribute("min", startDate);
+        filterByDate();
+    });
+    
+    document.getElementById("end-date").addEventListener("change", filterByDate);
+    
+    // ---------------------------------------------------
+    // Resume Process Logic
+    // ---------------------------------------------------
+    document.querySelectorAll(".resume-btn").forEach(button => {
+        button.addEventListener("click", async function() {
+            const row = this.closest("tr");
+            const logId = row.dataset.logId;
+    
+            const { value: accept } = await Swal.fire({
+                title: "Melanjutkan Proses",
+                text: "Apakah Anda yakin ingin melanjutkan proses pengentry-an ini?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Ya, Lanjutkan",
+                cancelButtonText: "Batal",
+                reverseButtons: true
+            });
+    
+            if (!accept) return;
+    
+            const progressPopup = Swal.fire({
+                title: 'Memproses Data',
+                html: `Memproses pengentry-an data...<br><br>
+                      <div class="progress" style="height: 20px; margin-top:10px;">
+                        <div id="file-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%;">0%</div>
+                      </div>
+                      <div id="current-status" class="mt-2 text-muted">Memulai proses...</div>`,
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+    
+            try {
+                document.getElementById('current-status').textContent = 'Mengirim permintaan ke server...';
+    
+                const response = await fetch("/resume-process/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: JSON.stringify({ log_id: logId })
                 });
-
-                // Perbarui status di tabel
-                const statusCell = row.querySelector(".badge");
-                statusCell.classList.remove("bg-danger");
-                statusCell.classList.add("bg-success");
-                statusCell.textContent = "Success";
-
-                // Hapus tombol resume
-                const actionCell = row.querySelector("td:last-child");
-                actionCell.innerHTML = "";
-
-                // Perbarui process time
-                const processTimeCell = row.querySelector("td:nth-child(5)");
-                processTimeCell.textContent = new Date().toISOString().replace("T", " ").slice(0, 16);
-            } else {
+    
+                const data = await response.json();
+    
+                if (data.status === "success") {
+                    // Perbarui status di DOM tanpa redirect
+                    const statusCell = row.querySelector(".badge");
+                    statusCell.classList.remove("bg-danger");
+                    statusCell.classList.add("bg-success");
+                    statusCell.textContent = "Success";
+    
+                    const actionCell = row.querySelector("td:last-child");
+                    actionCell.innerHTML = ""; // Hapus tombol play
+    
+                    const processTimeCell = row.querySelector("td:nth-child(5)");
+                    processTimeCell.textContent = new Date().toISOString().replace("T", " ").slice(0, 16);
+    
+                    await Swal.fire({
+                        title: "Sukses!",
+                        text: data.message,
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    });
+                    // Hapus redirect otomatis
+                    // window.location.href = "{% url 'otomatisasi' %}"; // Komentari atau hapus baris ini
+                } else {
+                    await Swal.fire({
+                        title: "Error!",
+                        text: data.message,
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                    // window.location.href = "{% url 'otomatisasi' %}"; // Komentari atau hapus baris ini
+                }
+            } catch (error) {
+                console.error("Error during resume:", error);
                 await Swal.fire({
                     title: "Error!",
-                    text: data.message,
+                    text: "Gagal memproses data: " + error.message,
                     icon: "error",
                     confirmButtonText: "OK"
                 });
+            } finally {
+                Swal.close();
             }
-        } catch (error) {
-            console.error("Error:", error);
-            await Swal.fire({
-                title: "Error!",
-                text: "Gagal memproses data: " + error.message,
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        } finally {
-            Swal.close();
-        }
+        });
     });
-});
-
-// Fungsi untuk mendapatkan CSRF token
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    
+    // Fungsi untuk mendapatkan CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
-</script>
+    </script>
 {% endblock %}

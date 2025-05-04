@@ -15,39 +15,60 @@
         {% block extra_css %}{% endblock %}
     </head>
 
-<body>
+    <body>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <img src="{% static 'asset/logoTrust.jpg' %}" alt="TRUSTEntry Logo" class="img-fluid logo">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="{% url 'input_data' %}" class="btn {% if request.path == '/input_data/' %}btn-primary{% else %}nav-link{% endif %}">
+                        Input Data
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'otomatisasi' %}" class="btn {% if '/otomatisasi/' in request.path %}btn-primary{% else %}nav-link{% endif %}">
+                        Otomatisasi
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{% url 'log_history' %}" class="btn {% if request.resolver_match.url_name == 'log_history' %}btn-primary{% else %}nav-link{% endif %}">
+                        Log History
+                    </a>
+                </li>            
+            </ul>
+            <a href="{% url 'homepage' %}" class="btn btn-light">Home</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger mt-1 w-100">Logout</a>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            {% block content %}
+            <!-- Halaman lain akan menggantikan bagian ini -->
+            {% endblock %}
+        </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <img src="{% static 'asset/logoTrust.jpg' %}" alt="TRUSTEntry Logo" class="img-fluid logo">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a href="{% url 'input_data' %}" class="btn {% if request.path == '/input_data/' %}btn-primary{% else %}nav-link{% endif %}">
-                    Input Data
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'otomatisasi' %}" class="btn {% if '/otomatisasi/' in request.path %}btn-primary{% else %}nav-link{% endif %}">
-                    Otomatisasi
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a href="{% url 'log_history' %}" class="btn {% if request.resolver_match.url_name == 'log_history' %}btn-primary{% else %}nav-link{% endif %}">
-                    Log History
-                </a>
-            </li>            
-        </ul>
-        <a href="{% url 'homepage' %}" class="btn btn-light">Home</a>
-        <a href="{% url 'logout' %}" class="btn btn-danger mt-1 w-100">Logout</a>
-    </div>
-    
-    <!-- Content -->
-    <div class="content">
-        {% block content %}
-        <!-- Halaman lain akan menggantikan bagian ini -->
-        {% endblock %}
-    </div>
+        <script>
+            // Tambahkan logging untuk debugging
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log("base.html DOMContentLoaded triggered on:", window.location.pathname);
+            });
 
-</body>
+            // Fungsi untuk mendapatkan CSRF token (digunakan oleh halaman lain)
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script>
+    </body>
 </html>

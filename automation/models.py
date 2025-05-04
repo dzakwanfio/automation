@@ -12,6 +12,8 @@ class UploadedFile(models.Model):
     destination = models.CharField(max_length=255)
     file = models.FileField(upload_to="") 
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    is_failed = models.BooleanField(default=False)  # Menandai file yang gagal diproses
+    last_processed_row = models.IntegerField(default=0)  # Baris terakhir yang diproses
 
     def __str__(self):
         return self.course_name
@@ -46,12 +48,20 @@ class LogHistory(models.Model):
     name = models.CharField(max_length=255)  # Nama file
     upload_date = models.DateTimeField(default=timezone.now, db_index=True)  # Tambahkan indeks
     course_name = models.CharField(max_length=255)
-    status = models.CharField(max_length=50, default='Success')  # Diperpanjang untuk status seperti "Failed (Stopped at row 123)"
+    status = models.CharField(max_length=100, default='Success')  # Diperpanjang untuk status seperti "Failed (Stopped at row 123)"
     process_time = models.DateTimeField(default=timezone.now)
     file_path = models.CharField(max_length=255, null=True, blank=True)  # Kolom untuk menyimpan path relatif file
-
+    file_id = models.IntegerField(null=True, blank=True)  # Tambahkan field ini
+    
     def __str__(self):
         return f"{self.name} - {self.status}"
+    
+    def save(self, *args, **kwargs):
+        # Pastikan file_path diisi dengan path relatif jika belum ada
+        # Karena upload_to="", file_path hanya menyimpan nama file tanpa prefiks 'uploads/'
+        if not self.file_path and self.name:
+            self.file_path = self.name  # Simpan hanya nama file
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ['-upload_date']  # Urutkan berdasarkan upload_date secara descending

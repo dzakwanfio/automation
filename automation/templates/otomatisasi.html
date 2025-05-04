@@ -14,19 +14,6 @@
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-{% if messages %}
-    {% for message in messages %}
-    <script>
-        Swal.fire({
-            title: '{{ message.tags|capfirst }}',
-            text: '{{ message }}',
-            icon: '{{ message.tags }}',
-            confirmButtonText: 'OK'
-        });
-    </script>
-    {% endfor %}
-{% endif %}
-
 <div class="container mt-4">
     <h2 class="fw-bold">OTOMATISASI</h2>
     
@@ -74,10 +61,9 @@
                             <a href="{% url 'edit_otomatisasi' file.id %}" class="btn-action edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="#" class="btn-action delete" 
-                               onclick="confirmDelete(event, '{% url 'delete_otomatisasi' file.id %}')">
+                            <button class="btn-action delete" onclick="confirmDelete(event, {{ file.id }})">
                                 <i class="fas fa-trash-alt"></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                     {% empty %}
@@ -152,10 +138,10 @@ function searchCourse() {
 }
 
 // Konfirmasi Delete
-function confirmDelete(event, deleteUrl) {
+async function confirmDelete(event, fileId) {
     event.preventDefault();
 
-    Swal.fire({
+    const { value: accept } = await Swal.fire({
         title: "Apakah Anda yakin?",
         text: "File ini akan dihapus secara permanen!",
         icon: "warning",
@@ -164,11 +150,50 @@ function confirmDelete(event, deleteUrl) {
         cancelButtonColor: "#3085d6",
         confirmButtonText: "Ya, hapus!",
         cancelButtonText: "Batal"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = deleteUrl;
-        }
     });
+
+    if (accept) {
+        try {
+            const response = await fetch(`/otomatisasi/delete/${fileId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+                const row = document.querySelector(`.row-checkbox[value="${fileId}"]`).closest('tr');
+                row.remove();
+                updateSelectedCount();
+                showPage(currentPage);
+
+                await Swal.fire({
+                    title: "Sukses!",
+                    text: "File berhasil dihapus!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+            } else {
+                await Swal.fire({
+                    title: "Error!",
+                    text: data.message || "Gagal menghapus file.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        } catch (error) {
+            console.error("Error deleting file:", error);
+            await Swal.fire({
+                title: "Error!",
+                text: "Gagal menghapus file: " + error.message,
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    }
 }
 
 // Sorting Tabel
@@ -317,7 +342,6 @@ document.getElementById("processFiles").addEventListener("click", async function
             body: JSON.stringify({ file_ids: selectedFiles }),
         });
 
-        // Periksa apakah respons valid
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -329,19 +353,13 @@ document.getElementById("processFiles").addEventListener("click", async function
         const data = await response.json();
         console.log("Response data:", data); // Debugging
 
-        // Kosongkan tabel
         let tableBody = document.getElementById("table-body");
-        tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
-        
-        // Nonaktifkan pagination
-        document.querySelector(".prev-btn").disabled = true;
-        document.querySelector(".next-btn").disabled = true;
-        document.querySelector(".pagination-number").textContent = "1";
-        
-        // Reset selected count
-        document.getElementById("selected-count").textContent = "0";
-
         if (data.status === "success") {
+            tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
+            document.querySelector(".prev-btn").disabled = true;
+            document.querySelector(".next-btn").disabled = true;
+            document.querySelector(".pagination-number").textContent = "1";
+            document.getElementById("selected-count").textContent = "0";
             await Swal.fire({
                 title: 'Sukses!',
                 text: data.message || 'File berhasil diproses!',
@@ -349,13 +367,31 @@ document.getElementById("processFiles").addEventListener("click", async function
                 confirmButtonText: 'OK'
             });
             window.location.href = "{% url 'log_history' %}";
-        } else {
+        } else if (data.status === "error" && data.failed_file_ids && data.failed_file_ids.length > 0) {
+            console.log("Failed file IDs:", data.failed_file_ids);
+            data.failed_file_ids.forEach(failedId => {
+                const checkbox = document.querySelector(`.row-checkbox[value="${failedId}"]`);
+                if (checkbox) {
+                    const row = checkbox.closest('tr');
+                    if (row) {
+                        row.remove();
+                        console.log(`Removed failed file with ID ${failedId} from table`);
+                    } else {
+                        console.warn(`Row not found for failed ID ${failedId}`);
+                    }
+                } else {
+                    console.warn(`Checkbox not found for failed ID ${failedId}`);
+                }
+            });
+            showPage(currentPage); // Perbarui pagination
+            updateSelectedCount(); // Perbarui count
             await Swal.fire({
                 title: 'Error!',
                 text: data.message || 'Proses gagal. Silakan coba lagi.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+            // Redirect ke otomatisasi untuk memastikan DOM sinkron dengan database
             window.location.href = "{% url 'otomatisasi' %}";
         }
     } catch (error) {
@@ -373,10 +409,26 @@ document.getElementById("processFiles").addEventListener("click", async function
             icon: 'error',
             confirmButtonText: 'OK'
         });
-        window.location.href = "{% url 'otomatisasi' %}";
+        window.location.href = "{% url 'otomatisasi' %}"; // Redirect hanya untuk error tak terduga
     } finally {
         Swal.close();
     }
 });
+
+// Fungsi untuk mendapatkan CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 </script>
 {% endblock %}

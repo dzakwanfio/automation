@@ -32,6 +32,7 @@ urlpatterns = [
         automation.forgot_password_notification,
         name="forgot_password_notif",
     ),
+    
     path("reset-password/", automation.reset_password, name="reset_password"),
     path("verify/<str:token>/", automation.verify_email, name="verify_email"),
     path("process-files/", automation.process_files, name="process_files"),

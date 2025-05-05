@@ -31,14 +31,16 @@
     
     {% if messages %}
         {% for message in messages %}
-        <script>
-            Swal.fire({
-                title: '{{ message.tags|capfirst }}',
-                text: '{{ message }}',
-                icon: '{{ message.tags }}',
-                confirmButtonText: 'OK'
-            });
-        </script>
+            {% if 'unggah' in message|lower or 'validasi' in message|lower %}
+            <script>
+                Swal.fire({
+                    title: '{{ message.tags|capfirst }}',
+                    text: '{{ message }}',
+                    icon: '{{ message.tags }}',
+                    confirmButtonText: 'OK'
+                });
+            </script>
+            {% endif %}
         {% endfor %}
     {% endif %}
     

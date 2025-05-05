@@ -255,8 +255,6 @@
                         icon: "success",
                         confirmButtonText: "OK"
                     });
-                    // Hapus redirect otomatis
-                    // window.location.href = "{% url 'otomatisasi' %}"; // Komentari atau hapus baris ini
                 } else {
                     await Swal.fire({
                         title: "Error!",
@@ -264,7 +262,6 @@
                         icon: "error",
                         confirmButtonText: "OK"
                     });
-                    // window.location.href = "{% url 'otomatisasi' %}"; // Komentari atau hapus baris ini
                 }
             } catch (error) {
                 console.error("Error during resume:", error);
@@ -295,5 +292,5 @@
         }
         return cookieValue;
     }
-    </script>
+</script>
 {% endblock %}

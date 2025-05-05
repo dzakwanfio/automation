@@ -366,7 +366,8 @@ document.getElementById("processFiles").addEventListener("click", async function
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
-            window.location.href = "{% url 'log_history' %}";
+            // Hapus redirect ke log_history.html
+            // window.location.href = "{% url 'log_history' %}";
         } else if (data.status === "error" && data.failed_file_ids && data.failed_file_ids.length > 0) {
             console.log("Failed file IDs:", data.failed_file_ids);
             data.failed_file_ids.forEach(failedId => {
@@ -391,8 +392,8 @@ document.getElementById("processFiles").addEventListener("click", async function
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            // Redirect ke otomatisasi untuk memastikan DOM sinkron dengan database
-            window.location.href = "{% url 'otomatisasi' %}";
+            // Hapus redirect ke otomatisasi.html
+            // window.location.href = "{% url 'otomatisasi' %}";
         }
     } catch (error) {
         console.error("Error:", error);
@@ -409,7 +410,8 @@ document.getElementById("processFiles").addEventListener("click", async function
             icon: 'error',
             confirmButtonText: 'OK'
         });
-        window.location.href = "{% url 'otomatisasi' %}"; // Redirect hanya untuk error tak terduga
+        // Hapus redirect ke otomatisasi.html
+        // window.location.href = "{% url 'otomatisasi' %}";
     } finally {
         Swal.close();
     }

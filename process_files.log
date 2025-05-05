@@ -1,0 +1,546 @@
+2025-05-04 20:26:05,610 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 07:50:29,203 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 07:52:18,687 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+2025-05-05 07:52:21,164 - INFO - Files in otomatisasi view: 0 files found
+2025-05-05 07:52:27,714 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 07:52:51,188 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-05 07:52:53,709 - INFO - Files in otomatisasi view: 1 files found
+2025-05-05 07:52:59,438 - INFO - process_files called with file_ids: ['3'], from URL: /process-files/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-05 07:52:59,441 - INFO - Starting process for file: D:\Internship\automation\automation\uploads\lkp2.xlsx, exists: True
+2025-05-05 07:53:39,108 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp2.xlsx: {"status": "success", "message": "Semua 1 file berhasil diproses!", "last_row": 4}
+
+2025-05-05 07:53:39,108 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp2.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp2.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 53, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 78, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 96, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}, exists: {os.path.exists(file_path)}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 2 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 3 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 227, in process_files
+    logging.info(f"\u2705 File {file_path} selesai diproses, exists: {os.path.exists(file_path)}")
+Message: '\u2705 File D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx selesai diproses, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 240, in process_files
+    logging.info("\u2705 Semua file telah diproses!")
+Message: '\u2705 Semua file telah diproses!'
+Arguments: ()
+
+2025-05-05 07:53:39,108 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp2.xlsx: 0
+2025-05-05 07:53:39,112 - INFO - File deleted after successful processing: D:\Internship\automation\automation\uploads\lkp2.xlsx
+2025-05-05 07:53:39,118 - INFO - Removed UploadedFile entry for successful file: D:\Internship\automation\automation\uploads\lkp2.xlsx
+2025-05-05 07:53:39,118 - INFO - Returning response: status=success, failed_file_ids=[]
+2025-05-05 07:53:54,912 - INFO - Files in otomatisasi view: 0 files found
+2025-05-05 07:53:56,028 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-05 08:05:55,263 - INFO - D:\Internship\automation\automation\automation\views.py changed, reloading.
+2025-05-05 08:06:45,930 - INFO - D:\Internship\automation\automation\automation\views.py changed, reloading.
+2025-05-05 08:07:15,162 - INFO - D:\Internship\automation\automation\automation\views.py changed, reloading.
+2025-05-05 08:09:36,222 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-05 08:09:38,232 - INFO - Files in otomatisasi view: 0 files found
+2025-05-05 08:09:40,779 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 08:09:52,442 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: Unknown
+2025-05-05 08:10:07,990 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-05 08:10:09,555 - INFO - Files in otomatisasi view: 1 files found
+2025-05-05 08:10:13,954 - INFO - process_files called with file_ids: ['4'], from URL: /process-files/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-05 08:10:13,955 - INFO - Starting process for file: D:\Internship\automation\automation\uploads\lkp2.xlsx, exists: True
+2025-05-05 08:10:51,874 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp2.xlsx: {"status": "success", "message": "Semua 1 file berhasil diproses!", "last_row": 4}
+
+2025-05-05 08:10:51,874 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp2.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp2.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 53, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 78, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 96, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}, exists: {os.path.exists(file_path)}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 2 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 3 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 227, in process_files
+    logging.info(f"\u2705 File {file_path} selesai diproses, exists: {os.path.exists(file_path)}")
+Message: '\u2705 File D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx selesai diproses, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 240, in process_files
+    logging.info("\u2705 Semua file telah diproses!")
+Message: '\u2705 Semua file telah diproses!'
+Arguments: ()
+
+2025-05-05 08:10:51,874 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp2.xlsx: 0
+2025-05-05 08:10:51,874 - INFO - File deleted after successful processing: D:\Internship\automation\automation\uploads\lkp2.xlsx
+2025-05-05 08:10:51,874 - INFO - Removed UploadedFile entry for successful file: D:\Internship\automation\automation\uploads\lkp2.xlsx
+2025-05-05 08:10:51,874 - INFO - Ensured process for D:\Internship\automation\automation\uploads\lkp2.xlsx is terminated.
+2025-05-05 08:10:51,874 - INFO - Returning response: status=success, failed_file_ids=[]
+2025-05-05 08:10:56,899 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 08:10:59,849 - INFO - Files in otomatisasi view: 0 files found
+2025-05-05 08:11:04,100 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-05 08:11:09,873 - INFO - resume_process called with log_id: 77, from URL: /resume-process/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 08:11:09,874 - INFO - Resuming with file path: D:\Internship\automation\automation\uploads\lkp2_XuQFqvM.xlsx, exists: False
+2025-05-05 08:11:09,874 - INFO - File found in temp location: D:\Internship\automation\automation\uploads\temp_failed_files\lkp2_XuQFqvM.xlsx
+2025-05-05 08:11:45,424 - DEBUG - Resume subprocess stdout: {"status": "success", "message": "Semua 1 file berhasil diproses!", "last_row": 4}
+
+2025-05-05 08:11:45,424 - DEBUG - Resume subprocess stderr: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\temp_failed_files\\lkp2_XuQFqvM.xlsx', '--resume-from', '2']
+File 1 found: D:\Internship\automation\automation\uploads\temp_failed_files\lkp2_XuQFqvM.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 53, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 78, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 96, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}, exists: {os.path.exists(file_path)}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\temp_failed_files\\lkp2_XuQFqvM.xlsx, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 2 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 3 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 227, in process_files
+    logging.info(f"\u2705 File {file_path} selesai diproses, exists: {os.path.exists(file_path)}")
+Message: '\u2705 File D:\\Internship\\automation\\automation\\uploads\\temp_failed_files\\lkp2_XuQFqvM.xlsx selesai diproses, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 240, in process_files
+    logging.info("\u2705 Semua file telah diproses!")
+Message: '\u2705 Semua file telah diproses!'
+Arguments: ()
+
+2025-05-05 08:11:45,424 - DEBUG - Resume subprocess returncode: 0
+2025-05-05 08:11:45,424 - INFO - File deleted from disk after successful resume: D:\Internship\automation\automation\uploads\temp_failed_files\lkp2_XuQFqvM.xlsx
+2025-05-05 08:11:45,424 - INFO - Successfully resumed processing for log ID 77
+2025-05-05 08:11:45,424 - INFO - Ensured process for log_id 77 is terminated.
+2025-05-05 08:11:47,695 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+2025-05-05 08:12:11,658 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-05 08:12:13,391 - INFO - Files in otomatisasi view: 1 files found
+2025-05-05 08:12:17,852 - INFO - process_files called with file_ids: ['5'], from URL: /process-files/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-05 08:12:17,854 - INFO - Starting process for file: D:\Internship\automation\automation\uploads\lkp2.xlsx, exists: True
+2025-05-05 08:12:48,916 - DEBUG - Subprocess stdout for D:\Internship\automation\automation\uploads\lkp2.xlsx: {"status": "error", "message": "Terdeteksi berhenti pada baris 3", "last_row": 3}
+
+2025-05-05 08:12:48,916 - DEBUG - Subprocess stderr for D:\Internship\automation\automation\uploads\lkp2.xlsx: === DEBUG INFO ===
+Current directory: D:\Internship\automation\automation\automation
+Script location: D:\Internship\automation\automation\automation\otomatisasi.py
+Args received: ['D:\\Internship\\automation\\automation\\automation\\otomatisasi.py', 'D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx']
+File 1 found: D:\Internship\automation\automation\uploads\lkp2.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 42, in process_files
+    logging.info("\u2705 Silakan login di browser... Menunggu hingga login selesai...")
+Message: '\u2705 Silakan login di browser... Menunggu hingga login selesai...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 53, in process_files
+    logging.info("\u2705 Login terdeteksi! Melanjutkan otomatisasi...")
+Message: '\u2705 Login terdeteksi! Melanjutkan otomatisasi...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 78, in process_files
+    logging.info("\u2705 Berhasil klik link 'Daftar Siswa Aktif'")
+Message: "\u2705 Berhasil klik link 'Daftar Siswa Aktif'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 96, in process_files
+    logging.info(f"\U0001f535 Memulai proses file: {file_path}, exists: {os.path.exists(file_path)}")
+Message: '\U0001f535 Memulai proses file: D:\\Internship\\automation\\automation\\uploads\\lkp2.xlsx, exists: True'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 208, in process_files
+    logging.info(f"\u2705 Baris {i} berhasil diproses")
+Message: '\u2705 Baris 2 berhasil diproses'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 158, in process_files
+    driver.execute_script("arguments[0].click();", link_tambah_siswa)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 528, in execute_script
+    return self.execute(command, {"script": script, "args": converted_args})["value"]
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Acer\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=136.0.3240.50)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7E1B902E5+25029]
+	(No symbol) [0x00007FF7E1AE52F0]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7E1E0D73A+1947706]
+	(No symbol) [0x00007FF7E18AB790]
+	(No symbol) [0x00007FF7E18CA10A]
+	(No symbol) [0x00007FF7E192ED27]
+	(No symbol) [0x00007FF7E194609A]
+	(No symbol) [0x00007FF7E1928DF3]
+	(No symbol) [0x00007FF7E18FD6A6]
+	(No symbol) [0x00007FF7E18FCBB3]
+	(No symbol) [0x00007FF7E18FD4D3]
+	(No symbol) [0x00007FF7E19F638D]
+	(No symbol) [0x00007FF7E1A03F2F]
+	(No symbol) [0x00007FF7E19FC91F]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7E1C776EA+284650]
+	(No symbol) [0x00007FF7E1AF2C81]
+	(No symbol) [0x00007FF7E1AEB724]
+	(No symbol) [0x00007FF7E1AEB873]
+	(No symbol) [0x00007FF7E1ADD4B6]
+	BaseThreadInitThunk [0x00007FF86C4F259D+29]
+	RtlUserThreadStart [0x00007FF86C80AF38+40]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 296, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from)
+  File "D:\Internship\automation\automation\automation\otomatisasi.py", line 210, in process_files
+    logging.error(f"\u274c Browser ditutup pada baris {i}: {e}")
+Message: '\u274c Browser ditutup pada baris 3: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=136.0.3240.50)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7E1B902E5+25029]\n\t(No symbol) [0x00007FF7E1AE52F0]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7E1E0D73A+1947706]\n\t(No symbol) [0x00007FF7E18AB790]\n\t(No symbol) [0x00007FF7E18CA10A]\n\t(No symbol) [0x00007FF7E192ED27]\n\t(No symbol) [0x00007FF7E194609A]\n\t(No symbol) [0x00007FF7E1928DF3]\n\t(No symbol) [0x00007FF7E18FD6A6]\n\t(No symbol) [0x00007FF7E18FCBB3]\n\t(No symbol) [0x00007FF7E18FD4D3]\n\t(No symbol) [0x00007FF7E19F638D]\n\t(No symbol) [0x00007FF7E1A03F2F]\n\t(No symbol) [0x00007FF7E19FC91F]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7E1C776EA+284650]\n\t(No symbol) [0x00007FF7E1AF2C81]\n\t(No symbol) [0x00007FF7E1AEB724]\n\t(No symbol) [0x00007FF7E1AEB873]\n\t(No symbol) [0x00007FF7E1ADD4B6]\n\tBaseThreadInitThunk [0x00007FF86C4F259D+29]\n\tRtlUserThreadStart [0x00007FF86C80AF38+40]\n'
+Arguments: ()
+
+2025-05-05 08:12:48,917 - DEBUG - Subprocess returncode for D:\Internship\automation\automation\uploads\lkp2.xlsx: 0
+2025-05-05 08:12:48,919 - INFO - File copied to temp location: D:\Internship\automation\automation\uploads\temp_failed_files\lkp2.xlsx
+2025-05-05 08:12:48,931 - INFO - Removed UploadedFile entry for failed file: D:\Internship\automation\automation\uploads\lkp2.xlsx, file preserved at: D:\Internship\automation\automation\uploads\temp_failed_files\lkp2.xlsx
+2025-05-05 08:12:48,932 - INFO - Ensured process for D:\Internship\automation\automation\uploads\lkp2.xlsx is terminated.
+2025-05-05 08:12:48,932 - INFO - Returning response: status=error, failed_file_ids=[None]
+2025-05-05 08:12:52,162 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/

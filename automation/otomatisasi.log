@@ -1,0 +1,36 @@
+2025-05-05 07:53:29,234 - INFO - Memproses data baris 2: Sifulan
+2025-05-05 07:53:32,923 - INFO - Memproses data baris 3: Sifulan
+2025-05-05 07:53:36,733 - INFO - Attempting to close all windows and quit driver...
+2025-05-05 07:53:39,013 - INFO - Driver quit successfully.
+2025-05-05 08:10:42,291 - INFO - Memproses data baris 2: Sifulan
+2025-05-05 08:10:45,848 - INFO - Memproses data baris 3: Sifulan
+2025-05-05 08:10:49,508 - INFO - Attempting to close all windows and quit driver...
+2025-05-05 08:10:51,786 - INFO - Driver quit successfully.
+2025-05-05 08:11:35,744 - INFO - Memproses data baris 2: Sifulan
+2025-05-05 08:11:39,312 - INFO - Memproses data baris 3: Sifulan
+2025-05-05 08:11:43,066 - INFO - Attempting to close all windows and quit driver...
+2025-05-05 08:11:45,339 - INFO - Driver quit successfully.
+2025-05-05 08:12:41,964 - INFO - Memproses data baris 2: Sifulan
+2025-05-05 08:12:45,443 - INFO - Memproses data baris 3: Sifulan
+2025-05-05 08:12:46,638 - INFO - Attempting to close all windows and quit driver...
+2025-05-05 08:12:46,776 - ERROR - Failed to quit driver: Message: invalid session id
+Stacktrace:
+	GetHandleVerifier [0x00007FF7E1B902E5+25029]
+	(No symbol) [0x00007FF7E1AE52F0]
+	(No symbol) [0x00007FF7E18BB940]
+	(No symbol) [0x00007FF7E18FBFA3]
+	(No symbol) [0x00007FF7E1928F52]
+	(No symbol) [0x00007FF7E18D47AB]
+	(No symbol) [0x00007FF7E1925B53]
+	(No symbol) [0x00007FF7E1925268]
+	(No symbol) [0x00007FF7E1892C75]
+	(No symbol) [0x00007FF7E19F638D]
+	(No symbol) [0x00007FF7E1A03F2F]
+	(No symbol) [0x00007FF7E19FC91F]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7E1C776EA+284650]
+	(No symbol) [0x00007FF7E1AF2C81]
+	(No symbol) [0x00007FF7E18917A7]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7E1DC27F8+1640696]
+	BaseThreadInitThunk [0x00007FF86C4F259D+29]
+	RtlUserThreadStart [0x00007FF86C80AF38+40]
+

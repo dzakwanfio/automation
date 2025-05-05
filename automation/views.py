@@ -216,7 +216,7 @@ def input_data(request):
         logging.info(f"Loading input_data page with GET request. URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
         files = UploadedFile.objects.all()
         return render(request, "input_data.html", {"errors": errors, "files": files})
-        
+            
 @login_required(login_url="login")
 def upload_page(request):
     return render(request, "upload.html")
@@ -373,7 +373,7 @@ def process_files(request):
             failed_files = []
             last_row = 0
             status = "success"
-            message = "Semua file berhasil diproses!"
+            message = f"{len(files)} file berhasil diproses!"
 
             # Direktori sementara untuk file yang gagal
             temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp_failed_files')
@@ -383,24 +383,28 @@ def process_files(request):
             for file in files:
                 file_path = file.file.path
                 logging.info(f"Starting process for file: {file_path}, exists: {os.path.exists(file_path)}")
+                process = None
                 try:
-                    result = subprocess.run(
+                    # Gunakan subprocess.Popen untuk kontrol lebih baik
+                    process = subprocess.Popen(
                         ["python", script_path, file_path],
-                        capture_output=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
                         text=True,
-                        cwd=os.path.dirname(os.path.abspath(__file__)),
-                        check=False,
-                        timeout=600  # Batas waktu 10 menit untuk setiap file
+                        cwd=os.path.dirname(os.path.abspath(__file__))
                     )
 
-                    logging.debug(f"Subprocess stdout for {file_path}: {result.stdout}")
-                    logging.debug(f"Subprocess stderr for {file_path}: {result.stderr}")
-                    logging.debug(f"Subprocess returncode for {file_path}: {result.returncode}")
+                    # Tunggu proses selesai dengan timeout
+                    stdout, stderr = process.communicate(timeout=600)  # Timeout 10 menit
+
+                    logging.debug(f"Subprocess stdout for {file_path}: {stdout}")
+                    logging.debug(f"Subprocess stderr for {file_path}: {stderr}")
+                    logging.debug(f"Subprocess returncode for {file_path}: {process.returncode}")
 
                     script_output = {}
-                    if result.stdout.strip():
+                    if stdout.strip():
                         try:
-                            script_output = json.loads(result.stdout.strip())
+                            script_output = json.loads(stdout.strip())
                         except json.JSONDecodeError as e:
                             logging.error(f"JSON decode error for {file_path}: {str(e)}")
                             script_output = {"status": "error", "message": "Gagal memproses output dari script otomatisasi"}
@@ -452,6 +456,9 @@ def process_files(request):
 
                 except subprocess.TimeoutExpired as e:
                     logging.error(f"Timeout processing file {file_path}: {str(e)}")
+                    if process:
+                        process.kill()  # Matikan proses secara paksa
+                        logging.info(f"Process for {file_path} has been killed due to timeout.")
                     file_name = os.path.basename(file_path)
                     temp_file_path = os.path.join(temp_dir, file_name)
                     shutil.copy2(file_path, temp_file_path)
@@ -477,6 +484,9 @@ def process_files(request):
                     break
                 except Exception as e:
                     logging.error(f"Unexpected error processing {file_path}: {str(e)}")
+                    if process:
+                        process.kill()  # Matikan proses secara paksa
+                        logging.info(f"Process for {file_path} has been killed due to error.")
                     file_name = os.path.basename(file_path)
                     temp_file_path = os.path.join(temp_dir, file_name)
                     shutil.copy2(file_path, temp_file_path)
@@ -500,15 +510,17 @@ def process_files(request):
                     message = f"Unexpected error processing {os.path.basename(file_path)}: {str(e)}"
                     status = "error"
                     break
+                finally:
+                    if process:
+                        try:
+                            process.kill()  # Pastikan proses dimatikan
+                            logging.info(f"Ensured process for {file_path} is terminated.")
+                        except:
+                            pass
 
             remaining_files = [f for f in files if f.id not in processed_files and f.id not in failed_files]
             for remaining_file in remaining_files:
                 logging.info(f"Retained unprocessed file: {remaining_file.file.path}")
-
-            if status == "success":
-                messages.success(request, f"{len(processed_files)} file berhasil diproses!")
-            else:
-                messages.error(request, message)
 
             logging.info(f"Returning response: status={status}, failed_file_ids={failed_files}")
             return JsonResponse({
@@ -584,71 +596,95 @@ def resume_process(request):
                     "detail": f"Path yang dicari: {script_path}"
                 })
 
-            result = subprocess.run(
-                ["python", script_path, file_path, "--resume-from", str(last_row)],
-                capture_output=True,
-                text=True,
-                cwd=os.path.dirname(os.path.abspath(__file__)),
-                timeout=600  # Batas waktu 10 menit untuk resume
-            )
-
-            logging.debug(f"Resume subprocess stdout: {result.stdout}")
-            logging.debug(f"Resume subprocess stderr: {result.stderr}")
-            logging.debug(f"Resume subprocess returncode: {result.returncode}")
-
+            process = None
             try:
-                script_output = json.loads(result.stdout.strip())
+                process = subprocess.Popen(
+                    ["python", script_path, file_path, "--resume-from", str(last_row)],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    cwd=os.path.dirname(os.path.abspath(__file__))
+                )
+
+                stdout, stderr = process.communicate(timeout=600)  # Timeout 10 menit
+
+                logging.debug(f"Resume subprocess stdout: {stdout}")
+                logging.debug(f"Resume subprocess stderr: {stderr}")
+                logging.debug(f"Resume subprocess returncode: {process.returncode}")
+
+                script_output = {}
+                if stdout.strip():
+                    try:
+                        script_output = json.loads(stdout.strip())
+                    except json.JSONDecodeError as e:
+                        logging.error(f"JSON decode error in resume_process: {str(e)}")
+                        return JsonResponse({
+                            "status": "error",
+                            "message": "Gagal memproses output dari script otomatisasi",
+                            "last_row": last_row,
+                            "detail": stderr if stderr else "No stderr output"
+                        })
+
                 status = script_output.get("status", "error")
                 message = script_output.get("message", "Terjadi kesalahan saat melanjutkan proses")
                 last_row = script_output.get("last_row", last_row)
-            except json.JSONDecodeError as e:
-                logging.error(f"JSON decode error in resume_process: {str(e)}")
-                return JsonResponse({
-                    "status": "error",
-                    "message": "Gagal memproses output dari script otomatisasi",
-                    "last_row": last_row,
-                    "detail": result.stderr if result.stderr else "No stderr output"
-                })
 
-            if status == "success":
-                log_entry.status = "Success"
+                if status == "success":
+                    log_entry.status = "Success"
+                    log_entry.process_time = timezone.now()
+                    log_entry.save()
+
+                    # Hapus file fisik setelah sukses
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                        logging.info(f"File deleted from disk after successful resume: {file_path}")
+
+                    logging.info(f"Successfully resumed processing for log ID {log_id}")
+                    return JsonResponse({
+                        "status": "success",
+                        "message": "Proses berhasil dilanjutkan dan selesai!",
+                        "last_row": last_row
+                    })
+                else:
+                    log_entry.status = f"Failed (Stopped at row {last_row})"
+                    log_entry.process_time = timezone.now()
+                    log_entry.save()
+
+                    logging.error(f"Resume process failed at row {last_row}: {message}")
+                    return JsonResponse({
+                        "status": "error",
+                        "message": message,
+                        "last_row": last_row,
+                        "detail": stderr if stderr else "No stderr output"
+                    })
+
+            except subprocess.TimeoutExpired as e:
+                logging.error(f"Timeout in resume_process for log_id {log_id}: {str(e)}")
+                if process:
+                    process.kill()  # Matikan proses secara paksa
+                    logging.info(f"Process for log_id {log_id} has been killed due to timeout.")
+                log_entry.status = "Failed (Timeout)"
                 log_entry.process_time = timezone.now()
                 log_entry.save()
-
-                # Hapus file fisik setelah sukses
-                if os.path.exists(file_path):
-                    os.remove(file_path)
-                    logging.info(f"File deleted from disk after successful resume: {file_path}")
-
-                logging.info(f"Successfully resumed processing for log ID {log_id}")
                 return JsonResponse({
-                    "status": "success",
-                    "message": "Proses berhasil dilanjutkan dan selesai!",
+                    "status": "error",
+                    "message": "Timeout: Resume process took too long",
                     "last_row": last_row
                 })
-            else:
-                log_entry.status = f"Failed (Stopped at row {last_row})"
-                log_entry.process_time = timezone.now()
-                log_entry.save()
+            except Exception as e:
+                logging.error(f"Unexpected error in resume_process: {str(e)}")
+                if process:
+                    process.kill()  # Matikan proses secara paksa
+                    logging.info(f"Process for log_id {log_id} has been killed due to error.")
+                return JsonResponse({"status": "error", "message": str(e), "last_row": 0})
+            finally:
+                if process:
+                    try:
+                        process.kill()  # Pastikan proses dimatikan
+                        logging.info(f"Ensured process for log_id {log_id} is terminated.")
+                    except:
+                        pass
 
-                logging.error(f"Resume process failed at row {last_row}: {message}")
-                return JsonResponse({
-                    "status": "error",
-                    "message": message,
-                    "last_row": last_row,
-                    "detail": result.stderr if result.stderr else "No stderr output"
-                })
-
-        except subprocess.TimeoutExpired as e:
-            logging.error(f"Timeout in resume_process for log_id {log_id}: {str(e)}")
-            log_entry.status = "Failed (Timeout)"
-            log_entry.process_time = timezone.now()
-            log_entry.save()
-            return JsonResponse({
-                "status": "error",
-                "message": "Timeout: Resume process took too long",
-                "last_row": last_row
-            })
         except Exception as e:
             logging.error(f"Unexpected error in resume_process: {str(e)}")
             return JsonResponse({"status": "error", "message": str(e), "last_row": 0})

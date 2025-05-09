@@ -582,7 +582,7 @@ def resume_process(request):
                     logging.error(f"File not found at: {file_path} or {temp_file_path}")
                     return JsonResponse({
                         "status": "error",
-                        "message": f"File tidak ditemukan di server. Pastikan file masih ada di lokasi: {file_path} atau {temp_file_path}",
+                        "message": f"File tidak ditemukan di server.",
                         "last_row": 0
                     })
 

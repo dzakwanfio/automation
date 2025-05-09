@@ -209,7 +209,7 @@ def input_data(request):
                 return redirect("input_data")
 
             except Exception as e:
-                errors.append(f"Terjadi kesalahan saat membaca file: {str(e)}")
+                errors.append("File tidak sesuai. Silakan upload ulang file.")
                 return render(request, "input_data.html", {"errors": errors})
 
     else:

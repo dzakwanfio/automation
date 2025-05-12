@@ -34,3 +34,48 @@ Stacktrace:
 	BaseThreadInitThunk [0x00007FF86C4F259D+29]
 	RtlUserThreadStart [0x00007FF86C80AF38+40]
 
+2025-05-12 20:31:52,974 - INFO - Memproses data baris 2: Sifulan
+2025-05-12 20:31:58,237 - INFO - Memproses data baris 3: Sifulan
+2025-05-12 20:32:03,856 - INFO - Attempting to close all windows and quit driver...
+2025-05-12 20:32:06,291 - INFO - Driver quit successfully.
+2025-05-12 20:32:30,543 - INFO - Attempting to close all windows and quit driver...
+2025-05-12 20:32:30,744 - ERROR - Failed to quit driver: Message: invalid session id
+Stacktrace:
+	GetHandleVerifier [0x00007FF6F5C0FCA5+25029]
+	(No symbol) [0x00007FF6F5B64CB0]
+	(No symbol) [0x00007FF6F592B940]
+	(No symbol) [0x00007FF6F596BFA3]
+	(No symbol) [0x00007FF6F5998F52]
+	(No symbol) [0x00007FF6F59447AB]
+	(No symbol) [0x00007FF6F5995B53]
+	(No symbol) [0x00007FF6F5995268]
+	(No symbol) [0x00007FF6F5902C75]
+	(No symbol) [0x00007FF6F5A75D0D]
+	(No symbol) [0x00007FF6F5A838AF]
+	(No symbol) [0x00007FF6F5A7C29F]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF6F5CD4D5A+284650]
+	(No symbol) [0x00007FF6F5B72641]
+	(No symbol) [0x00007FF6F59017A7]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF6F5E1FE68+1640696]
+	BaseThreadInitThunk [0x00007FFE023AE8D7+23]
+	RtlUserThreadStart [0x00007FFE02DD14FC+44]
+
+2025-05-12 21:11:04,129 - INFO - Memproses data baris 2: Sifulan
+2025-05-12 21:11:07,962 - INFO - Tanggal Lahir diisi: 01/01/2000
+2025-05-12 21:11:08,071 - INFO - Formulir pencarian diisi untuk baris 2: Nama=Sifulan, NIK=3410100200, NISN=3410100200, Nama Ibu=Ibu
+2025-05-12 21:11:08,169 - INFO - Klik tombol Cari berhasil untuk baris 2
+2025-05-12 21:11:21,641 - INFO - Data sudah ada untuk baris 2. Melakukan refresh halaman
+2025-05-12 21:11:31,406 - INFO - Pop-up 'Peserta Didik Baru' dibuka kembali untuk baris 3
+2025-05-12 21:11:34,071 - INFO - Memproses data baris 3: Sifulan
+2025-05-12 21:11:35,800 - INFO - Tanggal Lahir diisi: 02/01/2000
+2025-05-12 21:11:35,953 - INFO - Formulir pencarian diisi untuk baris 3: Nama=Sifulan, NIK=3410100200, NISN=3410100200, Nama Ibu=Ibu
+2025-05-12 21:11:36,046 - INFO - Klik tombol Cari berhasil untuk baris 3
+2025-05-12 21:11:49,430 - INFO - Data sudah ada untuk baris 3. Melakukan refresh halaman
+2025-05-12 21:11:59,099 - INFO - Pop-up 'Peserta Didik Baru' dibuka kembali untuk baris 4
+2025-05-12 21:12:01,764 - INFO - Kolom A pada baris 4 kosong. Loop berhenti.
+2025-05-12 21:12:01,767 - INFO - Attempting to close all windows and quit driver...
+2025-05-12 21:12:04,175 - INFO - Driver quit successfully.
+2025-05-12 21:13:22,342 - INFO - Memproses data baris 2: Sifulan
+2025-05-12 21:13:27,900 - INFO - Memproses data baris 3: Sifulan
+2025-05-12 21:13:33,163 - INFO - Attempting to close all windows and quit driver...
+2025-05-12 21:13:35,560 - INFO - Driver quit successfully.

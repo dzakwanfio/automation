@@ -345,7 +345,6 @@ def process_files(request):
             data = json.loads(request.body)
             file_ids = data.get("file_ids", [])
 
-            # Tambahkan logging untuk melacak pemanggilan
             logging.info(f"process_files called with file_ids: {file_ids}, from URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
 
             if not file_ids:
@@ -375,27 +374,47 @@ def process_files(request):
             status = "success"
             message = f"{len(files)} file berhasil diproses!"
 
-            # Direktori sementara untuk file yang gagal
             temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp_failed_files')
             if not os.path.exists(temp_dir):
                 os.makedirs(temp_dir)
 
             for file in files:
                 file_path = file.file.path
-                logging.info(f"Starting process for file: {file_path}, exists: {os.path.exists(file_path)}")
+                destination_url = file.destination  # Ambil URL dari field destination
+                logging.info(f"Starting process for file: {file_path}, exists: {os.path.exists(file_path)}, URL: {destination_url}")
+                
+                # Validasi destination_url
+                if not destination_url:
+                    logging.error(f"No destination URL provided for file: {file_path}")
+                    LogHistory.objects.create(
+                        name=os.path.basename(file.file.name),
+                        upload_date=timezone.now(),
+                        course_name=file.course_name,
+                        status='Failed (No destination URL)',
+                        process_time=timezone.now(),
+                        file_path=os.path.basename(file.file.name),
+                        file_id=file.id
+                    )
+                    file.is_failed = True
+                    file.save()
+                    file.delete()
+                    failed_files.append(file.id)
+                    message = f"Process failed for file {os.path.basename(file_path)}: No destination URL provided"
+                    status = "error"
+                    continue
+
                 process = None
                 try:
-                    # Gunakan subprocess.Popen untuk kontrol lebih baik
+                    # Tambahkan --url ke perintah
                     process = subprocess.Popen(
-                        ["python", script_path, file_path],
+                        ["python", script_path, file_path, "--url", destination_url],
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                         text=True,
                         cwd=os.path.dirname(os.path.abspath(__file__))
                     )
 
-                    # Tunggu proses selesai dengan timeout
-                    stdout, stderr = process.communicate(timeout=600)  # Timeout 10 menit
+                    stdout, stderr = process.communicate(timeout=600)
 
                     logging.debug(f"Subprocess stdout for {file_path}: {stdout}")
                     logging.debug(f"Subprocess stderr for {file_path}: {stderr}")
@@ -413,7 +432,6 @@ def process_files(request):
                     file_message = script_output.get("message", "Terjadi kesalahan saat memroses file")
                     last_row = script_output.get("last_row", 0)
 
-                    # Salin file ke direktori sementara jika gagal
                     temp_file_path = file_path
                     if file_status != "success":
                         file_name = os.path.basename(file_path)
@@ -421,14 +439,13 @@ def process_files(request):
                         shutil.copy2(file_path, temp_file_path)
                         logging.info(f"File copied to temp location: {temp_file_path}")
 
-                    # Simpan log dengan nama file (sesuai LogHistory.save())
                     LogHistory.objects.create(
                         name=os.path.basename(file.file.name),
                         upload_date=timezone.now(),
                         course_name=file.course_name,
                         status='Success' if file_status == "success" else f'Failed (Stopped at row {last_row})',
                         process_time=timezone.now(),
-                        file_path=os.path.basename(file.file.name),  # Hanya nama file, sesuai LogHistory
+                        file_path=os.path.basename(file.file.name),
                         file_id=file.id
                     )
 
@@ -439,15 +456,14 @@ def process_files(request):
                                 logging.info(f"File deleted after successful processing: {file_path}")
                         except Exception as e:
                             logging.warning(f"Failed to delete file {file_path}: {e}")
-                        file.delete()  # Ini akan menghapus file fisik karena delete() di model
+                        file.delete()
                         logging.info(f"Removed UploadedFile entry for successful file: {file_path}")
                         processed_files.append(file.id)
                     else:
-                        # Hanya hapus entri database, file sudah disalin
                         file.is_failed = True
                         file.last_processed_row = last_row
                         file.save()
-                        file.delete()  # Ini akan menghapus file fisik asli, tapi kita punya salinan
+                        file.delete()
                         logging.info(f"Removed UploadedFile entry for failed file: {file_path}, file preserved at: {temp_file_path}")
                         failed_files.append(file.id)
                         message = f"Process failed at file {os.path.basename(file_path)}: {file_message} (Stopped at row {last_row})"
@@ -457,7 +473,7 @@ def process_files(request):
                 except subprocess.TimeoutExpired as e:
                     logging.error(f"Timeout processing file {file_path}: {str(e)}")
                     if process:
-                        process.kill()  # Matikan proses secara paksa
+                        process.kill()
                         logging.info(f"Process for {file_path} has been killed due to timeout.")
                     file_name = os.path.basename(file_path)
                     temp_file_path = os.path.join(temp_dir, file_name)
@@ -476,7 +492,7 @@ def process_files(request):
                     file.is_failed = True
                     file.last_processed_row = last_row
                     file.save()
-                    file.delete()  # Ini akan menghapus file fisik asli, tapi kita punya salinan
+                    file.delete()
                     logging.info(f"Removed UploadedFile entry for timed-out file: {file_path}, file preserved at: {temp_file_path}")
                     failed_files.append(file.id)
                     message = f"Timeout processing file {os.path.basename(file_path)}: Process took too long"
@@ -485,7 +501,7 @@ def process_files(request):
                 except Exception as e:
                     logging.error(f"Unexpected error processing {file_path}: {str(e)}")
                     if process:
-                        process.kill()  # Matikan proses secara paksa
+                        process.kill()
                         logging.info(f"Process for {file_path} has been killed due to error.")
                     file_name = os.path.basename(file_path)
                     temp_file_path = os.path.join(temp_dir, file_name)
@@ -504,7 +520,7 @@ def process_files(request):
                     file.is_failed = True
                     file.last_processed_row = last_row
                     file.save()
-                    file.delete()  # Ini akan menghapus file fisik asli, tapi kita punya salinan
+                    file.delete()
                     logging.info(f"Removed UploadedFile entry for failed file with unexpected error: {file_path}, file preserved at: {temp_file_path}")
                     failed_files.append(file.id)
                     message = f"Unexpected error processing {os.path.basename(file_path)}: {str(e)}"
@@ -513,7 +529,7 @@ def process_files(request):
                 finally:
                     if process:
                         try:
-                            process.kill()  # Pastikan proses dimatikan
+                            process.kill()
                             logging.info(f"Ensured process for {file_path} is terminated.")
                         except:
                             pass
@@ -548,7 +564,6 @@ def resume_process(request):
             data = json.loads(request.body)
             log_id = data.get("log_id")
 
-            # Tambahkan logging untuk melacak pemanggilan
             logging.info(f"resume_process called with log_id: {log_id}, from URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
 
             if not log_id:
@@ -569,11 +584,10 @@ def resume_process(request):
             if last_row < 1:
                 last_row = 2
 
-            # Bangun path lengkap dari file_path (hanya nama file)
+            # Ambil file terkait dari log_entry
             file_path = os.path.join(settings.MEDIA_ROOT, log_entry.file_path)
             logging.info(f"Resuming with file path: {file_path}, exists: {os.path.exists(file_path)}")
             if not os.path.exists(file_path):
-                # Coba cari di temp_failed_files
                 temp_file_path = os.path.join(settings.MEDIA_ROOT, 'temp_failed_files', log_entry.file_path)
                 if os.path.exists(temp_file_path):
                     file_path = temp_file_path
@@ -585,6 +599,27 @@ def resume_process(request):
                         "message": f"File tidak ditemukan di server.",
                         "last_row": 0
                     })
+
+            # Ambil destination dari UploadedFile terkait
+            try:
+                uploaded_file = UploadedFile.objects.get(id=log_entry.file_id)
+                destination_url = uploaded_file.destination
+                logging.info(f"Destination URL for resume: {destination_url}")
+            except UploadedFile.DoesNotExist:
+                logging.error(f"No UploadedFile found for log_id: {log_id}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Tidak dapat menemukan data file terkait untuk melanjutkan proses.",
+                    "last_row": 0
+                })
+
+            if not destination_url:
+                logging.error(f"No destination URL provided for log_id: {log_id}")
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Tidak ada URL destinasi yang tersedia untuk melanjutkan proses.",
+                    "last_row": 0
+                })
 
             script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'otomatisasi.py')
             if not os.path.exists(script_path):
@@ -599,14 +634,14 @@ def resume_process(request):
             process = None
             try:
                 process = subprocess.Popen(
-                    ["python", script_path, file_path, "--resume-from", str(last_row)],
+                    ["python", script_path, file_path, "--resume-from", str(last_row), "--url", destination_url],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     text=True,
                     cwd=os.path.dirname(os.path.abspath(__file__))
                 )
 
-                stdout, stderr = process.communicate(timeout=600)  # Timeout 10 menit
+                stdout, stderr = process.communicate(timeout=600)
 
                 logging.debug(f"Resume subprocess stdout: {stdout}")
                 logging.debug(f"Resume subprocess stderr: {stderr}")
@@ -634,7 +669,6 @@ def resume_process(request):
                     log_entry.process_time = timezone.now()
                     log_entry.save()
 
-                    # Hapus file fisik setelah sukses
                     if os.path.exists(file_path):
                         os.remove(file_path)
                         logging.info(f"File deleted from disk after successful resume: {file_path}")
@@ -661,7 +695,7 @@ def resume_process(request):
             except subprocess.TimeoutExpired as e:
                 logging.error(f"Timeout in resume_process for log_id {log_id}: {str(e)}")
                 if process:
-                    process.kill()  # Matikan proses secara paksa
+                    process.kill()
                     logging.info(f"Process for log_id {log_id} has been killed due to timeout.")
                 log_entry.status = "Failed (Timeout)"
                 log_entry.process_time = timezone.now()
@@ -674,13 +708,13 @@ def resume_process(request):
             except Exception as e:
                 logging.error(f"Unexpected error in resume_process: {str(e)}")
                 if process:
-                    process.kill()  # Matikan proses secara paksa
+                    process.kill()
                     logging.info(f"Process for log_id {log_id} has been killed due to error.")
                 return JsonResponse({"status": "error", "message": str(e), "last_row": 0})
             finally:
                 if process:
                     try:
-                        process.kill()  # Pastikan proses dimatikan
+                        process.kill()
                         logging.info(f"Ensured process for log_id {log_id} is terminated.")
                     except:
                         pass

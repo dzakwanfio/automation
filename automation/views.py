@@ -117,6 +117,8 @@ def verify_email(request, token):
 
     return redirect("register")
 
+logger = logging.getLogger(__name__)
+
 @login_required(login_url="login")
 def input_data(request):
     errors = []
@@ -181,14 +183,14 @@ def input_data(request):
 
             except Exception as e:
                 errors.append(f"File tidak sesuai. Error: {str(e)}")
-                logging.error(f"Error processing file: {str(e)}")
+                logger.error(f"Error processing file: {str(e)}")
                 return render(request, "input_data.html", {"errors": errors})
 
         else:
             errors.append("Silakan upload file.")
             return render(request, "input_data.html", {"errors": errors})
 
-    logging.info(f"Loading input_data page with GET request. URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
+    logger.info(f"Loading input_data page with GET request. URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
     return render(request, "input_data.html", {"errors": errors})
             
 @login_required(login_url="login")
@@ -759,7 +761,49 @@ from .models import Peserta
 @login_required(login_url="login")
 def generate_document(request):
     peserta_list = Peserta.objects.all()
+    logger.info(f"Mengambil {peserta_list.count()} data peserta untuk generate_document")
     return render(request, 'generate_document.html', {'files': peserta_list})
+
+@login_required(login_url="login")
+def delete_peserta(request):
+    logger.info("[DEBUG] Memproses permintaan delete_peserta pada: %s", request.path)
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            peserta_ids = data.get("peserta_ids", [])
+            logger.debug("[DEBUG] ID peserta yang diterima: %s", peserta_ids)
+
+            if not peserta_ids:
+                logger.warning("[WARN] Tidak ada peserta yang dipilih untuk dihapus")
+                return JsonResponse({"status": "error", "message": "Tidak ada peserta yang dipilih."}, status=400)
+
+            # Konversi ID ke integer
+            peserta_ids = [int(id) for id in peserta_ids]
+            logger.debug("[DEBUG] ID peserta setelah konversi: %s", peserta_ids)
+
+            # Verifikasi ID
+            existing_peserta = Peserta.objects.filter(id__in=peserta_ids)
+            if not existing_peserta.exists():
+                logger.warning("[WARN] Tidak ada peserta ditemukan dengan ID: %s", peserta_ids)
+                return JsonResponse({"status": "error", "message": "Data peserta tidak ditemukan."}, status=404)
+
+            # Hapus peserta
+            deleted_count, _ = existing_peserta.delete()
+            logger.info("[INFO] Berhasil menghapus %s peserta dengan ID: %s", deleted_count, peserta_ids)
+
+            return JsonResponse({"status": "success", "message": f"{deleted_count} data peserta berhasil dihapus!"})
+        except json.JSONDecodeError as e:
+            logger.error("[ERROR] Error parsing JSON: %s", str(e))
+            return JsonResponse({"status": "error", "message": "Data permintaan tidak valid."}, status=400)
+        except ValueError as e:
+            logger.error("[ERROR] Error konversi ID: %s", str(e))
+            return JsonResponse({"status": "error", "message": "ID peserta tidak valid."}, status=400)
+        except Exception as e:
+            logger.error("[ERROR] Error menghapus peserta: %s", str(e))
+            return JsonResponse({"status": "error", "message": f"Error: {str(e)}"}, status=500)
+    else:
+        logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
+        return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
 
 from .models import LogHistory2
 

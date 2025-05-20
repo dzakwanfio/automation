@@ -7509,3 +7509,10 @@ NameError: name 'logs' is not defined
 2025-05-20 10:27:06,514 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
 2025-05-20 10:27:21,965 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
 2025-05-20 10:27:29,334 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-20 13:13:15,374 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 13:13:38,440 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 13:13:53,839 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 13:14:21,526 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 13:14:41,203 - INFO - D:\Intern\LSP Trust\automation\pkl\urls.py changed, reloading.
+2025-05-20 13:15:34,614 - INFO - D:\Intern\LSP Trust\automation\pkl\settings.py changed, reloading.
+2025-05-20 13:16:00,805 - INFO - D:\Intern\LSP Trust\automation\pkl\settings.py changed, reloading.

@@ -63,7 +63,48 @@
             </div>
 
             <div class="d-flex justify-content-end mt-5">
+                <button id="deletePeserta" class="btn btn-danger submit-btn me-2">Delete</button>
                 <button id="convertDocument" class="btn btn-success submit-btn">Convert</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal untuk Form Convert -->
+<div class="modal fade" id="convertModal" tabindex="-1" aria-labelledby="convertModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="convertModalLabel">Input Data Konversi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="convertForm">
+                    <div class="mb-3">
+                        <label for="jadwal" class="form-label">Jadwal</label>
+                        <input type="date" class="form-control" id="jadwal" name="jadwal" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tuk" class="form-label">TUK</label>
+                        <input type="text" class="form-control" id="tuk" name="tuk" placeholder="Masukkan TUK" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="skema" class="form-label">Skema</label>
+                        <input type="text" class="form-control" id="skema" name="skema" placeholder="Masukkan Skema" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="asesor" class="form-label">Asesor</label>
+                        <input type="text" class="form-control" id="asesor" name="asesor" placeholder="Masukkan Nama Asesor" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="kota" class="form-label">Kota</label>
+                        <input type="text" class="form-control" id="kota" name="kota" placeholder="Masukkan Kota" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success" id="submitConvertForm">Submit</button>
             </div>
         </div>
     </div>
@@ -90,7 +131,7 @@ function updateSelectedCount() {
 
 // Fungsi untuk mencari data di seluruh kolom tabel
 function searchData() {
-    console.log("searchData() terpanggil");
+    console.log("[DEBUG] searchData() terpanggil");
     let input = document.getElementById("search").value.toLowerCase();
     let rows = document.querySelectorAll("#table-body tr");
     let noResults = document.getElementById("no-results");
@@ -130,7 +171,7 @@ function sortTable(columnIndex, header) {
         if (isAscending) {
             return cellA.localeCompare(cellB);
         } else {
-            return cellB.localeCompare(cellB);
+            return cellB.localeCompare(cellA);
         }
     });
 
@@ -200,6 +241,155 @@ window.addEventListener("load", function() {
         row.dataset.match = "true";
     });
     showPage(currentPage);
+});
+
+// Fungsi untuk tombol Delete
+document.getElementById("deletePeserta").addEventListener("click", function() {
+    console.log("[DEBUG] Tombol Delete diklik pada: ", new Date().toLocaleString());
+    let selectedIds = Array.from(document.querySelectorAll(".row-checkbox:checked")).map(checkbox => checkbox.value);
+    console.log("[DEBUG] ID peserta yang dipilih: ", selectedIds);
+
+    if (selectedIds.length === 0) {
+        console.log("[DEBUG] Tidak ada baris yang dipilih");
+        Swal.fire({
+            title: 'Peringatan',
+            text: 'Silakan pilih setidaknya satu baris.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
+    Swal.fire({
+        title: 'Konfirmasi',
+        text: `Apakah Anda yakin ingin menghapus ${selectedIds.length} data peserta?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log("[DEBUG] Konfirmasi penghapusan diterima, mengirim ke server: ", selectedIds);
+            fetch("{% url 'delete_peserta' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken"),
+                },
+                body: JSON.stringify({ peserta_ids: selectedIds })
+            })
+            .then(response => {
+                console.log("[DEBUG] Status respons: ", response.status, response.statusText);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("[DEBUG] Data respons dari server: ", data);
+                Swal.fire({
+                    title: data.status === "success" ? 'Sukses' : 'Error',
+                    text: data.message,
+                    icon: data.status,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    if (data.status === "success") {
+                        // Hapus baris dari DOM
+                        selectedIds.forEach(id => {
+                            let row = document.querySelector(`.row-checkbox[value="${id}"]`);
+                            if (row) {
+                                row.closest("tr").remove();
+                            }
+                        });
+                        showPage(currentPage); // Perbarui paginasi
+                        updateSelectedCount(); // Perbarui jumlah terpilih
+                    }
+                });
+            })
+            .catch(error => {
+                console.error("[ERROR] Gagal menghapus: ", error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Terjadi kesalahan saat menghapus: ' + error.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        } else {
+            console.log("[DEBUG] Penghapusan dibatalkan oleh pengguna");
+        }
+    });
+});
+
+// Fungsi untuk tombol Convert
+document.getElementById("convertDocument").addEventListener("click", function() {
+    console.log("[DEBUG] Tombol Convert diklik pada: ", new Date().toLocaleString());
+    let selectedIds = Array.from(document.querySelectorAll(".row-checkbox:checked")).map(checkbox => checkbox.value);
+    console.log("[DEBUG] ID peserta yang dipilih: ", selectedIds);
+
+    if (selectedIds.length === 0) {
+        console.log("[DEBUG] Tidak ada baris yang dipilih untuk konversi");
+        Swal.fire({
+            title: 'Peringatan',
+            text: 'Silakan pilih setidaknya satu baris.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
+    // Simpan ID peserta di form untuk referensi
+    document.getElementById("convertForm").dataset.pesertaIds = JSON.stringify(selectedIds);
+    console.log("[DEBUG] Membuka modal dengan ID peserta: ", selectedIds);
+
+    // Buka modal secara manual
+    let modal = new bootstrap.Modal(document.getElementById("convertModal"));
+    modal.show();
+});
+
+// Fungsi untuk tombol Submit di modal
+document.getElementById("submitConvertForm").addEventListener("click", function() {
+    console.log("[DEBUG] Tombol Submit di modal diklik pada: ", new Date().toLocaleString());
+    let form = document.getElementById("convertForm");
+    let pesertaIds = JSON.parse(form.dataset.pesertaIds || "[]");
+    let formData = {
+        jadwal: form.querySelector("#jadwal").value,
+        tuk: form.querySelector("#tuk").value,
+        skema: form.querySelector("#skema").value,
+        asesor: form.querySelector("#asesor").value,
+        kota: form.querySelector("#kota").value,
+        peserta_ids: pesertaIds
+    };
+
+    // Validasi sederhana
+    if (!formData.jadwal || !formData.tuk || !formData.skema || !formData.asesor || !formData.kota) {
+        console.log("[DEBUG] Validasi gagal: Ada field yang kosong");
+        Swal.fire({
+            title: 'Peringatan',
+            text: 'Silakan isi semua field.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
+    console.log("[DEBUG] Data form yang akan diproses: ", formData);
+
+    // Untuk saat ini, hanya tampilkan notifikasi dan tutup modal
+    Swal.fire({
+        title: 'Sukses',
+        text: 'Data form diterima (belum diproses ke backend).',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        // Reset form dan tutup modal
+        form.reset();
+        form.dataset.pesertaIds = "";
+        let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
+        modal.hide();
+    });
 });
 </script>
 {% endblock %}

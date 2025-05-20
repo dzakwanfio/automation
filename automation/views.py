@@ -19,6 +19,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 # Setup logging untuk debugging
 logging.basicConfig(
@@ -28,8 +29,7 @@ logging.basicConfig(
 )
 
 from .forms import OtomatisasiForm
-from .models import LogHistory, Otomatisasi, UploadedFile
-
+from .models import LogHistory, Otomatisasi, UploadedFile, Siswa
 
 @login_required(login_url="login")
 def homepage(request):
@@ -130,44 +130,7 @@ def input_data(request):
         upload_file = request.FILES.get("file_upload")
 
         required_columns = [
-            "No",
-            "Nama",
-            "Jenis_Kelamin",
-            "NIK",
-            "Tempat_Lahir",
-            "Tanggal_Lahir",
-            "NISN",
-            "Agama_LKP",
-            "Handphone",
-            "Kewarganegaraan",
-            "Jenis_Tinggal",
-            "Tanggal_Masuk",
-            "Email",
-            "Nama_Ortu",
-            "NIK_Ortu",
-            "Pekerjaan_Ortu",
-            "Pendidikan_Ortu",
-            "Penghasilan_Ortu",
-            "Handphone_Ortu",
-            "Tempat_Lahir_Ortu",
-            "Tanggal_Lahir_Ortu",
-            "Asal",
-            "Alamat",
-            "RT",
-            "RW",
-            "Kecamatan",
-            "Kelurahan",
-            "Kab/Kota",
-            "Propinsi",
-            "Nama_Ibu_kandung",
-            "Nama_Ayah",
-            "Agama_Kemdikbud",
-            "Penerima_KPS",
-            "Layak_PIP",
-            "Penerima_KIP",
-            "Kode_Pos",
-            "Jenis_tinggal",
-            "Alat_Transportasi",
+            "Nama", "Email", "Handphone", "Kab/Kota"
         ]
 
         if upload_file:
@@ -178,26 +141,23 @@ def input_data(request):
                 missing_columns = [col for col in required_columns if col not in df.columns]
                 if missing_columns:
                     errors.append(f"Kolom berikut tidak ditemukan: {', '.join(missing_columns)}")
-
-                if not missing_columns:
-                    df_required = df[required_columns].replace(["", " "], pd.NA)
-
-                    empty_rows = df_required[df_required.isna().any(axis=1)]
-                    
-                    if not empty_rows.empty:
-                        empty_row_indices = empty_rows.index + 2
-
-                        if len(empty_row_indices) > 1:
-                            errors.append(f"Ada lebih dari 1 baris yang memiliki setidaknya satu nilai kosong.")
-                        else:
-                            for index, row in empty_rows.iterrows():
-                                empty_columns = row[row.isna()].index.tolist()
-                                errors.append(f"Baris {index + 2} pada file memiliki sel kosong pada kolom: {', '.join(empty_columns)}")
-
-                if errors:
                     return render(request, "input_data.html", {"errors": errors})
 
-                UploadedFile.objects.create(
+                df_required = df[required_columns].replace(["", " "], pd.NA)
+                empty_rows = df_required[df_required.isna().any(axis=1)]
+                
+                if not empty_rows.empty:
+                    empty_row_indices = empty_rows.index + 2
+                    if len(empty_row_indices) > 1:
+                        errors.append(f"Ada lebih dari 1 baris yang memiliki setidaknya satu nilai kosong.")
+                    else:
+                        for index, row in empty_rows.iterrows():
+                            empty_columns = row[row.isna()].index.tolist()
+                            errors.append(f"Baris {index + 2} pada file memiliki sel kosong pada kolom: {', '.join(empty_columns)}")
+                    return render(request, "input_data.html", {"errors": errors})
+
+                # Simpan ke UploadedFile
+                uploaded_file = UploadedFile.objects.create(
                     course_name=course_name,
                     start_date=start_date,
                     end_date=end_date,
@@ -205,17 +165,31 @@ def input_data(request):
                     destination=destination,
                     file=upload_file,
                 )
-                messages.success(request, "File berhasil diunggah dan validasi berhasil!")
+
+                # Simpan data Excel ke model Peserta
+                for _, row in df.iterrows():
+                    Peserta.objects.create(
+                        uploaded_file=uploaded_file,
+                        nama=row["Nama"],
+                        email=row["Email"] if pd.notna(row["Email"]) else None,
+                        nomor_hp=row["Handphone"],
+                        kota=row["Kab/Kota"] if pd.notna(row["Kab/Kota"]) else None,
+                    )
+
+                messages.success(request, "File berhasil diunggah dan data peserta disimpan!")
                 return redirect("input_data")
 
             except Exception as e:
-                errors.append("File tidak sesuai. Silakan upload ulang file.")
+                errors.append(f"File tidak sesuai. Error: {str(e)}")
+                logging.error(f"Error processing file: {str(e)}")
                 return render(request, "input_data.html", {"errors": errors})
 
-    else:
-        logging.info(f"Loading input_data page with GET request. URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
-        files = UploadedFile.objects.all()
-        return render(request, "input_data.html", {"errors": errors, "files": files})
+        else:
+            errors.append("Silakan upload file.")
+            return render(request, "input_data.html", {"errors": errors})
+
+    logging.info(f"Loading input_data page with GET request. URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
+    return render(request, "input_data.html", {"errors": errors})
             
 @login_required(login_url="login")
 def upload_page(request):
@@ -228,7 +202,6 @@ def otomatisasi(request):
     return render(request, "otomatisasi.html", {"files": files})
 
 from django.utils.timezone import localtime
-
 
 @login_required(login_url="login")
 def log_history(request):
@@ -333,7 +306,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import LogHistory, UploadedFile
+from .models import LogHistory, UploadedFile, Siswa
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[logging.FileHandler('process_files.log')])
 
@@ -725,3 +698,74 @@ def resume_process(request):
 
     logging.warning("Invalid method in resume_process")
     return JsonResponse({"status": "error", "message": "Metode tidak diizinkan", "last_row": 0})
+
+@login_required(login_url="login")
+def data_siswa(request):
+    siswa_list = Siswa.objects.all()  # Ambil semua data siswa dari model
+    return render(request, 'data_siswa.html', {'siswa_list': siswa_list})
+
+@require_POST
+@login_required(login_url="login")
+def delete_data_siswa_single(request, id):
+    try:
+        siswa = Siswa.objects.get(id=id)
+        siswa.delete()
+        logging.info(f"Deleted Siswa entry with ID {id}")
+        return JsonResponse({"status": "success", "message": "Data siswa berhasil dihapus!"})
+    except Siswa.DoesNotExist:
+        logging.info(f"Siswa with ID {id} not found")
+        return JsonResponse({"status": "error", "message": "Data siswa tidak ditemukan"}, status=404)
+    except Exception as e:
+        logging.error(f"Error deleting Siswa with ID {id}: {str(e)}")
+        return JsonResponse({"status": "error", "message": f"Error deleting data: {str(e)}"}, status=500)
+
+@require_POST
+@login_required(login_url="login")
+def delete_data_siswa(request):
+    try:
+        data = json.loads(request.body)
+        siswa_ids = data.get('siswa_ids', [])
+        if not siswa_ids:
+            return JsonResponse({"status": "error", "message": "Tidak ada data siswa yang dipilih."}, status=400)
+        
+        deleted_count = Siswa.objects.filter(id__in=siswa_ids).delete()[0]
+        logging.info(f"Deleted {deleted_count} Siswa entries with IDs {siswa_ids}")
+        return JsonResponse({"status": "success", "message": f"{deleted_count} data siswa berhasil dihapus!"})
+    except json.JSONDecodeError:
+        return JsonResponse({"status": "error", "message": "Data request tidak valid"}, status=400)
+    except Exception as e:
+        logging.error(f"Error deleting multiple Siswa entries: {str(e)}")
+        return JsonResponse({"status": "error", "message": f"Error deleting data: {str(e)}"}, status=500)
+
+@login_required(login_url="login")
+def edit_data_siswa(request, id):
+    siswa = get_object_or_404(Siswa, pk=id)
+    if request.method == 'POST':
+        # Asumsi Anda memiliki form untuk Siswa (buat form jika belum ada)
+        siswa.nama = request.POST.get('nama', siswa.nama)
+        siswa.nikp = request.POST.get('nikp', siswa.nikp)
+        siswa.jenis_kelamin = request.POST.get('jenis_kelamin', siswa.jenis_kelamin)
+        siswa.alamat = request.POST.get('alamat', siswa.alamat)
+        siswa.nomor_hp = request.POST.get('nomor_hp', siswa.nomor_hp)
+        siswa.save()
+        messages.success(request, "Data siswa berhasil diperbarui!")
+        return redirect('data_siswa')
+    return render(request, 'edit_data_siswa.html', {'siswa': siswa})
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Peserta
+
+@login_required(login_url="login")
+def generate_document(request):
+    peserta_list = Peserta.objects.all()
+    return render(request, 'generate_document.html', {'files': peserta_list})
+
+from .models import LogHistory2
+
+@login_required(login_url="login")
+def log_history2(request):
+    logs = LogHistory2.objects.all()  # Ambil data dari model baru
+    for log in logs:
+        log.local_time = localtime(log.upload_date).strftime("%d %b %Y %H:%M")
+    return render(request, "loghistory2.html", {"logs": logs})

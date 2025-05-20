@@ -79,3 +79,14 @@ Stacktrace:
 2025-05-12 21:13:27,900 - INFO - Memproses data baris 3: Sifulan
 2025-05-12 21:13:33,163 - INFO - Attempting to close all windows and quit driver...
 2025-05-12 21:13:35,560 - INFO - Driver quit successfully.
+2025-05-16 13:26:36,719 - INFO - Memproses data baris 2: Sifulan
+2025-05-16 13:27:26,660 - INFO - Attempting to close all windows and quit driver...
+2025-05-16 13:27:29,142 - INFO - Driver quit successfully.
+2025-05-16 13:29:24,870 - INFO - Memproses data baris 2: Sifulan
+2025-05-16 13:29:30,121 - INFO - Memproses data baris 3: Abe
+2025-05-16 13:29:35,804 - INFO - Attempting to close all windows and quit driver...
+2025-05-16 13:29:38,193 - INFO - Driver quit successfully.
+2025-05-16 13:39:56,495 - INFO - Memproses data baris 2: Sifulan
+2025-05-16 13:40:01,820 - INFO - Memproses data baris 3: Abe
+2025-05-16 13:40:07,806 - INFO - Attempting to close all windows and quit driver...
+2025-05-16 13:40:10,265 - INFO - Driver quit successfully.

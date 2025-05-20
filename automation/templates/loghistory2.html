@@ -1,0 +1,270 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block title %}Log History{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/log_history.css' %}">
+<!-- FontAwesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+{% endblock %}
+
+{% block content %}
+<!-- SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <h2 class="fw-bold">HISTORY</h2>
+
+    <!-- Search Section (Menggantikan Filter Tanggal) -->
+    <div class="d-flex justify-content-end mt-3">
+        <label for="search" class="me-2" style="font-size: 16px;">Search:</label>
+        <input type="text" id="search" class="form-control d-inline-block" 
+               style="width: 150px; font-size: 12px; padding: 4px 8px; height: auto;" 
+               placeholder="search" 
+               oninput="searchData()">
+    </div>
+
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="border-bottom bg-teal text-white">
+                        <tr class="text-center">
+                            <th onclick="sortTable(0, this)" data-sort="asc">
+                                Name <i class="fas fa-sort"></i>
+                            </th>
+                            <th>Email</th>
+                            <th>Handphone</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        {% for log in logs %}
+                        <tr class="text-center" data-match="true" data-log-id="{{ log.id }}">
+                            <td class="name-cell">{{ log.name }}</td>
+                            <td>{{ log.email }}</td>
+                            <td>{{ log.handphone }}</td>
+                            <td>{{ log.city }}</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{% url 'download_document' log.id %}" class="btn btn-sm btn-success download-btn" title="Download">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <button class="btn btn-sm btn-danger delete-log-btn ms-2" title="Delete" data-log-id="{{ log.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr class="text-center">
+                            <td colspan="5">No history available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
+
+            <!-- Pagination -->
+            <div class="pagination-container mb-4">
+                <button class="btn-pagination prev-btn" disabled>Previous</button>
+                <span class="pagination-number">1</span>
+                <button class="btn-pagination next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------------------------------------------------
+    // Basic Table Functions
+    // ---------------------------------------------------
+    let currentPage = 1;
+    const rowsPerPage = 10;
+    
+    // Pagination Logic
+    function showPage(page) {
+        let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+        let filteredRows = allRows.filter(row => {
+            return row.dataset.match !== "false";
+        });
+    
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+        if (page > totalPages) page = totalPages;
+        if (page < 1) page = 1;
+        currentPage = page;
+    
+        filteredRows.forEach((row, index) => {
+            row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
+                ? ""
+                : "none";
+        });
+    
+        document.querySelector(".pagination-number").textContent = page;
+        document.querySelector(".prev-btn").disabled = (page === 1);
+        document.querySelector(".next-btn").disabled = (page === totalPages);
+    
+        document.getElementById("no-results").style.display = filteredRows.length === 0 ? "block" : "none";
+    }
+    
+    document.querySelector(".prev-btn").addEventListener("click", function() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    });
+    
+    document.querySelector(".next-btn").addEventListener("click", function() {
+        let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+        let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    });
+    
+    // ---------------------------------------------------
+    // Search Functionality (Menggantikan Filter Tanggal)
+    // ---------------------------------------------------
+    // Fungsi untuk mencari data di seluruh kolom tabel
+    function searchData() {
+        console.log("searchData() terpanggil");
+        let input = document.getElementById("search").value.toLowerCase(); // Ambil input pencarian
+        let rows = document.querySelectorAll("#table-body tr"); // Ambil semua baris tabel
+        let noResults = document.getElementById("no-results"); // Ambil elemen untuk pesan "No matching results"
+        let found = false;
+
+        rows.forEach(row => {
+            let cells = row.querySelectorAll("td"); // Ambil semua sel (kolom) di baris
+            let rowText = "";
+
+            // Gabungkan teks dari semua kolom di baris menjadi satu string
+            cells.forEach(cell => {
+                rowText += cell.textContent.toLowerCase() + " "; // Gabungkan teks dari setiap kolom
+            });
+
+            // Jika teks pencarian ditemukan di dalam baris, tampilkan baris tersebut, jika tidak sembunyikan
+            if (rowText.includes(input)) {
+                row.dataset.match = "true";
+                row.style.display = "";
+                found = true;
+            } else {
+                row.dataset.match = "false";
+                row.style.display = "none";
+            }
+        });
+
+        noResults.style.display = found ? "none" : "block";
+        showPage(1); // Reset ke halaman 1 setelah pencarian
+    }
+
+
+    // ---------------------------------------------------
+    // Sorting Functionality
+    // ---------------------------------------------------
+    function sortTable(columnIndex, header) {
+        let table = document.querySelector("#table-body");
+        let rows = Array.from(table.rows);
+        let isAscending = header.getAttribute("data-sort") === "asc";
+    
+        rows.sort((rowA, rowB) => {
+            let cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
+            let cellB = rowA.cells[columnIndex].textContent.trim().toLowerCase();
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        });
+    
+        table.innerHTML = "";
+        rows.forEach(row => table.appendChild(row));
+    
+        header.setAttribute("data-sort", isAscending ? "desc" : "asc");
+        updateSortIcons(header, isAscending);
+        showPage(currentPage);
+    }
+    
+    function updateSortIcons(header, isAscending) {
+        document.querySelectorAll("th i").forEach(icon => {
+            icon.classList.remove("fa-sort-up", "fa-sort-down");
+            icon.classList.add("fa-sort");
+            icon.style.color = "#6c757d";
+        });
+    
+        let icon = header.querySelector("i");
+        icon.classList.remove("fa-sort");
+        icon.classList.add(isAscending ? "fa-sort-up" : "fa-sort-down");
+        icon.style.color = "#007bff";
+    }
+    
+    // ---------------------------------------------------
+    // Delete Functionality
+    // ---------------------------------------------------
+    document.querySelectorAll('.delete-log-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const logId = this.getAttribute('data-log-id');
+            confirmDeleteLog(logId);
+        });
+    });
+
+    async function confirmDeleteLog(logId) {
+        const { value: accept } = await Swal.fire({
+            title: 'Delete This Record?',
+            text: 'The data will be permanently deleted',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        });
+        
+        if (accept) {
+            try {
+                const response = await fetch(`/delete-log/${logId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const result = await response.json();
+                if (result.success) {
+                    document.querySelector(`tr[data-log-id="${logId}"]`).remove();
+                    Swal.fire('Deleted!', 'Record has been deleted.', 'success');
+                    showPage(currentPage); // Refresh pagination
+                }
+            } catch (error) {
+                Swal.fire('Error!', 'Failed to delete record.', 'error');
+            }
+        }
+    }
+
+    // Fungsi untuk mendapatkan CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Initialize
+    window.addEventListener("load", () => {
+        document.querySelectorAll("#table-body tr").forEach(row => {
+            row.dataset.match = "true";
+        });
+        showPage(currentPage);
+    });
+</script>
+{% endblock %}

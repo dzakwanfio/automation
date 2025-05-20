@@ -25,6 +25,22 @@ urlpatterns = [
         name="edit_otomatisasi",
     ),
     path("log-history/", automation.log_history, name="log_history"),
+    path("data_siswa/", automation.data_siswa, name="data_siswa"),
+    path(
+        "data_siswa/delete/<int:id>/",
+        automation.delete_data_siswa_single,
+        name="delete_data_siswa_single",
+    ),
+    path(
+        "data_siswa/delete/",
+        automation.delete_data_siswa,
+        name="delete_data_siswa",
+    ),
+    path(
+        "data_siswa/edit/<int:id>/",
+        automation.edit_data_siswa,
+        name="edit_data_siswa",
+    ),
     path("logout/", automation.logoutview, name="logout"),
     path("forgot_pw/", automation.forgot_pw, name="forgot_pw"),
     path(
@@ -32,11 +48,12 @@ urlpatterns = [
         automation.forgot_password_notification,
         name="forgot_password_notif",
     ),
-    
     path("reset-password/", automation.reset_password, name="reset_password"),
     path("verify/<str:token>/", automation.verify_email, name="verify_email"),
     path("process-files/", automation.process_files, name="process_files"),
-    path("resume-process/", automation.resume_process, name="resume_process"),  # Endpoint baru
+    path("resume-process/", automation.resume_process, name="resume_process"),
+    path("generate_document/", automation.generate_document, name="generate_document"),
+    path("log-history2/", automation.log_history2, name="log_history2"),
 ]
 
 if settings.DEBUG:

@@ -1,8 +1,6 @@
 import os
-
 from django.db import models
 from django.utils import timezone
-
 
 class UploadedFile(models.Model):
     course_name = models.CharField(max_length=255)
@@ -10,58 +8,93 @@ class UploadedFile(models.Model):
     end_date = models.DateField()
     course_model = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
-    file = models.FileField(upload_to="") 
+    file = models.FileField(upload_to="")
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    is_failed = models.BooleanField(default=False)  # Menandai file yang gagal diproses
-    last_processed_row = models.IntegerField(default=0)  # Baris terakhir yang diproses
+    is_failed = models.BooleanField(default=False)
+    last_processed_row = models.IntegerField(default=0)
 
     def __str__(self):
         return self.course_name
 
     def delete(self, *args, **kwargs):
-        # Hapus file dari sistem file jika ada
-        if self.file and self.file.path:  # Pastikan file ada sebelum dihapus
+        if self.file and self.file.path:
             if os.path.isfile(self.file.path):
                 os.remove(self.file.path)
         super().delete(*args, **kwargs)
+
+class Peserta(models.Model):
+    uploaded_file = models.ForeignKey(UploadedFile, on_delete=models.CASCADE, null=True, blank=True)
+    nama = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    nomor_hp = models.CharField(max_length=15)
+    kota = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nama
+
+    class Meta:
+        ordering = ['-created_at']
 
 class Otomatisasi(models.Model):
-    file = models.FileField(upload_to="", null=True, blank=True) 
+    file = models.FileField(upload_to="", null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
-    course_name = models.CharField(max_length=255, default="Unknown Course")  # Default
-    course_model = models.CharField(max_length=255, default="General")  # Default
+    course_name = models.CharField(max_length=255, default="Unknown Course")
+    course_model = models.CharField(max_length=255, default="General")
     uploaded_at = models.DateTimeField(auto_now_add=True, null=True)
-    
+
     def __str__(self):
         return self.course_name
-    
+
     def delete(self, *args, **kwargs):
-        # Hapus file dari sistem file jika ada
-        if self.file and self.file.path:  # Pastikan file ada sebelum dihapus
+        if self.file and self.file.path:
             if os.path.isfile(self.file.path):
                 os.remove(self.file.path)
         super().delete(*args, **kwargs)
-        
 
 class LogHistory(models.Model):
-    name = models.CharField(max_length=255)  # Nama file
-    upload_date = models.DateTimeField(default=timezone.now, db_index=True)  # Tambahkan indeks
+    name = models.CharField(max_length=255)
+    upload_date = models.DateTimeField(default=timezone.now, db_index=True)
     course_name = models.CharField(max_length=255)
-    status = models.CharField(max_length=100, default='Success')  # Diperpanjang untuk status seperti "Failed (Stopped at row 123)"
+    status = models.CharField(max_length=100, default='Success')
     process_time = models.DateTimeField(default=timezone.now)
-    file_path = models.CharField(max_length=255, null=True, blank=True)  # Kolom untuk menyimpan path relatif file
-    file_id = models.IntegerField(null=True, blank=True)  # Tambahkan field ini
-    
+    file_path = models.CharField(max_length=255, null=True, blank=True)
+    file_id = models.IntegerField(null=True, blank=True)
+
     def __str__(self):
         return f"{self.name} - {self.status}"
-    
+
     def save(self, *args, **kwargs):
-        # Pastikan file_path diisi dengan path relatif jika belum ada
-        # Karena upload_to="", file_path hanya menyimpan nama file tanpa prefiks 'uploads/'
         if not self.file_path and self.name:
-            self.file_path = self.name  # Simpan hanya nama file
+            self.file_path = self.name
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['-upload_date']  # Urutkan berdasarkan upload_date secara descending
+        ordering = ['-upload_date']
+
+class Siswa(models.Model):
+    nama = models.CharField(max_length=100)
+    nikp = models.CharField(max_length=20, unique=True)
+    jenis_kelamin = models.CharField(max_length=10)
+    alamat = models.TextField()
+    nomor_hp = models.CharField(max_length=15)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nama
+
+    class Meta:
+        ordering = ['-created_at']
+
+class LogHistory2(models.Model):
+    name = models.CharField(max_length=255)
+    upload_date = models.DateTimeField(default=timezone.now)
+    course_name = models.CharField(max_length=100)
+    status = models.CharField(max_length=50)
+    process_time = models.DateTimeField(default=timezone.now)
+    file_path = models.CharField(max_length=255, blank=True, null=True)
+    file_id = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

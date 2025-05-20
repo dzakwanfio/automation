@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Data Siswa{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/otomatisasi.css' %}">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- FontAwesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <h2 class="fw-bold">DATA SISWA</h2>
+    
+    <div class="card shadow-sm">
+        <div class="card-header bg-teal text-white d-flex justify-content-between align-items-center">
+            <span class="fw-bold" style="font-size: 18px;">Manage Data</span>
+            <div>
+                <label for="search" class="me-2" style="font-size: 16px;">Search:</label>
+                <input type="text" id="search" class="form-control d-inline-block" 
+                       style="width: 150px; font-size: 12px; padding: 4px 8px; height: auto;" 
+                       placeholder="Nama" 
+                       oninput="searchCourse()">
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="border-bottom">
+                    <tr class="text-center">
+                        <th>
+                            <input type="checkbox" id="select-all"> 
+                            <span id="selected-count" style="font-size: 12px; margin-left: 5px; color: gray;">0</span>
+                        </th>
+                        <th>Nama</th>
+                        <th>NIKP</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>Nomor HP</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    {% for siswa in siswa_list %}
+                    <tr class="text-center">
+                        <td><input type="checkbox" class="row-checkbox" value="{{ siswa.id }}"></td>
+                        <td>{{ siswa.nama }}</td>
+                        <td>{{ siswa.nikp }}</td>
+                        <td>{{ siswa.jenis_kelamin }}</td>
+                        <td>{{ siswa.alamat }}</td>
+                        <td>{{ siswa.nomor_hp }}</td>
+                        <td>
+                            <a href="{% url 'edit_data_siswa' siswa.id %}" class="btn-action edit">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <button class="btn-action delete" onclick="confirmDelete(event, {{ siswa.id }})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr class="text-center">
+                        <td colspan="7">No data available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>      
+            </table>
+        
+            <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
+            
+            <div class="pagination-container mb-4">
+                <button class="btn-pagination prev-btn" disabled>Previous</button>
+                <span class="pagination-number">1</span>
+                <button class="btn-pagination next-btn">Next</button>
+            </div>
+        
+            <div class="text-end mt-5">
+                <button id="deleteSelected" class="btn btn-danger delete-btn">DELETE</button>
+            </div>
+        </div>        
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+// Checkbox Select All & Update Selected Count
+document.getElementById("select-all").addEventListener("change", function() {
+    let checkboxes = document.querySelectorAll(".row-checkbox");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+    });
+    updateSelectedCount();
+});
+
+document.querySelectorAll(".row-checkbox").forEach(checkbox => {
+    checkbox.addEventListener("change", updateSelectedCount);
+});
+
+function updateSelectedCount() {
+    let selected = document.querySelectorAll(".row-checkbox:checked").length;
+    document.getElementById("selected-count").textContent = selected;
+}
+
+// Search Course (diubah untuk mencari berdasarkan nama)
+function searchCourse() {
+    console.log("searchCourse() terpanggil");
+    let input = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("#table-body tr");
+    let noResults = document.getElementById("no-results");
+    let found = false;
+
+    rows.forEach(row => {
+        let namaCell = row.cells[1]; // Kolom Nama
+        if (namaCell) {
+            let namaText = namaCell.textContent.toLowerCase();
+            if (namaText.includes(input)) {
+                row.dataset.match = "true";
+                row.style.display = "";
+                found = true;
+            } else {
+                row.dataset.match = "false";
+                row.style.display = "none";
+            }
+        }
+    });
+
+    noResults.style.display = found ? "none" : "block";
+    showPage(1); // Reset ke halaman 1 setelah search
+}
+
+// Konfirmasi Delete (untuk tombol delete di tiap baris)
+async function confirmDelete(event, siswaId) {
+    event.preventDefault();
+
+    const { value: accept } = await Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Data siswa ini akan dihapus secara permanen!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal"
+    });
+
+    if (accept) {
+        try {
+            const response = await fetch(`/data_siswa/delete/${siswaId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+                const row = document.querySelector(`.row-checkbox[value="${siswaId}"]`).closest('tr');
+                row.remove();
+                updateSelectedCount();
+                showPage(currentPage);
+
+                await Swal.fire({
+                    title: "Sukses!",
+                    text: "Data siswa berhasil dihapus!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+            } else {
+                await Swal.fire({
+                    title: "Error!",
+                    text: data.message || "Gagal menghapus data siswa.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        } catch (error) {
+            console.error("Error deleting data:", error);
+            await Swal.fire({
+                title: "Error!",
+                text: "Gagal menghapus data: " + error.message,
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    }
+}
+
+// Pagination
+let currentPage = 1;
+const rowsPerPage = 10;
+
+function showPage(page) {
+    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    let filteredRows = allRows.filter(row => {
+        return row.dataset.match !== "false"; 
+    });
+
+    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+    if (page > totalPages) page = totalPages;
+    if (page < 1) page = 1;
+    currentPage = page;
+    
+    filteredRows.forEach((row, index) => {
+        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
+            ? "" 
+            : "none";
+    });
+
+    document.querySelector(".pagination-number").textContent = page;
+    document.querySelector(".prev-btn").disabled = (page === 1);
+    document.querySelector(".next-btn").disabled = (page === totalPages);
+}
+
+document.querySelector(".prev-btn").addEventListener("click", function() {
+    if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+    }
+});
+
+document.querySelector(".next-btn").addEventListener("click", function() {
+    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+    let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+    let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+    if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+    }
+});
+
+window.addEventListener("load", function() {
+    document.querySelectorAll("#table-body tr").forEach(row => {
+        row.dataset.match = "true";
+    });
+    showPage(currentPage);
+});
+
+// Delete Selected Data (untuk tombol DELETE di bawah)
+document.getElementById("deleteSelected").addEventListener("click", async function () {
+    const selectedSiswa = Array.from(document.querySelectorAll(".row-checkbox:checked"))
+        .map(checkbox => checkbox.value);
+
+    if (selectedSiswa.length === 0) {
+        await Swal.fire({
+            title: 'Peringatan!',
+            text: 'Silakan pilih setidaknya satu data siswa!',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
+    const { value: accept } = await Swal.fire({
+        title: `Hapus ${selectedSiswa.length} Data Siswa Sekaligus?`,
+        html: `Data yang akan dihapus:<br><ul>${
+            selectedSiswa.map(id => {
+                const row = document.querySelector(`.row-checkbox[value="${id}"]`).closest('tr');
+                return `<li>${row.cells[1].textContent}</li>`;
+            }).join('')
+        }</ul>`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: 'Ya, Hapus Sekarang',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+    });
+
+    if (!accept) return;
+
+    const progressPopup = Swal.fire({
+        title: 'Menghapus Data',
+        html: `Mempersiapkan penghapusan...<br><br>
+              <div class="progress" style="height: 20px; margin-top:10px;">
+                <div id="file-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar" style="width: 0%;">0%</div>
+              </div>
+              <div id="current-status" class="mt-2 text-muted">Menyiapkan browser...</div>`,
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    try {
+        document.getElementById('current-status').textContent = 'Mengumpulkan data...';
+        
+        const response = await fetch("{% url 'delete_data_siswa' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({ siswa_ids: selectedSiswa }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        if (!response.headers.get("content-type")?.includes("application/json")) {
+            throw new Error("Respons bukan JSON");
+        }
+
+        const data = await response.json();
+        console.log("Response data:", data); // Debugging
+
+        let tableBody = document.getElementById("table-body");
+        if (data.status === "success") {
+            tableBody.innerHTML = '<tr class="text-center"><td colspan="7">No data available</td></tr>';
+            document.querySelector(".prev-btn").disabled = true;
+            document.querySelector(".next-btn").disabled = true;
+            document.querySelector(".pagination-number").textContent = "1";
+            document.getElementById("selected-count").textContent = "0";
+            await Swal.fire({
+                title: 'Sukses!',
+                text: data.message || 'Data siswa berhasil dihapus!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        } else if (data.status === "error" && data.failed_siswa_ids && data.failed_siswa_ids.length > 0) {
+            console.log("Failed siswa IDs:", data.failed_siswa_ids);
+            data.failed_siswa_ids.forEach(failedId => {
+                const checkbox = document.querySelector(`.row-checkbox[value="${failedId}"]`);
+                if (checkbox) {
+                    const row = checkbox.closest('tr');
+                    if (row) {
+                        row.remove();
+                        console.log(`Removed failed siswa with ID ${failedId} from table`);
+                    } else {
+                        console.warn(`Row not found for failed ID ${failedId}`);
+                    }
+                } else {
+                    console.warn(`Checkbox not found for failed ID ${failedId}`);
+                }
+            });
+            showPage(currentPage); // Perbarui pagination
+            updateSelectedCount(); // Perbarui count
+            await Swal.fire({
+                title: 'Error!',
+                text: data.message || 'Penghapusan gagal. Silakan coba lagi.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        let errorMessage = "Gagal menghapus data siswa. Silakan coba lagi.";
+        if (error.message.includes("JSON")) {
+            errorMessage = "Respons server tidak valid. Hubungi administrator.";
+        } else if (error.message.includes("HTTP")) {
+            errorMessage = `Kesalahan server: ${error.message}`;
+        }
+
+        await Swal.fire({
+            title: 'Error!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } finally {
+        Swal.close();
+    }
+});
+
+// Fungsi untuk mendapatkan CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}

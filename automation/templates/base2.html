@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -8,10 +9,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link rel="stylesheet" href="{% static 'style/base.css' %}">
-        {% comment %} <link rel="stylesheet" href="{% static 'style/input_data.css' %}">
-        <link rel="stylesheet" href="{% static 'style/otomatisasi.css' %}"> 
-        <link rel="stylesheet" href="{% static 'style/log_history.css' %}">  {% endcomment %}
-    
         {% block extra_css %}{% endblock %}
     </head>
 
@@ -21,26 +18,15 @@
             <img src="{% static 'asset/logoTrust.jpg' %}" alt="TRUSTEntry Logo" class="img-fluid logo">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a href="{% url 'input_data' %}" class="btn {% if request.path == '/input_data/' %}btn-primary{% else %}nav-link{% endif %}">
-                        Input Data
+                    <a href="{% url 'generate_document' %}" class="btn {% if request.path == '/generate_document/' %}btn-primary{% else %}nav-link{% endif %}">
+                        Generate Document
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'otomatisasi' %}" class="btn {% if '/otomatisasi/' in request.path %}btn-primary{% else %}nav-link{% endif %}">
-                        Otomatisasi
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="{% url 'log_history' %}" class="btn {% if request.resolver_match.url_name == 'log_history' %}btn-primary{% else %}nav-link{% endif %}">
+                    <a href="{% url 'log_history2' %}" class="btn {% if request.resolver_match.url_name == 'log_history2' %}btn-primary{% else %}nav-link{% endif %}">
                         Log History
                     </a>
                 </li>  
-                <li class="nav-item">
-                    <a href="{% url 'data_siswa' %}" class="btn {% if request.resolver_match.url_name == 'data_siswa' %}btn-primary{% else %}nav-link{% endif %}">
-                        Data Siswa LKP
-                    </a>
-                </li>          
             </ul>
             <a href="{% url 'homepage' %}" class="btn btn-light">Home</a>
             <a href="{% url 'logout' %}" class="btn btn-danger mt-1 w-100">Logout</a>
@@ -48,18 +34,14 @@
         
         <!-- Content -->
         <div class="content">
-            {% block content %}
-            <!-- Halaman lain akan menggantikan bagian ini -->
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
 
         <script>
-            // Tambahkan logging untuk debugging
             document.addEventListener("DOMContentLoaded", function() {
-                console.log("base.html DOMContentLoaded triggered on:", window.location.pathname);
+                console.log("base2.html DOMContentLoaded triggered on:", window.location.pathname);
             });
 
-            // Fungsi untuk mendapatkan CSRF token (digunakan oleh halaman lain)
             function getCookie(name) {
                 let cookieValue = null;
                 if (document.cookie && document.cookie !== '') {

@@ -54,6 +54,7 @@ urlpatterns = [
     path("resume-process/", automation.resume_process, name="resume_process"),
     path("generate_document/", automation.generate_document, name="generate_document"),
     path("delete-peserta/", automation.delete_peserta, name="delete_peserta"),
+    path("convert-document/", automation.convert_document, name="convert_document"),
     path("log-history2/", automation.log_history2, name="log_history2"),
 ]
 

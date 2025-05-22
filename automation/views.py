@@ -20,6 +20,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from docx import Document
+from io import BytesIO
+import traceback
+from copy import deepcopy
 
 # Setup logging untuk debugging
 logging.basicConfig(
@@ -132,30 +136,75 @@ def input_data(request):
         upload_file = request.FILES.get("file_upload")
 
         required_columns = [
-            "Nama", "Email", "Handphone", "Kab/Kota"
+            "No", "Nama", "Jenis_Kelamin", "NIK", "Tempat_Lahir", "Tanggal_Lahir", "NISN",
+            "Agama_LKP", "Handphone", "Kewarganegaraan", "Jenis_Tinggal", "Tanggal_Masuk",
+            "Email", "Nama_Ortu", "NIK_Ortu", "Pekerjaan_Ortu", "Pendidikan_Ortu",
+            "Penghasilan_Ortu", "Handphone_Ortu", "Tempat_Lahir_Ortu", "Tanggal_Lahir_Ortu",
+            "Asal", "Alamat", "RT", "RW", "Kecamatan", "Kelurahan", "Kab/Kota", "Propinsi",
+            "Nama_Ibu_kandung", "Nama_Ayah", "Agama_Kemdikbud", "Penerima_KPS", "Layak_PIP",
+            "Penerima_KIP", "Kode_Pos", "Jenis_tinggal", "Alat_Transportasi",
+            "Pendidikan_Terakhir", "Nama_Lembaga", "Jabatan", "Alamat_Kantor", "Telp_Kantor"
         ]
 
         if upload_file:
             try:
-                df = pd.read_excel(upload_file, sheet_name="all", dtype=str)
-                df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+                # Baca file Excel tanpa memaksa dtype=str
+                df = pd.read_excel(upload_file, sheet_name="all")
+                
+                # Log tipe data yang dibaca
+                logger.debug("[DEBUG] Tipe data setiap kolom: %s", df.dtypes.to_dict())
 
+                # Bersihkan spasi di kolom string
+                for column in df.columns:
+                    if df[column].dtype == 'object':  # Hanya untuk kolom string
+                        df[column] = df[column].astype(str).str.strip()
+
+                # Periksa kolom yang hilang
                 missing_columns = [col for col in required_columns if col not in df.columns]
                 if missing_columns:
                     errors.append(f"Kolom berikut tidak ditemukan: {', '.join(missing_columns)}")
                     return render(request, "input_data.html", {"errors": errors})
 
-                df_required = df[required_columns].replace(["", " "], pd.NA)
+                # Log nilai mentah untuk kolom tanggal sebelum parsing
+                date_columns = ["Tanggal_Lahir", "Tanggal_Masuk", "Tanggal_Lahir_Ortu"]
+                for col in date_columns:
+                    if col in df.columns:
+                        logger.debug("[DEBUG] Nilai mentah %s: %s", col, df[col].tolist())
+
+                # Konversi kolom tanggal
+                for col in date_columns:
+                    if col in df.columns:
+                        # Jika kolom sudah bertipe datetime, ekstrak tanggal langsung
+                        if pd.api.types.is_datetime64_any_dtype(df[col]):
+                            df[col] = df[col].dt.date
+                        else:
+                            # Bersihkan nilai yang tidak valid
+                            df[col] = df[col].astype(str).str.strip()
+                            df[col] = df[col].replace(["N/A", "", "nan"], pd.NA)
+                            # Coba parsing tanggal
+                            df[col] = pd.to_datetime(df[col], dayfirst=True, errors='coerce')
+                            # Ekstrak hanya tanggal
+                            df[col] = df[col].apply(lambda x: x.date() if pd.notnull(x) else None)
+
+                        # Log nilai setelah parsing
+                        logger.debug("[DEBUG] Nilai setelah parsing %s: %s", col, df[col].tolist())
+
+                        # Validasi format
+                        invalid_dates = df[col][df[col].apply(lambda x: x is not None and not isinstance(x, datetime.date))]
+                        if not invalid_dates.empty:
+                            errors.append(f'Nilai "{invalid_dates.iloc[0]}" mempunyai format tanggal yang tidak valid. Tanggal harus dalam format DD/MM/YYYY.')
+                            return render(request, "input_data.html", {"errors": errors})
+
+                # Periksa baris kosong
+                df_required = df[required_columns].replace(["", " ", "nan"], pd.NA)
                 empty_rows = df_required[df_required.isna().any(axis=1)]
-                
                 if not empty_rows.empty:
                     empty_row_indices = empty_rows.index + 2
-                    if len(empty_row_indices) > 1:
-                        errors.append(f"Ada lebih dari 1 baris yang memiliki setidaknya satu nilai kosong.")
-                    else:
-                        for index, row in empty_rows.iterrows():
-                            empty_columns = row[row.isna()].index.tolist()
-                            errors.append(f"Baris {index + 2} pada file memiliki sel kosong pada kolom: {', '.join(empty_columns)}")
+                    logger.debug("[DEBUG] Baris kosong ditemukan di indeks: %s", empty_row_indices.tolist())
+                    for index in empty_row_indices:
+                        empty_columns = df_required.iloc[index - 2][df_required.iloc[index - 2].isna()].index.tolist()
+                        logger.debug("[DEBUG] Kolom kosong di baris %d: %s", index, empty_columns)
+                        errors.append(f"Baris {index} pada file memiliki sel kosong pada kolom: {', '.join(empty_columns)}")
                     return render(request, "input_data.html", {"errors": errors})
 
                 # Simpan ke UploadedFile
@@ -173,9 +222,18 @@ def input_data(request):
                     Peserta.objects.create(
                         uploaded_file=uploaded_file,
                         nama=row["Nama"],
-                        email=row["Email"] if pd.notna(row["Email"]) else None,
+                        tempat_lahir=row["Tempat_Lahir"] if pd.notna(row["Tempat_Lahir"]) else None,
+                        tanggal_lahir=row["Tanggal_Lahir"] if pd.notna(row["Tanggal_Lahir"]) else None,
+                        jenis_kelamin=row["Jenis_Kelamin"] if pd.notna(row["Jenis_Kelamin"]) else None,
+                        alamat=row["Alamat"] if pd.notna(row["Alamat"]) else None,
                         nomor_hp=row["Handphone"],
-                        kota=row["Kab/Kota"] if pd.notna(row["Kab/Kota"]) else None,
+                        email=row["Email"] if pd.notna(row["Email"]) else None,
+                        pendidikan_terakhir=row["Pendidikan_Terakhir"] if pd.notna(row["Pendidikan_Terakhir"]) else None,
+                        nama_lembaga=row["Nama_Lembaga"] if pd.notna(row["Nama_Lembaga"]) else None,
+                        jabatan=row["Jabatan"] if pd.notna(row["Jabatan"]) else None,
+                        alamat_kantor=row["Alamat_Kantor"] if pd.notna(row["Alamat_Kantor"]) else None,
+                        telp_kantor=row["Telp_Kantor"] if pd.notna(row["Telp_Kantor"]) else None,
+                        kota=row["Kab/Kota"] if pd.notna(row["Kab/Kota"]) else None
                     )
 
                 messages.success(request, "File berhasil diunggah dan data peserta disimpan!")
@@ -801,6 +859,133 @@ def delete_peserta(request):
         except Exception as e:
             logger.error("[ERROR] Error menghapus peserta: %s", str(e))
             return JsonResponse({"status": "error", "message": f"Error: {str(e)}"}, status=500)
+    else:
+        logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
+        return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
+
+@login_required(login_url="login")
+def convert_document(request):
+    logger.info("[DEBUG] Memproses permintaan convert_document pada: %s", request.path)
+    if request.method == "POST":
+        try:
+            # Langkah 1: Parse request body
+            logger.debug("[DEBUG] Request body: %s", request.body)
+            data = json.loads(request.body)
+            peserta_ids = data.get("peserta_ids", [])
+            jadwal = data.get("jadwal")
+            tuk = data.get("tuk")
+            skema = data.get("skema")
+            asesor = data.get("asesor")
+            lokasi_sertif = data.get("lokasi_sertif")
+            logger.debug("[DEBUG] Data diterima: peserta_ids=%s, jadwal=%s, tuk=%s, skema=%s, asesor=%s, lokasi_sertif=%s", 
+                         peserta_ids, jadwal, tuk, skema, asesor, lokasi_sertif)
+
+            # Langkah 2: Validasi input
+            if not peserta_ids:
+                logger.warning("[WARN] Tidak ada peserta dipilih untuk konversi")
+                return JsonResponse({"status": "error", "message": "Pilih setidaknya satu peserta."}, status=400)
+
+            if not all([jadwal, tuk, skema, asesor, lokasi_sertif]):
+                logger.warning("[WARN] Field form tidak lengkap")
+                return JsonResponse({"status": "error", "message": "Semua field form harus diisi."}, status=400)
+
+            # Langkah 3: Ambil data peserta
+            logger.debug("[DEBUG] Mengambil peserta dengan ID: %s", peserta_ids)
+            peserta_list = Peserta.objects.filter(id__in=peserta_ids)
+            if not peserta_list.exists():
+                logger.warning("[WARN] Peserta tidak ditemukan: %s", peserta_ids)
+                return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
+
+            # Langkah 4: Format Tanggal_Sertif
+            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
+            logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
+
+            # Langkah 5: Path ke template Word
+            template_path = os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx')
+            logger.debug("[DEBUG] Path template Word: %s", template_path)
+            if not os.path.exists(template_path):
+                logger.error("[ERROR] Template Word tidak ditemukan di: %s", template_path)
+                return JsonResponse({"status": "error", "message": "Template Word tidak ditemukan."}, status=500)
+
+            # Langkah 6: Proses semua peserta dan gabungkan
+            logger.debug("[DEBUG] Memulai proses untuk %d peserta", len(peserta_list))
+            final_doc = Document()
+            first_doc = True
+
+            for index, peserta in enumerate(peserta_list):
+                logger.debug("[DEBUG] Memproses peserta: %s (ID: %s)", peserta.nama, peserta.id)
+                
+                # Buat dokumen sementara untuk peserta ini
+                temp_doc = Document(template_path)
+                
+                # Data untuk mengisi placeholder
+                data_dict = {
+                    "Nama": peserta.nama or "-",
+                    "Tempat_Lahir": peserta.tempat_lahir or "-",
+                    "Tanggal_Lahir": peserta.tanggal_lahir.strftime("%d %B %Y") if peserta.tanggal_lahir else "-",
+                    "Jenis_Kelamin": peserta.jenis_kelamin or "-",
+                    "Alamat": peserta.alamat or "-",
+                    "Handphone": peserta.nomor_hp or "-",
+                    "Email": peserta.email or "-",
+                    "Pendidikan_Terakhir": peserta.pendidikan_terakhir or "-",
+                    "Nama_Lembaga": peserta.nama_lembaga or "-",
+                    "Jabatan": peserta.jabatan or "-",
+                    "Alamat_Kantor": peserta.alamat_kantor or "-",
+                    "Telp_Kantor": peserta.telp_kantor or "-",
+                    "Jadwal": jadwal,
+                    "TUK": tuk,
+                    "Lokasi_Sertif": lokasi_sertif,
+                    "Skema": skema,
+                    "Asesor": asesor,
+                    "Tanggal_Sertif": tanggal_sertif
+                }
+                logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
+
+                # Ganti placeholder di paragraf
+                for paragraph in temp_doc.paragraphs:
+                    for key, value in data_dict.items():
+                        if "{{" + key + "}}" in paragraph.text:
+                            paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
+
+                # Ganti placeholder di tabel
+                for table in temp_doc.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            for key, value in data_dict.items():
+                                if "{{" + key + "}}" in cell.text:
+                                    cell.text = cell.text.replace("{{" + key + "}}", value)
+
+                # Gabungkan ke dokumen final
+                if first_doc:
+                    final_doc = temp_doc
+                    first_doc = False
+                else:
+                    # Tambahkan semua elemen dari temp_doc ke final_doc
+                    for element in temp_doc.element.body:
+                        final_doc.element.body.append(element)
+
+            # Simpan dokumen ke BytesIO
+            buffer = BytesIO()
+            final_doc.save(buffer)
+            buffer.seek(0)
+
+            # Respons unduhan dengan nama file yang mencerminkan jumlah peserta
+            response = HttpResponse(
+                content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            )
+            response["Content-Disposition"] = f'attachment; filename="Sertifikat_{len(peserta_list)}_Peserta.docx"'
+            response.write(buffer.getvalue())
+            buffer.close()
+
+            logger.info("[INFO] Berhasil menghasilkan dokumen Word untuk %d peserta", len(peserta_list))
+            return response
+
+        except json.JSONDecodeError as e:
+            logger.error("[ERROR] Gagal parsing JSON: %s", str(e))
+            return JsonResponse({"status": "error", "message": f"Gagal parsing JSON: {str(e)}"}, status=400)
+        except Exception as e:
+            logger.error("[ERROR] Error konversi: %s\n%s", str(e), traceback.format_exc())
+            return JsonResponse({"status": "error", "message": f"Error konversi: {str(e)}"}, status=500)
     else:
         logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
         return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)

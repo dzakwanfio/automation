@@ -7516,3 +7516,255 @@ NameError: name 'logs' is not defined
 2025-05-20 13:14:41,203 - INFO - D:\Intern\LSP Trust\automation\pkl\urls.py changed, reloading.
 2025-05-20 13:15:34,614 - INFO - D:\Intern\LSP Trust\automation\pkl\settings.py changed, reloading.
 2025-05-20 13:16:00,805 - INFO - D:\Intern\LSP Trust\automation\pkl\settings.py changed, reloading.
+2025-05-20 13:17:15,979 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:16,486 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:16,658 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:16,806 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:16,953 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,071 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,211 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,353 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,505 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,664 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,817 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:17,985 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:18,153 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:18,318 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:18,481 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:18,644 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:18,825 - INFO - Mengambil 12 data peserta untuk generate_document
+2025-05-20 13:17:22,386 - INFO - [DEBUG] Memproses permintaan delete_peserta pada: /delete-peserta/
+2025-05-20 13:17:22,386 - DEBUG - [DEBUG] ID peserta yang diterima: ['12']
+2025-05-20 13:17:22,386 - DEBUG - [DEBUG] ID peserta setelah konversi: [12]
+2025-05-20 13:17:22,392 - INFO - [INFO] Berhasil menghapus 1 peserta dengan ID: [12]
+2025-05-20 13:17:30,106 - INFO - [DEBUG] Memproses permintaan delete_peserta pada: /delete-peserta/
+2025-05-20 13:17:30,106 - DEBUG - [DEBUG] ID peserta yang diterima: ['11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1']
+2025-05-20 13:17:30,106 - DEBUG - [DEBUG] ID peserta setelah konversi: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+2025-05-20 13:17:30,111 - INFO - [INFO] Berhasil menghapus 11 peserta dengan ID: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+2025-05-20 13:17:35,475 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+2025-05-20 13:17:43,965 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-20 13:17:48,697 - INFO - Mengambil 2 data peserta untuk generate_document
+2025-05-20 13:17:58,464 - INFO - [DEBUG] Memproses permintaan delete_peserta pada: /delete-peserta/
+2025-05-20 13:17:58,464 - DEBUG - [DEBUG] ID peserta yang diterima: ['14', '13']
+2025-05-20 13:17:58,464 - DEBUG - [DEBUG] ID peserta setelah konversi: [14, 13]
+2025-05-20 13:17:58,467 - INFO - [INFO] Berhasil menghapus 2 peserta dengan ID: [14, 13]
+2025-05-20 13:37:58,050 - INFO - D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+2025-05-20 13:38:03,208 - INFO - D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+2025-05-20 13:38:14,402 - INFO - D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+2025-05-20 13:38:49,727 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+2025-05-20 13:38:56,962 - ERROR - Error processing file: Peserta() got unexpected keyword arguments: 'kota'
+2025-05-20 13:39:06,220 - INFO - D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+2025-05-20 13:39:18,452 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-20 13:39:20,739 - INFO - Files in otomatisasi view: 10 files found
+2025-05-20 13:39:29,212 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-20 13:39:41,452 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-20 13:39:43,502 - INFO - Files in otomatisasi view: 11 files found
+2025-05-20 13:39:51,558 - INFO - process_files called with file_ids: ['24'], from URL: /process-files/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-20 13:39:51,559 - INFO - Starting process for file: D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx, exists: True, URL: http://manajemen.vokasi.kemdikbud.go.id
+2025-05-20 13:40:06,882 - DEBUG - Subprocess stdout for D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+2025-05-20 13:40:06,882 - DEBUG - Subprocess stderr for D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx: === DEBUG INFO ===
+Current directory: D:\Intern\LSP Trust\automation\automation
+Script location: D:\Intern\LSP Trust\automation\automation\otomatisasi.py
+Args received: ['D:\\Intern\\LSP Trust\\automation\\automation\\otomatisasi.py', 'D:\\Intern\\LSP Trust\\automation\\uploads\\lkp2_3J9tWGC.xlsx', '--url', 'http://manajemen.vokasi.kemdikbud.go.id']
+File 1 found: D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\logging\__init__.py", line 1153, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 1226, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from, url=args.url)
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 77, in process_files
+    logging.info(f"\u2705 Mengakses {url}. Silakan login di browser...")
+Message: '\u2705 Mengakses http://manajemen.vokasi.kemdikbud.go.id. Silakan login di browser...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 324, in process_files
+    driver.find_element(
+    ~~~~~~~~~~~~~~~~~~~^
+        By.XPATH, "//a[contains(text(),'Peserta Didik')]"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=136.0.3240.76)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7390EF965+25029]
+	(No symbol) [0x00007FF739044970]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF73934AA6A+1947706]
+	(No symbol) [0x00007FF738DEC28F]
+	(No symbol) [0x00007FF738E7EAE0]
+	(No symbol) [0x00007FF738E9609A]
+	(No symbol) [0x00007FF738E78DF3]
+	(No symbol) [0x00007FF738E4D6A6]
+	(No symbol) [0x00007FF738E4CBB3]
+	(No symbol) [0x00007FF738E4D4D3]
+	(No symbol) [0x00007FF738F55F0D]
+	(No symbol) [0x00007FF738F63AAF]
+	(No symbol) [0x00007FF738F5C49F]
+	Microsoft::Applications::Events::EventProperty::to_string [0x00007FF7391B4A1A+284650]
+	(No symbol) [0x00007FF739052301]
+	(No symbol) [0x00007FF73904ADA4]
+	(No symbol) [0x00007FF73904AEF3]
+	(No symbol) [0x00007FF73903CB36]
+	BaseThreadInitThunk [0x00007FF8B6F9E8D7+23]
+	RtlUserThreadStart [0x00007FF8B777C5DC+44]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\logging\__init__.py", line 1153, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 1226, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from, url=args.url)
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 333, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: MicrosoftEdge=136.0.3240.76)\nStacktrace:\n\tGetHandleVerifier [0x00007FF7390EF965+25029]\n\t(No symbol) [0x00007FF739044970]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF73934AA6A+1947706]\n\t(No symbol) [0x00007FF738DEC28F]\n\t(No symbol) [0x00007FF738E7EAE0]\n\t(No symbol) [0x00007FF738E9609A]\n\t(No symbol) [0x00007FF738E78DF3]\n\t(No symbol) [0x00007FF738E4D6A6]\n\t(No symbol) [0x00007FF738E4CBB3]\n\t(No symbol) [0x00007FF738E4D4D3]\n\t(No symbol) [0x00007FF738F55F0D]\n\t(No symbol) [0x00007FF738F63AAF]\n\t(No symbol) [0x00007FF738F5C49F]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x00007FF7391B4A1A+284650]\n\t(No symbol) [0x00007FF739052301]\n\t(No symbol) [0x00007FF73904ADA4]\n\t(No symbol) [0x00007FF73904AEF3]\n\t(No symbol) [0x00007FF73903CB36]\n\tBaseThreadInitThunk [0x00007FF8B6F9E8D7+23]\n\tRtlUserThreadStart [0x00007FF8B777C5DC+44]\n'
+Arguments: ()
+
+2025-05-20 13:40:06,883 - DEBUG - Subprocess returncode for D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx: 0
+2025-05-20 13:40:06,885 - INFO - File copied to temp location: D:\Intern\LSP Trust\automation\uploads\temp_failed_files\lkp2_3J9tWGC.xlsx
+2025-05-20 13:40:06,892 - INFO - Removed UploadedFile entry for failed file: D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx, file preserved at: D:\Intern\LSP Trust\automation\uploads\temp_failed_files\lkp2_3J9tWGC.xlsx
+2025-05-20 13:40:06,892 - INFO - Ensured process for D:\Intern\LSP Trust\automation\uploads\lkp2_3J9tWGC.xlsx is terminated.
+2025-05-20 13:40:06,892 - INFO - Returning response: status=error, failed_file_ids=[None]
+2025-05-20 13:41:00,755 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+2025-05-20 13:41:01,810 - INFO - Files in otomatisasi view: 10 files found
+2025-05-20 14:07:51,199 - INFO - Mengambil 2 data peserta untuk generate_document
+2025-05-20 14:08:12,881 - INFO - [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+2025-05-20 14:08:12,881 - DEBUG - [DEBUG] Data diterima: peserta_ids=['15'], jadwal=2025-05-20, tuk=SUGENG, skema=SUGENG, asesor=SUGENG, lokasi_sertif=SUGENG
+2025-05-20 14:08:12,882 - ERROR - [ERROR] Error konversi: module 'datetime' has no attribute 'now'
+2025-05-20 14:08:12,882 - ERROR - Internal Server Error: /convert-document/
+2025-05-20 14:08:26,788 - INFO - [DEBUG] Memproses permintaan delete_peserta pada: /delete-peserta/
+2025-05-20 14:08:26,788 - DEBUG - [DEBUG] ID peserta yang diterima: ['15', '16']
+2025-05-20 14:08:26,788 - DEBUG - [DEBUG] ID peserta setelah konversi: [15, 16]
+2025-05-20 14:08:26,791 - INFO - [INFO] Berhasil menghapus 2 peserta dengan ID: [15, 16]
+2025-05-20 14:08:30,279 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+2025-05-20 14:09:13,373 - ERROR - Error processing file: ['Nilai “2000-01-01 00:00:00” mempunyai format tanggal yang tidak valid. Tanggal harus dalam format YYYY-MM-DD.']
+2025-05-20 14:13:26,458 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:13:49,412 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:14:11,133 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:18:27,622 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:18:34,962 - DEBUG - [DEBUG] Baris kosong ditemukan di indeks: [2, 3]
+2025-05-20 14:18:34,962 - DEBUG - [DEBUG] Kolom kosong di baris 2: ['Tanggal_Lahir', 'Tanggal_Masuk', 'Tanggal_Lahir_Ortu']
+2025-05-20 14:18:34,963 - DEBUG - [DEBUG] Kolom kosong di baris 3: ['Tanggal_Lahir', 'Tanggal_Masuk', 'Tanggal_Lahir_Ortu']
+2025-05-20 14:18:50,036 - DEBUG - [DEBUG] Baris kosong ditemukan di indeks: [2, 3]
+2025-05-20 14:18:50,037 - DEBUG - [DEBUG] Kolom kosong di baris 2: ['Tanggal_Lahir', 'Tanggal_Masuk', 'Tanggal_Lahir_Ortu']
+2025-05-20 14:18:50,037 - DEBUG - [DEBUG] Kolom kosong di baris 3: ['Tanggal_Lahir', 'Tanggal_Masuk', 'Tanggal_Lahir_Ortu']
+2025-05-20 14:20:55,228 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:21:00,748 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir: ['2000-01-01 00:00:00', '2000-01-20 00:00:00']
+2025-05-20 14:21:00,748 - DEBUG - [DEBUG] Nilai mentah Tanggal_Masuk: ['2000-01-01 00:00:00', '2000-01-02 00:00:00']
+2025-05-20 14:21:00,748 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: ['2000-01-01 00:00:00', '2000-01-02 00:00:00']
+2025-05-20 14:21:00,756 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), NaT]
+2025-05-20 14:21:00,760 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-02-01 00:00:00')]
+2025-05-20 14:21:00,760 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-02-01 00:00:00')]
+2025-05-20 14:21:00,764 - DEBUG - [DEBUG] Baris kosong ditemukan di indeks: [3]
+2025-05-20 14:21:00,765 - DEBUG - [DEBUG] Kolom kosong di baris 3: ['Tanggal_Lahir']
+2025-05-20 14:21:07,554 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir: ['2000-01-01 00:00:00', '2000-01-20 00:00:00']
+2025-05-20 14:21:07,555 - DEBUG - [DEBUG] Nilai mentah Tanggal_Masuk: ['2000-01-01 00:00:00', '2000-01-02 00:00:00']
+2025-05-20 14:21:07,555 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: ['2000-01-01 00:00:00', '2000-01-02 00:00:00']
+2025-05-20 14:21:07,555 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), NaT]
+2025-05-20 14:21:07,556 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-02-01 00:00:00')]
+2025-05-20 14:21:07,556 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-02-01 00:00:00')]
+2025-05-20 14:21:07,560 - DEBUG - [DEBUG] Baris kosong ditemukan di indeks: [3]
+2025-05-20 14:21:07,560 - DEBUG - [DEBUG] Kolom kosong di baris 3: ['Tanggal_Lahir']
+2025-05-20 14:21:30,174 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir: ['2000-01-01 00:00:00', '2000-01-20 00:00:00']
+2025-05-20 14:21:30,174 - DEBUG - [DEBUG] Nilai mentah Tanggal_Masuk: ['2000-01-01 00:00:00', '2000-01-02 00:00:00']
+2025-05-20 14:21:30,174 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: ['2000-01-01 00:00:00', '2000-01-02 00:00:00']
+2025-05-20 14:21:30,175 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), NaT]
+2025-05-20 14:21:30,175 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-02-01 00:00:00')]
+2025-05-20 14:21:30,176 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-02-01 00:00:00')]
+2025-05-20 14:21:30,179 - DEBUG - [DEBUG] Baris kosong ditemukan di indeks: [3]
+2025-05-20 14:21:30,179 - DEBUG - [DEBUG] Kolom kosong di baris 3: ['Tanggal_Lahir']
+2025-05-20 14:24:37,484 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:24:40,131 - DEBUG - [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+2025-05-20 14:24:40,137 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+2025-05-20 14:24:40,137 - DEBUG - [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+2025-05-20 14:24:40,137 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+2025-05-20 14:24:40,138 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+2025-05-20 14:24:40,138 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+2025-05-20 14:24:40,139 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+2025-05-20 14:24:40,161 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-20 14:24:47,743 - DEBUG - [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O')}
+2025-05-20 14:24:55,448 - DEBUG - [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+2025-05-20 14:24:55,454 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+2025-05-20 14:24:55,454 - DEBUG - [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+2025-05-20 14:24:55,454 - DEBUG - [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+2025-05-20 14:24:55,454 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+2025-05-20 14:24:55,455 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+2025-05-20 14:24:55,455 - DEBUG - [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+2025-05-20 14:24:55,473 - INFO - Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+2025-05-20 14:24:57,812 - INFO - Files in otomatisasi view: 13 files found
+2025-05-20 14:25:06,057 - INFO - Deleted UploadedFile entry with ID 14
+2025-05-20 14:25:10,904 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:25:30,589 - INFO - [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+2025-05-20 14:25:30,590 - DEBUG - [DEBUG] Data diterima: peserta_ids=['19'], jadwal=2025-05-21, tuk=SUGENG, skema=SUGENG, asesor=SUGENG, lokasi_sertif=SUGENG
+2025-05-20 14:25:30,590 - ERROR - [ERROR] Error konversi: module 'datetime' has no attribute 'now'
+2025-05-20 14:25:30,591 - ERROR - Internal Server Error: /convert-document/
+2025-05-20 14:27:04,910 - INFO - [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+2025-05-20 14:27:04,910 - DEBUG - [DEBUG] Data diterima: peserta_ids=['19'], jadwal=2025-05-21, tuk=SUGENG, skema=SUGENG, asesor=SUGENG, lokasi_sertif=SUGENG
+2025-05-20 14:27:04,911 - ERROR - [ERROR] Error konversi: module 'datetime' has no attribute 'now'
+2025-05-20 14:27:04,911 - ERROR - Internal Server Error: /convert-document/
+2025-05-20 14:32:12,681 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:32:13,233 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:32:13,403 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:32:13,578 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:32:23,982 - INFO - [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+2025-05-20 14:32:23,982 - DEBUG - [DEBUG] Data diterima: peserta_ids=['19'], jadwal=2025-05-20, tuk=SUGENG, skema=SUGENG, asesor=SUGENG, lokasi_sertif=SUGENG
+2025-05-20 14:32:23,982 - ERROR - [ERROR] Error konversi: module 'datetime' has no attribute 'now'
+2025-05-20 14:32:23,982 - ERROR - Internal Server Error: /convert-document/
+2025-05-20 14:33:01,177 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:33:23,000 - INFO - D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+2025-05-20 14:33:40,898 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:33:41,142 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:33:41,292 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:33:41,474 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:33:41,673 - INFO - Mengambil 4 data peserta untuk generate_document
+2025-05-20 14:33:52,424 - INFO - [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+2025-05-20 14:33:52,424 - DEBUG - [DEBUG] Request body: b'{"jadwal":"2025-05-09","tuk":"SUGENG","skema":"SUGENG","asesor":"SUGENG","lokasi_sertif":"SUGENG","peserta_ids":["19"]}'
+2025-05-20 14:33:52,425 - DEBUG - [DEBUG] Data diterima: peserta_ids=['19'], jadwal=2025-05-09, tuk=SUGENG, skema=SUGENG, asesor=SUGENG, lokasi_sertif=SUGENG
+2025-05-20 14:33:52,425 - DEBUG - [DEBUG] Mengambil peserta dengan ID: ['19']
+2025-05-20 14:33:52,450 - ERROR - Internal Server Error: /convert-document/
+Traceback (most recent call last):
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 896, in convert_document
+    tanggal_sertif = datetime.now().strftime("%d %B %Y")
+                     ^^^^^^^^^^^^
+AttributeError: module 'datetime' has no attribute 'now'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 972, in convert_document
+    logger.error("[ERROR] Error konversi: %s\n%s", str(e), traceback.format_exc())
+                                                           ^^^^^^^^^
+NameError: name 'traceback' is not defined. Did you forget to import 'traceback'?
+2025-05-20 14:34:13,028 - INFO - D:\Intern\LSP Trust\automation\pkl\settings.py changed, reloading.

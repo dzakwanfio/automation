@@ -34,7 +34,7 @@
                         </th>
                         <th>Email</th>
                         <th>Handphone</th>
-                        <th>City</th>
+                        <th>City</th> <!-- Tetap ada, diisi dari peserta.kota -->
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -44,7 +44,7 @@
                         <td class="name-cell">{{ peserta.nama }}</td>
                         <td>{{ peserta.email|default:"-" }}</td>
                         <td>{{ peserta.nomor_hp }}</td>
-                        <td>{{ peserta.kota|default:"-" }}</td>
+                        <td>{{ peserta.kota|default:"-" }}</td> <!-- City dari Kab/Kota di Excel -->
                     </tr>
                     {% empty %}
                     <tr class="text-center">
@@ -97,8 +97,8 @@
                         <input type="text" class="form-control" id="asesor" name="asesor" placeholder="Masukkan Nama Asesor" required>
                     </div>
                     <div class="mb-3">
-                        <label for="kota" class="form-label">Kota</label>
-                        <input type="text" class="form-control" id="kota" name="kota" placeholder="Masukkan Kota" required>
+                        <label for="lokasi_sertif" class="form-label">Lokasi Sertifikasi</label> <!-- Ganti label dan ID -->
+                        <input type="text" class="form-control" id="lokasi_sertif" name="lokasi_sertif" placeholder="Masukkan Lokasi Sertifikasi" required>
                     </div>
                 </form>
             </div>
@@ -359,12 +359,12 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         tuk: form.querySelector("#tuk").value,
         skema: form.querySelector("#skema").value,
         asesor: form.querySelector("#asesor").value,
-        kota: form.querySelector("#kota").value,
+        lokasi_sertif: form.querySelector("#lokasi_sertif").value,  // Ganti 'kota' dengan 'lokasi_sertif'
         peserta_ids: pesertaIds
     };
 
     // Validasi sederhana
-    if (!formData.jadwal || !formData.tuk || !formData.skema || !formData.asesor || !formData.kota) {
+    if (!formData.jadwal || !formData.tuk || !formData.skema || !formData.asesor || !formData.lokasi_sertif) {
         console.log("[DEBUG] Validasi gagal: Ada field yang kosong");
         Swal.fire({
             title: 'Peringatan',
@@ -375,20 +375,57 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         return;
     }
 
-    console.log("[DEBUG] Data form yang akan diproses: ", formData);
+    console.log("[DEBUG] Data form yang akan dikirim: ", formData);
 
-    // Untuk saat ini, hanya tampilkan notifikasi dan tutup modal
-    Swal.fire({
-        title: 'Sukses',
-        text: 'Data form diterima (belum diproses ke backend).',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    }).then(() => {
-        // Reset form dan tutup modal
-        form.reset();
-        form.dataset.pesertaIds = "";
-        let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
-        modal.hide();
+    // Kirim data ke server untuk konversi
+    fetch("{% url 'convert_document' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        console.log("[DEBUG] Status respons: ", response.status, response.statusText);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.blob(); // Ambil sebagai blob untuk file
+    })
+    .then(blob => {
+        console.log("[DEBUG] File Word diterima");
+        // Buat link untuk unduhan
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `Sertifikat_${new Date().toISOString().slice(0,10)}.docx`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+        Swal.fire({
+            title: 'Sukses',
+            text: 'Dokumen Word berhasil diunduh!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Reset form dan tutup modal
+            form.reset();
+            form.dataset.pesertaIds = "";
+            let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
+            modal.hide();
+        });
+    })
+    .catch(error => {
+        console.error("[ERROR] Gagal mengonversi: ", error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan saat mengonversi: ' + error.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
     });
 });
 </script>

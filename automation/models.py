@@ -25,16 +25,22 @@ class UploadedFile(models.Model):
 class Peserta(models.Model):
     uploaded_file = models.ForeignKey(UploadedFile, on_delete=models.CASCADE, null=True, blank=True)
     nama = models.CharField(max_length=100)
-    email = models.EmailField(max_length=255, blank=True, null=True)
+    tempat_lahir = models.CharField(max_length=100, blank=True, null=True)
+    tanggal_lahir = models.DateField(blank=True, null=True)
+    jenis_kelamin = models.CharField(max_length=10, blank=True, null=True)
+    alamat = models.TextField(blank=True, null=True)
     nomor_hp = models.CharField(max_length=15)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    pendidikan_terakhir = models.CharField(max_length=100, blank=True, null=True)
+    nama_lembaga = models.CharField(max_length=255, blank=True, null=True)
+    jabatan = models.CharField(max_length=100, blank=True, null=True)
+    alamat_kantor = models.TextField(blank=True, null=True)
+    telp_kantor = models.CharField(max_length=15, blank=True, null=True)
     kota = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nama
-
-    class Meta:
-        ordering = ['-created_at']
 
 class Otomatisasi(models.Model):
     file = models.FileField(upload_to="", null=True, blank=True)

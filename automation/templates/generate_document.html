@@ -359,7 +359,7 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         tuk: form.querySelector("#tuk").value,
         skema: form.querySelector("#skema").value,
         asesor: form.querySelector("#asesor").value,
-        lokasi_sertif: form.querySelector("#lokasi_sertif").value,  // Ganti 'kota' dengan 'lokasi_sertif'
+        lokasi_sertif: form.querySelector("#lokasi_sertif").value,
         peserta_ids: pesertaIds
     };
 
@@ -391,7 +391,7 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.blob(); // Ambil sebagai blob untuk file
+        return response.blob();
     })
     .then(blob => {
         console.log("[DEBUG] File Word diterima");
@@ -405,9 +405,17 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         a.remove();
         window.URL.revokeObjectURL(url);
 
+        // Hapus baris yang dipilih dari DOM
+        pesertaIds.forEach(id => {
+            let row = document.querySelector(`.row-checkbox[value="${id}"]`);
+            if (row) {
+                row.closest("tr").remove();
+            }
+        });
+
         Swal.fire({
             title: 'Sukses',
-            text: 'Dokumen Word berhasil diunduh!',
+            text: `Dokumen Word dengan ${pesertaIds.length} halaman berhasil diunduh!`,
             icon: 'success',
             confirmButtonText: 'OK'
         }).then(() => {
@@ -416,6 +424,8 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
             form.dataset.pesertaIds = "";
             let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
             modal.hide();
+            showPage(currentPage); // Perbarui paginasi
+            updateSelectedCount(); // Perbarui jumlah terpilih
         });
     })
     .catch(error => {

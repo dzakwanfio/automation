@@ -38,6 +38,7 @@ class Peserta(models.Model):
     telp_kantor = models.CharField(max_length=15, blank=True, null=True)
     kota = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_converted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nama
@@ -95,12 +96,20 @@ class Siswa(models.Model):
 
 class LogHistory2(models.Model):
     name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255, blank=True, null=True)  # Tambahkan field email
+    handphone = models.CharField(max_length=15, blank=True, null=True)  # Tambahkan field handphone
+    city = models.CharField(max_length=100, blank=True, null=True)  # Tambahkan field city
     upload_date = models.DateTimeField(default=timezone.now)
     course_name = models.CharField(max_length=100)
     status = models.CharField(max_length=50)
     process_time = models.DateTimeField(default=timezone.now)
     file_path = models.CharField(max_length=255, blank=True, null=True)
     file_id = models.IntegerField(blank=True, null=True)
+    jadwal = models.CharField(max_length=100, blank=True, null=True)
+    tuk = models.CharField(max_length=100, blank=True, null=True)
+    skema = models.CharField(max_length=100, blank=True, null=True)
+    asesor = models.CharField(max_length=100, blank=True, null=True)
+    lokasi_sertif = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name

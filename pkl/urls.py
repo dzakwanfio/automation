@@ -56,6 +56,8 @@ urlpatterns = [
     path("delete-peserta/", automation.delete_peserta, name="delete_peserta"),
     path("convert-document/", automation.convert_document, name="convert_document"),
     path("log-history2/", automation.log_history2, name="log_history2"),
+    path('delete-log2/<int:log_id>/', automation.delete_log2, name='delete_log2'),
+    path('download-log2/<int:log_id>/', automation.download_log2, name='download_log2'),
 ]
 
 if settings.DEBUG:

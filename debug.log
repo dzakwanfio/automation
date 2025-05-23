@@ -210,3 +210,414 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'download_document' not found. 'download_document' is not a valid view function or pattern name.
 [2025-05-23 15:55:37,105] INFO automation.views Mengambil 9 data peserta untuk generate_document
+[2025-05-23 15:57:13,377] INFO automation.views Mengambil 9 data peserta untuk generate_document
+[2025-05-23 15:57:28,978] INFO automation.views Mengambil 9 data peserta untuk generate_document
+[2025-05-23 15:57:54,548] INFO automation.views Mengambil 9 data peserta untuk generate_document
+[2025-05-23 16:01:55,510] WARNING django.request Not Found: /delete-log/1/
+[2025-05-23 16:01:58,305] INFO automation.views Mengambil 9 data peserta untuk generate_document
+[2025-05-23 16:02:04,134] INFO automation.views [DEBUG] Memproses permintaan delete_peserta pada: /delete-peserta/
+[2025-05-23 16:02:04,135] DEBUG automation.views [DEBUG] ID peserta yang diterima: ['24']
+[2025-05-23 16:02:04,135] DEBUG automation.views [DEBUG] ID peserta setelah konversi: [24]
+[2025-05-23 16:02:04,144] INFO automation.views [INFO] Berhasil menghapus 1 peserta dengan ID: [24]
+[2025-05-23 16:02:09,513] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:02:15,757] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:02:38,232] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:03:08,466] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-05-23 16:03:11,153] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:03:16,778] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:03:24,201] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:04:01,548] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-05-23 16:04:04,134] INFO root Files in otomatisasi view: 17 files found
+[2025-05-23 16:04:08,318] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:05:05,794] WARNING django.request Not Found: /delete-log/1/
+[2025-05-23 16:08:15,567] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:13:11,940] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:13:13,764] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:13:31,154] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+[2025-05-23 16:13:33,193] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:15:31,219] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:15:31,457] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:15:31,632] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:16:02,089] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-05-23 16:16:02,090] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-05-09","tuk":"TUK","skema":"TUK","asesor":"TUK","lokasi_sertif":"TUK","peserta_ids":["25","26"]}'
+[2025-05-23 16:16:02,090] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['25', '26'], jadwal=2025-05-09, tuk=TUK, skema=TUK, asesor=TUK, lokasi_sertif=TUK
+[2025-05-23 16:16:02,090] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['25', '26']
+[2025-05-23 16:16:02,091] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:16:02,092] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:16:02,093] DEBUG automation.views [DEBUG] Memulai proses untuk 2 peserta
+[2025-05-23 16:16:02,108] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 25)
+[2025-05-23 16:16:02,148] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-09', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:16:02,300] ERROR automation.views [ERROR] Error konversi: LogHistory2() got unexpected keyword arguments: 'email', 'handphone', 'city'
+Traceback (most recent call last):
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 968, in convert_document
+    LogHistory2.objects.create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=peserta.nama,
+        ^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        file_id=peserta.id
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 677, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: LogHistory2() got unexpected keyword arguments: 'email', 'handphone', 'city'
+
+[2025-05-23 16:16:02,301] ERROR django.request Internal Server Error: /convert-document/
+[2025-05-23 16:17:49,964] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+[2025-05-23 16:17:51,719] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:18:12,544] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-05-23 16:18:12,545] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-05-09","tuk":"TUK","skema":"TUK","asesor":"TUK","lokasi_sertif":"TUK","peserta_ids":["25","26"]}'
+[2025-05-23 16:18:12,545] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['25', '26'], jadwal=2025-05-09, tuk=TUK, skema=TUK, asesor=TUK, lokasi_sertif=TUK
+[2025-05-23 16:18:12,545] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['25', '26']
+[2025-05-23 16:18:12,546] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:18:12,546] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:18:12,548] DEBUG automation.views [DEBUG] Memulai proses untuk 2 peserta
+[2025-05-23 16:18:12,564] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 25)
+[2025-05-23 16:18:12,602] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-09', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:18:12,763] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 26)
+[2025-05-23 16:18:12,800] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-09', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:18:13,232] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk 2 peserta
+[2025-05-23 16:18:37,741] WARNING django.request Not Found: /delete-log/1/
+[2025-05-23 16:24:48,807] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:24:50,581] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:25:02,524] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\pkl\urls.py changed, reloading.
+[2025-05-23 16:25:04,497] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:26:03,319] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 1
+[2025-05-23 16:26:03,326] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 1
+[2025-05-23 16:26:06,820] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 2
+[2025-05-23 16:26:06,827] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 2
+[2025-05-23 16:26:45,499] INFO automation.views Mengambil 8 data peserta untuk generate_document
+[2025-05-23 16:27:01,003] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-05-23 16:27:01,004] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-05-18","tuk":"Q","skema":"Q","asesor":"Q","lokasi_sertif":"Q","peserta_ids":["25","26","27","28","29","30","31","32"]}'
+[2025-05-23 16:27:01,004] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['25', '26', '27', '28', '29', '30', '31', '32'], jadwal=2025-05-18, tuk=Q, skema=Q, asesor=Q, lokasi_sertif=Q
+[2025-05-23 16:27:01,004] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['25', '26', '27', '28', '29', '30', '31', '32']
+[2025-05-23 16:27:01,006] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:27:01,006] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:27:01,007] DEBUG automation.views [DEBUG] Memulai proses untuk 8 peserta
+[2025-05-23 16:27:01,028] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 25)
+[2025-05-23 16:27:01,073] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:01,286] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 26)
+[2025-05-23 16:27:01,328] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:01,502] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 27)
+[2025-05-23 16:27:01,545] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:01,724] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 28)
+[2025-05-23 16:27:01,765] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:01,938] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 29)
+[2025-05-23 16:27:01,976] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:02,154] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 30)
+[2025-05-23 16:27:02,206] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:02,520] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 31)
+[2025-05-23 16:27:02,566] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:02,853] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 32)
+[2025-05-23 16:27:02,900] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:03,227] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-05-23 16:27:03,228] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-05-18","tuk":"Q","skema":"Q","asesor":"Q","lokasi_sertif":"Q","peserta_ids":["25","26","27","28","29","30","31","32"]}'
+[2025-05-23 16:27:03,228] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['25', '26', '27', '28', '29', '30', '31', '32'], jadwal=2025-05-18, tuk=Q, skema=Q, asesor=Q, lokasi_sertif=Q
+[2025-05-23 16:27:03,229] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['25', '26', '27', '28', '29', '30', '31', '32']
+[2025-05-23 16:27:03,231] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:27:03,232] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:27:03,238] DEBUG automation.views [DEBUG] Memulai proses untuk 8 peserta
+[2025-05-23 16:27:03,267] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 25)
+[2025-05-23 16:27:03,323] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:03,647] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk 8 peserta
+[2025-05-23 16:27:03,651] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 26)
+[2025-05-23 16:27:03,697] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:03,913] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 27)
+[2025-05-23 16:27:03,955] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:04,145] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 28)
+[2025-05-23 16:27:04,188] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:04,379] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 29)
+[2025-05-23 16:27:04,422] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:04,597] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 30)
+[2025-05-23 16:27:04,643] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:04,901] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 31)
+[2025-05-23 16:27:04,941] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:05,131] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 32)
+[2025-05-23 16:27:05,173] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Q', 'Lokasi_Sertif': 'Q', 'Skema': 'Q', 'Asesor': 'Q', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:27:05,660] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk 8 peserta
+[2025-05-23 16:27:22,379] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 3
+[2025-05-23 16:27:22,385] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 3
+[2025-05-23 16:27:24,885] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 4
+[2025-05-23 16:27:24,889] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 4
+[2025-05-23 16:30:36,201] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:30:38,293] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:30:52,513] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\pkl\urls.py changed, reloading.
+[2025-05-23 16:30:54,472] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:30:57,188] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\pkl\urls.py changed, reloading.
+[2025-05-23 16:30:58,950] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:31:03,129] INFO automation.views [DEBUG] Memproses permintaan download_log2 untuk log_id: 5
+[2025-05-23 16:31:03,130] DEBUG automation.views [DEBUG] Data log ditemukan: {'_state': <django.db.models.base.ModelState object at 0x0000018BBCE09970>, 'id': 5, 'name': 'Abe', 'email': 'ragowo@gmail.com', 'handphone': '62812345679', 'city': 'Surabaya', 'upload_date': datetime.datetime(2025, 5, 23, 9, 27, 1, 491040, tzinfo=datetime.timezone.utc), 'course_name': '2025-05-18', 'status': 'Converted', 'process_time': datetime.datetime(2025, 5, 23, 9, 27, 1, 491047, tzinfo=datetime.timezone.utc), 'file_path': None, 'file_id': 26}
+[2025-05-23 16:31:03,132] DEBUG automation.views [DEBUG] Peserta ditemukan dari file_id: {'_state': <django.db.models.base.ModelState object at 0x0000018BBCE09B50>, 'id': 26, 'uploaded_file_id': 29, 'nama': 'Abe', 'tempat_lahir': 'Surabaya', 'tanggal_lahir': datetime.date(2000, 1, 20), 'jenis_kelamin': 'L', 'alamat': 'Jalan Raya Wonorejo 27', 'nomor_hp': '62812345679', 'email': 'ragowo@gmail.com', 'pendidikan_terakhir': 'S1', 'nama_lembaga': 'Unair', 'jabatan': 'Dosen', 'alamat_kantor': 'Dharmawangsa', 'telp_kantor': '81234567890', 'kota': 'Surabaya', 'created_at': datetime.datetime(2025, 5, 20, 9, 8, 40, 842587, tzinfo=datetime.timezone.utc), 'is_converted': True}
+[2025-05-23 16:31:03,132] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:31:03,133] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:31:03,176] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-18', 'TUK': 'Default TUK', 'Lokasi_Sertif': 'Surabaya', 'Skema': 'Default Skema', 'Asesor': 'Default Asesor', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:31:03,641] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk log_id: 5
+[2025-05-23 16:33:02,112] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 5
+[2025-05-23 16:33:02,119] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 5
+[2025-05-23 16:33:06,446] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 6
+[2025-05-23 16:33:06,453] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 6
+[2025-05-23 16:33:09,852] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 7
+[2025-05-23 16:33:09,859] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 7
+[2025-05-23 16:33:10,946] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 8
+[2025-05-23 16:33:10,952] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 8
+[2025-05-23 16:33:11,963] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 9
+[2025-05-23 16:33:11,968] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 9
+[2025-05-23 16:33:13,734] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 10
+[2025-05-23 16:33:13,740] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 10
+[2025-05-23 16:33:14,576] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 11
+[2025-05-23 16:33:14,583] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 11
+[2025-05-23 16:33:15,395] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 12
+[2025-05-23 16:33:15,402] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 12
+[2025-05-23 16:33:16,168] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 13
+[2025-05-23 16:33:16,174] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 13
+[2025-05-23 16:33:16,976] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 14
+[2025-05-23 16:33:16,982] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 14
+[2025-05-23 16:33:17,837] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 15
+[2025-05-23 16:33:17,844] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 15
+[2025-05-23 16:33:19,027] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 16
+[2025-05-23 16:33:19,033] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 16
+[2025-05-23 16:33:20,193] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 17
+[2025-05-23 16:33:20,200] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 17
+[2025-05-23 16:33:21,282] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 18
+[2025-05-23 16:33:21,288] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 18
+[2025-05-23 16:33:22,037] INFO automation.views [DEBUG] Memproses permintaan delete_log2 untuk log_id: 19
+[2025-05-23 16:33:22,043] INFO automation.views [INFO] Berhasil menghapus LogHistory2 dengan ID: 19
+[2025-05-23 16:33:52,541] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\models.py changed, reloading.
+[2025-05-23 16:33:54,368] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:34:36,987] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:34:38,946] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:35:08,464] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:35:10,379] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:35:14,545] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-05-23 16:35:21,114] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-05-23 16:35:21,147] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-05-23 16:35:21,148] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-05-23 16:35:21,149] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-05-23 16:35:21,150] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-05-23 16:35:21,151] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-05-23 16:35:21,152] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-05-23 16:35:21,211] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-05-23 16:35:28,875] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-05-23 16:35:28,887] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-05-23 16:35:28,887] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-05-23 16:35:28,888] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-05-23 16:35:28,888] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-05-23 16:35:28,890] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-05-23 16:35:28,891] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-05-23 16:35:28,924] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-05-23 16:35:38,140] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-05-23 16:35:38,153] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-05-23 16:35:38,154] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-05-23 16:35:38,154] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-05-23 16:35:38,155] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-05-23 16:35:38,157] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-05-23 16:35:38,158] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-05-23 16:35:38,196] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-05-23 16:35:41,662] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:35:58,616] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-05-23 16:35:58,616] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-05-07","tuk":"TUK","skema":"TUK","asesor":"TUK","lokasi_sertif":"TUK","peserta_ids":["25","26"]}'
+[2025-05-23 16:35:58,616] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['25', '26'], jadwal=2025-05-07, tuk=TUK, skema=TUK, asesor=TUK, lokasi_sertif=TUK
+[2025-05-23 16:35:58,617] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['25', '26']
+[2025-05-23 16:35:58,618] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:35:58,618] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:35:58,619] DEBUG automation.views [DEBUG] Memulai proses untuk 2 peserta
+[2025-05-23 16:35:58,636] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 25)
+[2025-05-23 16:35:58,682] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-07', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:35:58,853] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 26)
+[2025-05-23 16:35:58,890] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-07', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:35:59,343] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk 2 peserta
+[2025-05-23 16:36:17,614] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:17,930] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:18,241] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:18,678] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:29,913] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-05-23 16:36:29,913] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-05-12","tuk":"TUK","skema":"TUK","asesor":"TUK","lokasi_sertif":"TUK","peserta_ids":["25","26","27","28","29","30","31","32","33","34","35","36","37","38"]}'
+[2025-05-23 16:36:29,914] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'], jadwal=2025-05-12, tuk=TUK, skema=TUK, asesor=TUK, lokasi_sertif=TUK
+[2025-05-23 16:36:29,914] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38']
+[2025-05-23 16:36:29,915] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:36:29,915] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:36:29,917] DEBUG automation.views [DEBUG] Memulai proses untuk 14 peserta
+[2025-05-23 16:36:29,931] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 25)
+[2025-05-23 16:36:29,970] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:30,121] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 26)
+[2025-05-23 16:36:30,160] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:30,312] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 27)
+[2025-05-23 16:36:30,350] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:30,520] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 28)
+[2025-05-23 16:36:30,563] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:30,726] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 29)
+[2025-05-23 16:36:30,770] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:31,020] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 30)
+[2025-05-23 16:36:31,059] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:31,219] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 31)
+[2025-05-23 16:36:31,259] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:31,414] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 32)
+[2025-05-23 16:36:31,455] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:31,615] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 33)
+[2025-05-23 16:36:31,658] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:31,821] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 34)
+[2025-05-23 16:36:31,859] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:32,060] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 35)
+[2025-05-23 16:36:32,105] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:32,276] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 36)
+[2025-05-23 16:36:32,314] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:32,450] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 37)
+[2025-05-23 16:36:32,488] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:32,644] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 38)
+[2025-05-23 16:36:32,683] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345679', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:33,204] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk 14 peserta
+[2025-05-23 16:36:36,477] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:37,205] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:37,581] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:36:49,101] INFO automation.views [DEBUG] Memproses permintaan download_log2 untuk log_id: 24
+[2025-05-23 16:36:49,102] DEBUG automation.views [DEBUG] Data log ditemukan: {'_state': <django.db.models.base.ModelState object at 0x000002A791908770>, 'id': 24, 'name': 'Sifulan', 'email': 'ragowo@gmail.com', 'handphone': '62812345678', 'city': 'Surabaya', 'upload_date': datetime.datetime(2025, 5, 23, 9, 36, 30, 508447, tzinfo=datetime.timezone.utc), 'course_name': '2025-05-12', 'status': 'Converted', 'process_time': datetime.datetime(2025, 5, 23, 9, 36, 30, 508455, tzinfo=datetime.timezone.utc), 'file_path': None, 'file_id': 27, 'jadwal': '2025-05-12', 'tuk': 'TUK', 'skema': 'TUK', 'asesor': 'TUK', 'lokasi_sertif': 'TUK'}
+[2025-05-23 16:36:49,103] DEBUG automation.views [DEBUG] Peserta ditemukan dari file_id: {'_state': <django.db.models.base.ModelState object at 0x000002A7919088F0>, 'id': 27, 'uploaded_file_id': 30, 'nama': 'Sifulan', 'tempat_lahir': 'Surabaya', 'tanggal_lahir': datetime.date(2000, 1, 1), 'jenis_kelamin': 'L', 'alamat': 'Jalan Raya Wonorejo 27', 'nomor_hp': '62812345678', 'email': 'ragowo@gmail.com', 'pendidikan_terakhir': 'S1', 'nama_lembaga': 'Unair', 'jabatan': 'Dosen', 'alamat_kantor': 'Mulyorejo', 'telp_kantor': '81234567890', 'kota': 'Surabaya', 'created_at': datetime.datetime(2025, 5, 20, 9, 8, 50, 199729, tzinfo=datetime.timezone.utc), 'is_converted': True}
+[2025-05-23 16:36:49,103] DEBUG automation.views [DEBUG] Path template Word: D:\Intern\LSP Trust\automation\automation\templates\docx\DOCUMENT1.docx
+[2025-05-23 16:36:49,104] DEBUG automation.views [DEBUG] Tanggal_Sertif: 23 May 2025
+[2025-05-23 16:36:49,149] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'Jenis_Kelamin': 'L', 'Alamat': 'Jalan Raya Wonorejo 27', 'Handphone': '62812345678', 'Email': 'ragowo@gmail.com', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-05-12', 'TUK': 'TUK', 'Lokasi_Sertif': 'TUK', 'Skema': 'TUK', 'Asesor': 'TUK', 'Tanggal_Sertif': '23 May 2025'}
+[2025-05-23 16:36:49,570] INFO automation.views [INFO] Berhasil menghasilkan dokumen Word untuk log_id: 24
+[2025-05-23 16:53:12,760] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:53:13,127] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:53:13,454] INFO automation.views Mengambil 14 data peserta untuk generate_document
+[2025-05-23 16:53:55,338] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:53:57,368] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-05-23 16:54:59,074] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:54:59,128] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:54:59,888] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:54:59,910] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:00,088] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:00,115] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:00,244] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:00,268] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:00,427] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:00,450] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:00,607] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:00,632] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:00,790] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:00,817] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:00,956] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:00,978] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:01,136] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:01,158] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:01,308] INFO automation.views [DEBUG] Memproses permintaan generate_document pada: /generate_document/
+[2025-05-23 16:55:01,334] ERROR django.request Internal Server Error: /generate_document/
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Intern\LSP Trust\automation\automation\views.py", line 823, in generate_document
+    paginator = Paginator(peserta_list, 10)  # 10 peserta per halaman
+                ^^^^^^^^^
+NameError: name 'Paginator' is not defined
+[2025-05-23 16:55:34,474] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-05-23 16:55:36,351] INFO django.utils.autoreload Watching for file changes with StatReloader

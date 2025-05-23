@@ -176,3 +176,21 @@ th:nth-child(6), td:nth-child(6) { width: 10%; min-width: 100px; } /* Action */
     border-radius: 5px;
     font-weight: bold;
 }
+
+.btn-action.delete {
+    background-color: #dc3545; /* Warna merah untuk delete */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-action.delete:hover {
+    background-color: #c82333; /* Warna merah lebih gelap saat hover */
+}
+
+.btn-action.delete i {
+    font-size: 14px;
+}

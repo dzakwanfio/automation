@@ -964,6 +964,29 @@ def convert_document(request):
                     for element in temp_doc.element.body:
                         final_doc.element.body.append(element)
 
+                # Simpan ke LogHistory2 setelah konversi berhasil untuk peserta ini
+                LogHistory2.objects.create(
+                    name=peserta.nama,
+                    email=peserta.email or "-",
+                    handphone=peserta.nomor_hp or "-",
+                    city=peserta.kota or "-",
+                    upload_date=timezone.now(),
+                    course_name=jadwal,  # Simpan jadwal sebagai course_name
+                    status="Converted",
+                    process_time=timezone.now(),
+                    file_id=peserta.id,
+                    # Simpan data form
+                    jadwal=jadwal,
+                    tuk=tuk,
+                    skema=skema,
+                    asesor=asesor,
+                    lokasi_sertif=lokasi_sertif
+                )
+
+                # Tandai peserta sebagai sudah dikonversi
+                peserta.is_converted = True
+                peserta.save()
+
             # Simpan dokumen ke BytesIO
             buffer = BytesIO()
             final_doc.save(buffer)
@@ -998,3 +1021,131 @@ def log_history2(request):
     for log in logs:
         log.local_time = localtime(log.upload_date).strftime("%d %b %Y %H:%M")
     return render(request, "loghistory2.html", {"logs": logs})
+
+@require_POST
+@login_required(login_url="login")
+def delete_log2(request, log_id):
+    logger.info("[DEBUG] Memproses permintaan delete_log2 untuk log_id: %s", log_id)
+    try:
+        log = LogHistory2.objects.get(id=log_id)
+        log.delete()
+        logger.info("[INFO] Berhasil menghapus LogHistory2 dengan ID: %s", log_id)
+        return JsonResponse({"status": "success", "message": "Record has been deleted."})
+    except LogHistory2.DoesNotExist:
+        logger.warning("[WARN] LogHistory2 dengan ID %s tidak ditemukan", log_id)
+        return JsonResponse({"status": "error", "message": "Record not found."}, status=404)
+    except Exception as e:
+        logger.error("[ERROR] Gagal menghapus LogHistory2 dengan ID %s: %s", log_id, str(e))
+        return JsonResponse({"status": "error", "message": f"Failed to delete record: {str(e)}"}, status=500)
+
+@login_required(login_url="login")
+def download_log2(request, log_id):
+    logger.info("[DEBUG] Memproses permintaan download_log2 untuk log_id: %s", log_id)
+    if request.method == "POST":
+        try:
+            # Ambil data log
+            log = get_object_or_404(LogHistory2, id=log_id)
+            logger.debug("[DEBUG] Data log ditemukan: %s", log.__dict__)
+
+            # Ambil data peserta berdasarkan file_id (jika masih ada di Peserta) atau gunakan data dari LogHistory2
+            peserta = None
+            if log.file_id:
+                peserta = get_object_or_404(Peserta, id=log.file_id)
+                logger.debug("[DEBUG] Peserta ditemukan dari file_id: %s", peserta.__dict__)
+            else:
+                logger.warning("[WARN] file_id tidak ada, menggunakan data dari LogHistory2")
+                peserta = type('Peserta', (), {
+                    'nama': log.name,
+                    'email': log.email,
+                    'nomor_hp': log.handphone,
+                    'kota': log.city,
+                    'tanggal_lahir': None,
+                    'jenis_kelamin': None,
+                    'alamat': None,
+                    'pendidikan_terakhir': None,
+                    'nama_lembaga': None,
+                    'jabatan': None,
+                    'alamat_kantor': None,
+                    'telp_kantor': None
+                })()
+
+            # Path ke template Word
+            template_path = os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx')
+            logger.debug("[DEBUG] Path template Word: %s", template_path)
+            if not os.path.exists(template_path):
+                logger.error("[ERROR] Template Word tidak ditemukan di: %s", template_path)
+                return JsonResponse({"status": "error", "message": "Template Word tidak ditemukan."}, status=500)
+
+            # Format Tanggal_Sertif
+            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
+            logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
+
+            # Gunakan data form yang disimpan di LogHistory2
+            jadwal = log.jadwal or "No Schedule"
+            tuk = log.tuk or "Default TUK"
+            skema = log.skema or "Default Skema"
+            asesor = log.asesor or "Default Asesor"
+            lokasi_sertif = log.lokasi_sertif or log.city or "Default Location"
+
+            # Proses dokumen
+            final_doc = Document(template_path)
+
+            # Data untuk mengisi placeholder
+            data_dict = {
+                "Nama": peserta.nama or "-",
+                "Tempat_Lahir": getattr(peserta, 'tempat_lahir', '-') or "-",
+                "Tanggal_Lahir": getattr(peserta, 'tanggal_lahir', None).strftime("%d %B %Y") if getattr(peserta, 'tanggal_lahir', None) else "-",
+                "Jenis_Kelamin": getattr(peserta, 'jenis_kelamin', '-') or "-",
+                "Alamat": getattr(peserta, 'alamat', '-') or "-",
+                "Handphone": getattr(peserta, 'nomor_hp', '-') or "-",
+                "Email": getattr(peserta, 'email', '-') or "-",
+                "Pendidikan_Terakhir": getattr(peserta, 'pendidikan_terakhir', '-') or "-",
+                "Nama_Lembaga": getattr(peserta, 'nama_lembaga', '-') or "-",
+                "Jabatan": getattr(peserta, 'jabatan', '-') or "-",
+                "Alamat_Kantor": getattr(peserta, 'alamat_kantor', '-') or "-",
+                "Telp_Kantor": getattr(peserta, 'telp_kantor', '-') or "-",
+                "Jadwal": jadwal,
+                "TUK": tuk,
+                "Lokasi_Sertif": lokasi_sertif,
+                "Skema": skema,
+                "Asesor": asesor,
+                "Tanggal_Sertif": tanggal_sertif
+            }
+            logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
+
+            # Ganti placeholder di paragraf
+            for paragraph in final_doc.paragraphs:
+                for key, value in data_dict.items():
+                    if "{{" + key + "}}" in paragraph.text:
+                        paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
+
+            # Ganti placeholder di tabel
+            for table in final_doc.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        for key, value in data_dict.items():
+                            if "{{" + key + "}}" in cell.text:
+                                cell.text = cell.text.replace("{{" + key + "}}", value)
+
+            # Simpan dokumen ke BytesIO
+            buffer = BytesIO()
+            final_doc.save(buffer)
+            buffer.seek(0)
+
+            # Respons unduhan
+            response = HttpResponse(
+                content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            )
+            response["Content-Disposition"] = f'attachment; filename="Sertifikat_{log.name}.docx"'
+            response.write(buffer.getvalue())
+            buffer.close()
+
+            logger.info("[INFO] Berhasil menghasilkan dokumen Word untuk log_id: %s", log_id)
+            return response
+
+        except Exception as e:
+            logger.error("[ERROR] Error download_log2: %s\n%s", str(e), traceback.format_exc())
+            return JsonResponse({"status": "error", "message": f"Error mengunduh dokumen: {str(e)}"}, status=500)
+    else:
+        logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
+        return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)

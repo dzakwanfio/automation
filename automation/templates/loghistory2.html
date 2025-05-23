@@ -54,8 +54,8 @@
                                     <a class="btn btn-sm btn-success download-btn" title="Download">
                                         <i class="fas fa-download"></i> Download
                                     </a>
-                                    <button class="btn btn-sm btn-danger delete-log-btn ms-2" title="Delete" data-log-id="{{ log.id }}">
-                                        <i class="fas fa-trash"></i>
+                                    <button class="btn-action delete ms-2" onclick="confirmDelete(event, {{ log.id }})">
+                                        <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>
                             </td>
@@ -211,34 +211,43 @@
         });
     });
 
-    async function confirmDeleteLog(logId) {
-        const { value: accept } = await Swal.fire({
+    // Fungsi untuk konfirmasi dan menghapus log
+    async function confirmDelete(event, logId) {
+        event.preventDefault();
+        console.log("[DEBUG] confirmDelete called with logId: ", logId);
+
+        const result = await Swal.fire({
             title: 'Delete This Record?',
             text: 'The data will be permanently deleted',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
         });
-        
-        if (accept) {
+
+        if (result.isConfirmed) {
             try {
-                const response = await fetch(`/delete-log/${logId}/`, {
+                const response = await fetch(`/delete-log2/${logId}/`, {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': getCookie('csrftoken'),
                         'Content-Type': 'application/json'
                     }
                 });
+
                 const result = await response.json();
-                if (result.success) {
+                if (result.status === "success") {
                     document.querySelector(`tr[data-log-id="${logId}"]`).remove();
-                    Swal.fire('Deleted!', 'Record has been deleted.', 'success');
+                    Swal.fire('Deleted!', result.message, 'success');
                     showPage(currentPage); // Refresh pagination
+                } else {
+                    Swal.fire('Error!', result.message, 'error');
                 }
             } catch (error) {
-                Swal.fire('Error!', 'Failed to delete record.', 'error');
+                console.error("[ERROR] Failed to delete log: ", error);
+                Swal.fire('Error!', 'Failed to delete record: ' + error.message, 'error');
             }
         }
     }
@@ -258,6 +267,62 @@
         }
         return cookieValue;
     }
+
+    // Fungsi untuk mendownload dokumen berdasarkan log
+    async function downloadDocument(logId) {
+        console.log("[DEBUG] downloadDocument called with logId: ", logId);
+
+        try {
+            const response = await fetch(`/download-log2/${logId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            console.log("[DEBUG] File Word diterima");
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `Sertifikat_${new Date().toISOString().slice(0,10)}.docx`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+
+            Swal.fire({
+                title: 'Sukses',
+                text: 'Dokumen Word berhasil diunduh!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        } catch (error) {
+            console.error("[ERROR] Gagal mengunduh dokumen: ", error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Terjadi kesalahan saat mengunduh: ' + error.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }
+
+    // Tambahkan event listener untuk tombol download
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault();
+                const logId = this.closest('tr').getAttribute('data-log-id');
+                downloadDocument(logId);
+            });
+        });
+    });
 
     // Initialize
     window.addEventListener("load", () => {

@@ -250,7 +250,7 @@ def input_data(request):
 
     logger.info(f"Loading input_data page with GET request. URL: {request.path}, Referer: {request.META.get('HTTP_REFERER', 'Unknown')}")
     return render(request, "input_data.html", {"errors": errors})
-            
+
 @login_required(login_url="login")
 def upload_page(request):
     return render(request, "upload.html")
@@ -818,7 +818,7 @@ from .models import Peserta
 
 @login_required(login_url="login")
 def generate_document(request):
-    peserta_list = Peserta.objects.all()
+    peserta_list = Peserta.objects.filter(is_converted=False)
     logger.info(f"Mengambil {peserta_list.count()} data peserta untuk generate_document")
     return render(request, 'generate_document.html', {'files': peserta_list})
 

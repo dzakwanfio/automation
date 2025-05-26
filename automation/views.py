@@ -897,7 +897,7 @@ def convert_document(request):
                 return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
 
             # Langkah 4: Format Tanggal_Sertif
-            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
+            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
             # Langkah 5: Path ke template Word
@@ -914,18 +914,24 @@ def convert_document(request):
 
             for index, peserta in enumerate(peserta_list):
                 logger.debug("[DEBUG] Memproses peserta: %s (ID: %s)", peserta.nama, peserta.id)
-                
+
                 # Buat dokumen sementara untuk peserta ini
                 temp_doc = Document(template_path)
-                
+
                 # Data untuk mengisi placeholder
                 data_dict = {
                     "Nama": peserta.nama or "-",
                     "Tempat_Lahir": peserta.tempat_lahir or "-",
-                    "Tanggal_Lahir": peserta.tanggal_lahir.strftime("%d %B %Y") if peserta.tanggal_lahir else "-",
+                    "Tanggal_Lahir": (
+                        format_tanggal_indonesia(peserta.tanggal_lahir)
+                        if peserta.tanggal_lahir
+                        else "-"
+                    ),
                     "Jenis_Kelamin": peserta.jenis_kelamin or "-",
                     "Alamat": peserta.alamat or "-",
-                    "Handphone": peserta.nomor_hp or "-",
+                    "Handphone": (
+                        str(peserta.nomor_hp) if peserta.nomor_hp else "-"
+                    ),  # Konversi ke string
                     "Email": peserta.email or "-",
                     "Pendidikan_Terakhir": peserta.pendidikan_terakhir or "-",
                     "Nama_Lembaga": peserta.nama_lembaga or "-",
@@ -937,7 +943,7 @@ def convert_document(request):
                     "Lokasi_Sertif": lokasi_sertif,
                     "Skema": skema,
                     "Asesor": asesor,
-                    "Tanggal_Sertif": tanggal_sertif
+                    "Tanggal_Sertif": tanggal_sertif,
                 }
                 logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
 
@@ -1077,7 +1083,7 @@ def download_log2(request, log_id):
                 return JsonResponse({"status": "error", "message": "Template Word tidak ditemukan."}, status=500)
 
             # Format Tanggal_Sertif
-            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
+            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
             # Gunakan data form yang disimpan di LogHistory2
@@ -1093,23 +1099,32 @@ def download_log2(request, log_id):
             # Data untuk mengisi placeholder
             data_dict = {
                 "Nama": peserta.nama or "-",
-                "Tempat_Lahir": getattr(peserta, 'tempat_lahir', '-') or "-",
-                "Tanggal_Lahir": getattr(peserta, 'tanggal_lahir', None).strftime("%d %B %Y") if getattr(peserta, 'tanggal_lahir', None) else "-",
-                "Jenis_Kelamin": getattr(peserta, 'jenis_kelamin', '-') or "-",
-                "Alamat": getattr(peserta, 'alamat', '-') or "-",
-                "Handphone": getattr(peserta, 'nomor_hp', '-') or "-",
-                "Email": getattr(peserta, 'email', '-') or "-",
-                "Pendidikan_Terakhir": getattr(peserta, 'pendidikan_terakhir', '-') or "-",
-                "Nama_Lembaga": getattr(peserta, 'nama_lembaga', '-') or "-",
-                "Jabatan": getattr(peserta, 'jabatan', '-') or "-",
-                "Alamat_Kantor": getattr(peserta, 'alamat_kantor', '-') or "-",
-                "Telp_Kantor": getattr(peserta, 'telp_kantor', '-') or "-",
+                "Tempat_Lahir": getattr(peserta, "tempat_lahir", "-") or "-",
+                "Tanggal_Lahir": (
+                    format_tanggal_indonesia(getattr(peserta, "tanggal_lahir", None))
+                    if getattr(peserta, "tanggal_lahir", None)
+                    else "-"
+                ),
+                "Jenis_Kelamin": getattr(peserta, "jenis_kelamin", "-") or "-",
+                "Alamat": getattr(peserta, "alamat", "-") or "-",
+                "Handphone": (
+                    str(getattr(peserta, "nomor_hp", "-"))
+                    if getattr(peserta, "nomor_hp", "-") != "-"
+                    else "-"
+                ),  # Konversi ke string
+                "Email": getattr(peserta, "email", "-") or "-",
+                "Pendidikan_Terakhir": getattr(peserta, "pendidikan_terakhir", "-")
+                or "-",
+                "Nama_Lembaga": getattr(peserta, "nama_lembaga", "-") or "-",
+                "Jabatan": getattr(peserta, "jabatan", "-") or "-",
+                "Alamat_Kantor": getattr(peserta, "alamat_kantor", "-") or "-",
+                "Telp_Kantor": getattr(peserta, "telp_kantor", "-") or "-",
                 "Jadwal": jadwal,
                 "TUK": tuk,
                 "Lokasi_Sertif": lokasi_sertif,
                 "Skema": skema,
                 "Asesor": asesor,
-                "Tanggal_Sertif": tanggal_sertif
+                "Tanggal_Sertif": tanggal_sertif,
             }
             logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
 
@@ -1149,3 +1164,55 @@ def download_log2(request, log_id):
     else:
         logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
         return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
+
+    # views.py
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .models import LogHistory2
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+@require_POST
+@login_required(login_url="login")
+def delete_all_logs2(request):
+    logger.info("[DEBUG] Memproses permintaan delete_all_logs2 pada: %s", request.path)
+    try:
+        deleted_count, _ = LogHistory2.objects.all().delete()
+        logger.info("[INFO] Berhasil menghapus %s record LogHistory2", deleted_count)
+        return JsonResponse(
+            {"status": "success", "message": f"{deleted_count} record telah dihapus."}
+        )
+    except Exception as e:
+        logger.error("[ERROR] Gagal menghapus semua record LogHistory2: %s", str(e))
+        return JsonResponse(
+            {"status": "error", "message": f"Gagal menghapus record: {str(e)}"},
+            status=500,
+        )
+
+def format_tanggal_indonesia(tanggal):
+    """Mengonversi tanggal ke format DD MMMM YYYY dalam bahasa Indonesia."""
+    bulan_indonesia = {
+        "January": "Januari",
+        "February": "Februari",
+        "March": "Maret",
+        "April": "April",
+        "May": "Mei",
+        "June": "Juni",
+        "July": "Juli",
+        "August": "Agustus",
+        "September": "September",
+        "October": "Oktober",
+        "November": "November",
+        "December": "Desember",
+    }
+    formatted_date = tanggal.strftime("%d %B %Y")
+    for eng, indo in bulan_indonesia.items():
+        formatted_date = formatted_date.replace(eng, indo)
+    # Tambahkan leading zero pada hari jika perlu
+    day = formatted_date.split()[0]
+    if len(day) == 1:
+        formatted_date = f"0{day} {formatted_date.split(' ', 1)[1]}"
+    return formatted_date

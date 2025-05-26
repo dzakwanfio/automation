@@ -54,9 +54,6 @@
                                     <a class="btn btn-sm btn-success download-btn" title="Download">
                                         <i class="fas fa-download"></i> Download
                                     </a>
-                                    <button class="btn-action delete ms-2" onclick="confirmDelete(event, {{ log.id }})">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -73,6 +70,7 @@
 
             <!-- Pagination -->
             <div class="pagination-container mb-4">
+                <button id="delete-all-btn" class="btn btn-danger">Hapus Semua</button>
                 <button class="btn-pagination prev-btn" disabled>Previous</button>
                 <span class="pagination-number">1</span>
                 <button class="btn-pagination next-btn">Next</button>
@@ -131,26 +129,23 @@
     });
     
     // ---------------------------------------------------
-    // Search Functionality (Menggantikan Filter Tanggal)
+    // Search Functionality
     // ---------------------------------------------------
-    // Fungsi untuk mencari data di seluruh kolom tabel
     function searchData() {
         console.log("searchData() terpanggil");
-        let input = document.getElementById("search").value.toLowerCase(); // Ambil input pencarian
-        let rows = document.querySelectorAll("#table-body tr"); // Ambil semua baris tabel
-        let noResults = document.getElementById("no-results"); // Ambil elemen untuk pesan "No matching results"
+        let input = document.getElementById("search").value.toLowerCase();
+        let rows = document.querySelectorAll("#table-body tr");
+        let noResults = document.getElementById("no-results");
         let found = false;
 
         rows.forEach(row => {
-            let cells = row.querySelectorAll("td"); // Ambil semua sel (kolom) di baris
+            let cells = row.querySelectorAll("td");
             let rowText = "";
 
-            // Gabungkan teks dari semua kolom di baris menjadi satu string
             cells.forEach(cell => {
-                rowText += cell.textContent.toLowerCase() + " "; // Gabungkan teks dari setiap kolom
+                rowText += cell.textContent.toLowerCase() + " ";
             });
 
-            // Jika teks pencarian ditemukan di dalam baris, tampilkan baris tersebut, jika tidak sembunyikan
             if (rowText.includes(input)) {
                 row.dataset.match = "true";
                 row.style.display = "";
@@ -162,9 +157,8 @@
         });
 
         noResults.style.display = found ? "none" : "block";
-        showPage(1); // Reset ke halaman 1 setelah pencarian
+        showPage(1);
     }
-
 
     // ---------------------------------------------------
     // Sorting Functionality
@@ -176,7 +170,7 @@
     
         rows.sort((rowA, rowB) => {
             let cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
-            let cellB = rowA.cells[columnIndex].textContent.trim().toLowerCase();
+            let cellB = rowB.cells[columnIndex].textContent.trim().toLowerCase();
             return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
         });
     
@@ -202,34 +196,35 @@
     }
     
     // ---------------------------------------------------
-    // Delete Functionality
+    // Delete All Functionality (New)
     // ---------------------------------------------------
-    document.querySelectorAll('.delete-log-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const logId = this.getAttribute('data-log-id');
-            confirmDeleteLog(logId);
-        });
-    });
+    async function confirmDeleteAll() {
+        console.log("[DEBUG] confirmDeleteAll called");
 
-    // Fungsi untuk konfirmasi dan menghapus log
-    async function confirmDelete(event, logId) {
-        event.preventDefault();
-        console.log("[DEBUG] confirmDelete called with logId: ", logId);
-
+        const rowCount = document.querySelectorAll("#table-body tr").length;
         const result = await Swal.fire({
-            title: 'Delete This Record?',
-            text: 'The data will be permanently deleted',
+            title: 'Delete All Records?',
+            text: `All ${rowCount} history records will be permanently deleted!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonText: 'Yes, delete all!',
             cancelButtonText: 'Cancel'
         });
 
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`/delete-log2/${logId}/`, {
+                Swal.fire({
+                    title: 'Menghapus...',
+                    text: 'Harap tunggu, sedang menghapus semua record.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                const response = await fetch('/delete-all-logs2/', {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': getCookie('csrftoken'),
@@ -237,38 +232,33 @@
                     }
                 });
 
+                Swal.close();
+
                 const result = await response.json();
                 if (result.status === "success") {
-                    document.querySelector(`tr[data-log-id="${logId}"]`).remove();
+                    document.querySelectorAll("#table-body tr").forEach(row => row.remove());
+                    document.getElementById("no-results").style.display = "block";
+                    document.querySelector(".pagination-number").textContent = "1";
+                    document.querySelector(".prev-btn").disabled = true;
+                    document.querySelector(".next-btn").disabled = true;
                     Swal.fire('Deleted!', result.message, 'success');
-                    showPage(currentPage); // Refresh pagination
                 } else {
                     Swal.fire('Error!', result.message, 'error');
                 }
             } catch (error) {
-                console.error("[ERROR] Failed to delete log: ", error);
-                Swal.fire('Error!', 'Failed to delete record: ' + error.message, 'error');
+                console.error("[ERROR] Failed to delete all logs: ", error);
+                Swal.close();
+                Swal.fire('Error!', 'Failed to delete all records: ' + error.message, 'error');
             }
         }
     }
 
-    // Fungsi untuk mendapatkan CSRF token
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+    // Event listener untuk tombol Hapus Semua
+    document.getElementById('delete-all-btn').addEventListener('click', confirmDeleteAll);
 
-    // Fungsi untuk mendownload dokumen berdasarkan log
+    // ---------------------------------------------------
+    // Download Functionality
+    // ---------------------------------------------------
     async function downloadDocument(logId) {
         console.log("[DEBUG] downloadDocument called with logId: ", logId);
 
@@ -323,6 +313,22 @@
             });
         });
     });
+
+    // Fungsi untuk mendapatkan CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
     // Initialize
     window.addEventListener("load", () => {

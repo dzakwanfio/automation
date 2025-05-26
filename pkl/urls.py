@@ -31,15 +31,9 @@ urlpatterns = [
         automation.delete_data_siswa_single,
         name="delete_data_siswa_single",
     ),
+    path("data_siswa/delete/", automation.delete_data_siswa, name="delete_data_siswa"),
     path(
-        "data_siswa/delete/",
-        automation.delete_data_siswa,
-        name="delete_data_siswa",
-    ),
-    path(
-        "data_siswa/edit/<int:id>/",
-        automation.edit_data_siswa,
-        name="edit_data_siswa",
+        "data_siswa/edit/<int:id>/", automation.edit_data_siswa, name="edit_data_siswa"
     ),
     path("logout/", automation.logoutview, name="logout"),
     path("forgot_pw/", automation.forgot_pw, name="forgot_pw"),
@@ -56,8 +50,11 @@ urlpatterns = [
     path("delete-peserta/", automation.delete_peserta, name="delete_peserta"),
     path("convert-document/", automation.convert_document, name="convert_document"),
     path("log-history2/", automation.log_history2, name="log_history2"),
-    path('delete-log2/<int:log_id>/', automation.delete_log2, name='delete_log2'),
-    path('download-log2/<int:log_id>/', automation.download_log2, name='download_log2'),
+    path("delete-log2/<int:log_id>/", automation.delete_log2, name="delete_log2"),
+    path("download-log2/<int:log_id>/", automation.download_log2, name="download_log2"),
+    path(
+        "delete-all-logs2/", automation.delete_all_logs2, name="delete_all_logs2"
+    ),  # Endpoint baru
 ]
 
 if settings.DEBUG:

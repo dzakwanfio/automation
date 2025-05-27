@@ -5,6 +5,7 @@ import os
 import re
 import subprocess
 
+from django.conf import settings
 import jwt
 import openpyxl
 import pandas as pd
@@ -24,6 +25,8 @@ from docx import Document
 from io import BytesIO
 import traceback
 from copy import deepcopy
+import time
+import uuid
 
 # Setup logging untuk debugging
 logging.basicConfig(
@@ -897,117 +900,148 @@ def convert_document(request):
                 return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
 
             # Langkah 4: Format Tanggal_Sertif
-            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
+            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
-            # Langkah 5: Path ke template Word
-            template_path = os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx')
-            logger.debug("[DEBUG] Path template Word: %s", template_path)
-            if not os.path.exists(template_path):
-                logger.error("[ERROR] Template Word tidak ditemukan di: %s", template_path)
-                return JsonResponse({"status": "error", "message": "Template Word tidak ditemukan."}, status=500)
+            # Langkah 5: Path ke kedua template Word
+            template_paths = [
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT2.docx')
+            ]
+            for path in template_paths:
+                if not os.path.exists(path):
+                    logger.error("[ERROR] Template Word tidak ditemukan di: %s", path)
+                    return JsonResponse({"status": "error", "message": f"Template Word {path} tidak ditemukan."}, status=500)
 
-            # Langkah 6: Proses semua peserta dan gabungkan
-            logger.debug("[DEBUG] Memulai proses untuk %d peserta", len(peserta_list))
-            final_doc = Document()
-            first_doc = True
+            # Buat direktori untuk menyimpan file sementara di STATICFILES_DIRS
+            temp_dir = os.path.join(settings.BASE_DIR, 'automation', 'static', 'temp')  # Gunakan settings.BASE_DIR
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+                logger.info("[INFO] Membuat direktori temp: %s", temp_dir)
 
-            for index, peserta in enumerate(peserta_list):
-                logger.debug("[DEBUG] Memproses peserta: %s (ID: %s)", peserta.nama, peserta.id)
+            # Bersihkan file lama
+            now = time.time()
+            for filename in os.listdir(temp_dir):
+                file_path = os.path.join(temp_dir, filename)
+                if os.stat(file_path).st_mtime < now - 3600:  # 1 jam
+                    os.remove(file_path)
+                    logger.info("[INFO] Menghapus file lama: %s", file_path)
 
-                # Buat dokumen sementara untuk peserta ini
-                temp_doc = Document(template_path)
+            # Langkah 6: Proses semua peserta dan buat dokumen untuk kedua template
+            download_urls = []
+            temp_files = []
+            for template_path in template_paths:
+                final_doc = Document()
+                first_doc = True
 
-                # Data untuk mengisi placeholder
-                data_dict = {
-                    "Nama": peserta.nama or "-",
-                    "Tempat_Lahir": peserta.tempat_lahir or "-",
-                    "Tanggal_Lahir": (
-                        format_tanggal_indonesia(peserta.tanggal_lahir)
-                        if peserta.tanggal_lahir
-                        else "-"
-                    ),
-                    "Jenis_Kelamin": peserta.jenis_kelamin or "-",
-                    "Alamat": peserta.alamat or "-",
-                    "Handphone": (
-                        str(peserta.nomor_hp) if peserta.nomor_hp else "-"
-                    ),  # Konversi ke string
-                    "Email": peserta.email or "-",
-                    "Pendidikan_Terakhir": peserta.pendidikan_terakhir or "-",
-                    "Nama_Lembaga": peserta.nama_lembaga or "-",
-                    "Jabatan": peserta.jabatan or "-",
-                    "Alamat_Kantor": peserta.alamat_kantor or "-",
-                    "Telp_Kantor": peserta.telp_kantor or "-",
-                    "Jadwal": jadwal,
-                    "TUK": tuk,
-                    "Lokasi_Sertif": lokasi_sertif,
-                    "Skema": skema,
-                    "Asesor": asesor,
-                    "Tanggal_Sertif": tanggal_sertif,
-                }
-                logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
+                for index, peserta in enumerate(peserta_list):
+                    logger.debug("[DEBUG] Memproses peserta: %s (ID: %s) dengan template: %s", peserta.nama, peserta.id, template_path)
+                    
+                    # Buat dokumen sementara untuk peserta ini
+                    temp_doc = Document(template_path)
+                    
+                    # Data untuk mengisi placeholder
+                    data_dict = {
+                        "Nama": peserta.nama or "-",
+                        "Tempat_Lahir": peserta.tempat_lahir or "-",
+                        "Tanggal_Lahir": peserta.tanggal_lahir.strftime("%d %B %Y") if peserta.tanggal_lahir else "-",
+                        "Jenis_Kelamin": peserta.jenis_kelamin or "-",
+                        "Alamat": peserta.alamat or "-",
+                        "Handphone": peserta.nomor_hp or "-",
+                        "Email": peserta.email or "-",
+                        "Pendidikan_Terakhir": peserta.pendidikan_terakhir or "-",
+                        "Nama_Lembaga": peserta.nama_lembaga or "-",
+                        "Jabatan": peserta.jabatan or "-",
+                        "Alamat_Kantor": peserta.alamat_kantor or "-",
+                        "Telp_Kantor": peserta.telp_kantor or "-",
+                        "Jadwal": jadwal,
+                        "TUK": tuk,
+                        "Lokasi_Sertif": lokasi_sertif,
+                        "Skema": skema,
+                        "Asesor": asesor,
+                        "Tanggal_Sertif": tanggal_sertif
+                    }
+                    logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
 
-                # Ganti placeholder di paragraf
-                for paragraph in temp_doc.paragraphs:
-                    for key, value in data_dict.items():
-                        if "{{" + key + "}}" in paragraph.text:
-                            paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
+                    # Ganti placeholder di paragraf
+                    for paragraph in temp_doc.paragraphs:
+                        for key, value in data_dict.items():
+                            if "{{" + key + "}}" in paragraph.text:
+                                paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
 
-                # Ganti placeholder di tabel
-                for table in temp_doc.tables:
-                    for row in table.rows:
-                        for cell in row.cells:
-                            for key, value in data_dict.items():
-                                if "{{" + key + "}}" in cell.text:
-                                    cell.text = cell.text.replace("{{" + key + "}}", value)
+                    # Ganti placeholder di tabel
+                    for table in temp_doc.tables:
+                        for row in table.rows:
+                            for cell in row.cells:
+                                for key, value in data_dict.items():
+                                    if "{{" + key + "}}" in cell.text:
+                                        cell.text = cell.text.replace("{{" + key + "}}", value)
 
-                # Gabungkan ke dokumen final
-                if first_doc:
-                    final_doc = temp_doc
-                    first_doc = False
+                    # Gabungkan ke dokumen final
+                    if first_doc:
+                        final_doc = temp_doc
+                        first_doc = False
+                    else:
+                        for element in temp_doc.element.body:
+                            final_doc.element.body.append(element)
+
+                    # Simpan ke LogHistory2 setelah konversi berhasil untuk peserta ini
+                    LogHistory2.objects.create(
+                        name=peserta.nama,
+                        email=peserta.email or "-",
+                        handphone=peserta.nomor_hp or "-",
+                        city=peserta.kota or "-",
+                        upload_date=timezone.now(),
+                        course_name=jadwal,
+                        status="Converted",
+                        process_time=timezone.now(),
+                        file_id=peserta.id,
+                        jadwal=jadwal,
+                        tuk=tuk,
+                        skema=skema,
+                        asesor=asesor,
+                        lokasi_sertif=lokasi_sertif,
+                        template="BOTH"
+                    )
+
+                    # Tandai peserta sebagai sudah dikonversi
+                    peserta.is_converted = True
+                    peserta.save()
+
+                # Simpan dokumen ke BytesIO
+                buffer = BytesIO()
+                final_doc.save(buffer)
+                buffer.seek(0)
+
+                # Simpan ke file sementara di direktori statis dengan nama unik
+                unique_id = str(uuid.uuid4())
+                filename = f"Sertifikat_{len(peserta_list)}_Peserta_{os.path.basename(template_path).replace('.docx', '')}_{unique_id}.docx"
+                temp_file_path = os.path.join(temp_dir, filename)
+                with open(temp_file_path, 'wb') as temp_file:
+                    temp_file.write(buffer.getvalue())
+                buffer.close()
+
+                # Verifikasi file sudah dibuat
+                if os.path.exists(temp_file_path):
+                    logger.info("[INFO] File sementara berhasil dibuat: %s", temp_file_path)
                 else:
-                    # Tambahkan semua elemen dari temp_doc ke final_doc
-                    for element in temp_doc.element.body:
-                        final_doc.element.body.append(element)
+                    logger.error("[ERROR] Gagal membuat file sementara: %s", temp_file_path)
+                    return JsonResponse({"status": "error", "message": f"Gagal membuat file sementara: {temp_file_path}"}, status=500)
 
-                # Simpan ke LogHistory2 setelah konversi berhasil untuk peserta ini
-                LogHistory2.objects.create(
-                    name=peserta.nama,
-                    email=peserta.email or "-",
-                    handphone=peserta.nomor_hp or "-",
-                    city=peserta.kota or "-",
-                    upload_date=timezone.now(),
-                    course_name=jadwal,  # Simpan jadwal sebagai course_name
-                    status="Converted",
-                    process_time=timezone.now(),
-                    file_id=peserta.id,
-                    # Simpan data form
-                    jadwal=jadwal,
-                    tuk=tuk,
-                    skema=skema,
-                    asesor=asesor,
-                    lokasi_sertif=lokasi_sertif
-                )
+                # Simpan path file untuk pembersihan
+                temp_files.append(temp_file_path)
 
-                # Tandai peserta sebagai sudah dikonversi
-                peserta.is_converted = True
-                peserta.save()
+                # Buat URL statis untuk file
+                static_url = f"/static/temp/{filename}"
+                download_urls.append(static_url)
 
-            # Simpan dokumen ke BytesIO
-            buffer = BytesIO()
-            final_doc.save(buffer)
-            buffer.seek(0)
-
-            # Respons unduhan dengan nama file yang mencerminkan jumlah peserta
-            response = HttpResponse(
-                content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
-            response["Content-Disposition"] = f'attachment; filename="Sertifikat_{len(peserta_list)}_Peserta.docx"'
-            response.write(buffer.getvalue())
-            buffer.close()
-
-            logger.info("[INFO] Berhasil menghasilkan dokumen Word untuk %d peserta", len(peserta_list))
-            return response
+            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk %d peserta", len(peserta_list))
+            return JsonResponse({
+                "status": "success",
+                "download_urls": download_urls,
+                "temp_files": temp_files,
+                "message": "Dua dokumen berhasil dihasilkan!"
+            })
 
         except json.JSONDecodeError as e:
             logger.error("[ERROR] Gagal parsing JSON: %s", str(e))
@@ -1075,15 +1109,18 @@ def download_log2(request, log_id):
                     'telp_kantor': None
                 })()
 
-            # Path ke template Word
-            template_path = os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx')
-            logger.debug("[DEBUG] Path template Word: %s", template_path)
-            if not os.path.exists(template_path):
-                logger.error("[ERROR] Template Word tidak ditemukan di: %s", template_path)
-                return JsonResponse({"status": "error", "message": "Template Word tidak ditemukan."}, status=500)
+            # Path ke kedua template Word
+            template_paths = [
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT2.docx')
+            ]
+            for path in template_paths:
+                if not os.path.exists(path):
+                    logger.error("[ERROR] Template Word tidak ditemukan di: %s", path)
+                    return JsonResponse({"status": "error", "message": f"Template Word {path} tidak ditemukan."}, status=500)
 
             # Format Tanggal_Sertif
-            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
+            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
             # Gunakan data form yang disimpan di LogHistory2
@@ -1093,70 +1130,88 @@ def download_log2(request, log_id):
             asesor = log.asesor or "Default Asesor"
             lokasi_sertif = log.lokasi_sertif or log.city or "Default Location"
 
-            # Proses dokumen
-            final_doc = Document(template_path)
+            # Buat direktori untuk menyimpan file sementara
+            temp_dir = os.path.join(settings.STATIC_ROOT, 'temp')
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
 
-            # Data untuk mengisi placeholder
-            data_dict = {
-                "Nama": peserta.nama or "-",
-                "Tempat_Lahir": getattr(peserta, "tempat_lahir", "-") or "-",
-                "Tanggal_Lahir": (
-                    format_tanggal_indonesia(getattr(peserta, "tanggal_lahir", None))
-                    if getattr(peserta, "tanggal_lahir", None)
-                    else "-"
-                ),
-                "Jenis_Kelamin": getattr(peserta, "jenis_kelamin", "-") or "-",
-                "Alamat": getattr(peserta, "alamat", "-") or "-",
-                "Handphone": (
-                    str(getattr(peserta, "nomor_hp", "-"))
-                    if getattr(peserta, "nomor_hp", "-") != "-"
-                    else "-"
-                ),  # Konversi ke string
-                "Email": getattr(peserta, "email", "-") or "-",
-                "Pendidikan_Terakhir": getattr(peserta, "pendidikan_terakhir", "-")
-                or "-",
-                "Nama_Lembaga": getattr(peserta, "nama_lembaga", "-") or "-",
-                "Jabatan": getattr(peserta, "jabatan", "-") or "-",
-                "Alamat_Kantor": getattr(peserta, "alamat_kantor", "-") or "-",
-                "Telp_Kantor": getattr(peserta, "telp_kantor", "-") or "-",
-                "Jadwal": jadwal,
-                "TUK": tuk,
-                "Lokasi_Sertif": lokasi_sertif,
-                "Skema": skema,
-                "Asesor": asesor,
-                "Tanggal_Sertif": tanggal_sertif,
-            }
-            logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
+            # Bersihkan file lama (opsional)
+            now = time.time()
+            for filename in os.listdir(temp_dir):
+                file_path = os.path.join(temp_dir, filename)
+                if os.stat(file_path).st_mtime < now - 3600:  # 1 jam
+                    os.remove(file_path)
 
-            # Ganti placeholder di paragraf
-            for paragraph in final_doc.paragraphs:
-                for key, value in data_dict.items():
-                    if "{{" + key + "}}" in paragraph.text:
-                        paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
+            # Proses dokumen untuk kedua template
+            download_urls = []
+            temp_files = []
+            for template_path in template_paths:
+                final_doc = Document(template_path)
 
-            # Ganti placeholder di tabel
-            for table in final_doc.tables:
-                for row in table.rows:
-                    for cell in row.cells:
-                        for key, value in data_dict.items():
-                            if "{{" + key + "}}" in cell.text:
-                                cell.text = cell.text.replace("{{" + key + "}}", value)
+                # Data untuk mengisi placeholder
+                data_dict = {
+                    "Nama": peserta.nama or "-",
+                    "Tempat_Lahir": getattr(peserta, 'tempat_lahir', '-') or "-",
+                    "Tanggal_Lahir": getattr(peserta, 'tanggal_lahir', None).strftime("%d %B %Y") if getattr(peserta, 'tanggal_lahir', None) else "-",
+                    "Jenis_Kelamin": getattr(peserta, 'jenis_kelamin', '-') or "-",
+                    "Alamat": getattr(peserta, 'alamat', '-') or "-",
+                    "Handphone": getattr(peserta, 'nomor_hp', '-') or "-",
+                    "Email": getattr(peserta, 'email', '-') or "-",
+                    "Pendidikan_Terakhir": getattr(peserta, 'pendidikan_terakhir', '-') or "-",
+                    "Nama_Lembaga": getattr(peserta, 'nama_lembaga', '-') or "-",
+                    "Jabatan": getattr(peserta, 'jabatan', '-') or "-",
+                    "Alamat_Kantor": getattr(peserta, 'alamat_kantor', '-') or "-",
+                    "Telp_Kantor": getattr(peserta, 'telp_kantor', '-') or "-",
+                    "Jadwal": jadwal,
+                    "TUK": tuk,
+                    "Lokasi_Sertif": lokasi_sertif,
+                    "Skema": skema,
+                    "Asesor": asesor,
+                    "Tanggal_Sertif": tanggal_sertif
+                }
+                logger.debug("[DEBUG] Data untuk placeholder: %s", data_dict)
 
-            # Simpan dokumen ke BytesIO
-            buffer = BytesIO()
-            final_doc.save(buffer)
-            buffer.seek(0)
+                # Ganti placeholder di paragraf
+                for paragraph in final_doc.paragraphs:
+                    for key, value in data_dict.items():
+                        if "{{" + key + "}}" in paragraph.text:
+                            paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
 
-            # Respons unduhan
-            response = HttpResponse(
-                content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
-            response["Content-Disposition"] = f'attachment; filename="Sertifikat_{log.name}.docx"'
-            response.write(buffer.getvalue())
-            buffer.close()
+                # Ganti placeholder di tabel
+                for table in final_doc.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            for key, value in data_dict.items():
+                                if "{{" + key + "}}" in cell.text:
+                                    cell.text = cell.text.replace("{{" + key + "}}", value)
 
-            logger.info("[INFO] Berhasil menghasilkan dokumen Word untuk log_id: %s", log_id)
-            return response
+                # Simpan dokumen ke BytesIO
+                buffer = BytesIO()
+                final_doc.save(buffer)
+                buffer.seek(0)
+
+                # Simpan ke file sementara di direktori statis dengan nama unik
+                unique_id = str(uuid.uuid4())
+                filename = f"Sertifikat_{log.name}_{os.path.basename(template_path).replace('.docx', '')}_{unique_id}.docx"
+                temp_file_path = os.path.join(temp_dir, filename)
+                with open(temp_file_path, 'wb') as temp_file:
+                    temp_file.write(buffer.getvalue())
+                buffer.close()
+
+                # Simpan path file untuk pembersihan
+                temp_files.append(temp_file_path)
+
+                # Buat URL statis untuk file
+                static_url = f"/static/temp/{filename}"
+                download_urls.append(static_url)
+
+            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk log_id: %s", log_id)
+            return JsonResponse({
+                "status": "success",
+                "download_urls": download_urls,
+                "temp_files": temp_files,
+                "message": "Dua dokumen berhasil dihasilkan!"
+            })
 
         except Exception as e:
             logger.error("[ERROR] Error download_log2: %s\n%s", str(e), traceback.format_exc())
@@ -1216,3 +1271,23 @@ def format_tanggal_indonesia(tanggal):
     if len(day) == 1:
         formatted_date = f"0{day} {formatted_date.split(' ', 1)[1]}"
     return formatted_date
+
+@require_POST
+@login_required(login_url="login")
+def cleanup_temp_files(request):
+    try:
+        data = json.loads(request.body)
+        temp_files = data.get("temp_files", [])
+        logger.debug("[DEBUG] Menerima permintaan cleanup untuk file: %s", temp_files)
+
+        for temp_file in temp_files:
+            if os.path.exists(temp_file):
+                os.remove(temp_file)
+                logger.info("[INFO] Berhasil menghapus file sementara: %s", temp_file)
+            else:
+                logger.warning("[WARN] File sementara tidak ditemukan: %s", temp_file)
+
+        return JsonResponse({"status": "success", "message": "File sementara berhasil dihapus."})
+    except Exception as e:
+        logger.error("[ERROR] Gagal menghapus file sementara: %s", str(e))
+        return JsonResponse({"status": "error", "message": f"Gagal menghapus file: {str(e)}"}, status=500)

@@ -87,10 +87,19 @@
                     <div class="mb-3">
                         <label for="tuk" class="form-label">TUK</label>
                         <input type="text" class="form-control" id="tuk" name="tuk" placeholder="Masukkan TUK" required>
-                    </div>
                     <div class="mb-3">
                         <label for="skema" class="form-label">Skema</label>
-                        <input type="text" class="form-control" id="skema" name="skema" placeholder="Masukkan Skema" required>
+                        <select class="form-control" id="skema" name="skema" required>
+                            <option value="" disabled selected>Pilih Skema</option>
+                            <option value="Associate Data Analyst">Associate Data Analyst</option>
+                            <option value="Instruktur Junior (KKNI Level III)">Instruktur Junior (KKNI Level III)</option>
+                            <option value="Junior Information Management">Junior Information Management</option>
+                            <option value="Pemasangan Jaringan Komputer">Pemasangan Jaringan Komputer</option>
+                            <option value="Pengelolaan Backup dan Restore Data">Pengelolaan Backup dan Restore Data</option>
+                            <option value="Pengelolaan Data Aplikasi Perkantoran">Pengelolaan Data Aplikasi Perkantoran</option>
+                            <option value="Pengelolaan Keamanan Data Pengguna">Pengelolaan Keamanan Data Pengguna</option>
+                            <option value="Pengelolaan Keamanan Jaringan">Pengelolaan Keamanan Jaringan</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="asesor" class="form-label">Asesor</label>
@@ -391,42 +400,62 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.blob();
+        return response.json();
     })
-    .then(blob => {
-        console.log("[DEBUG] File Word diterima");
-        // Buat link untuk unduhan
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `Sertifikat_${new Date().toISOString().slice(0,10)}.docx`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
+    .then(data => {
+        if (data.status === "success") {
+            console.log("[DEBUG] Download URLs received: ", data.download_urls);
+            // Unduh kedua file
+            data.download_urls.forEach((url, index) => {
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = url.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                console.log("[DEBUG] File downloaded: ", url);
+            });
 
-        // Hapus baris yang dipilih dari DOM
-        pesertaIds.forEach(id => {
-            let row = document.querySelector(`.row-checkbox[value="${id}"]`);
-            if (row) {
-                row.closest("tr").remove();
-            }
-        });
+            // Bersihkan file sementara
+            fetch("{% url 'cleanup_temp_files' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken"),
+                },
+                body: JSON.stringify({ temp_files: data.temp_files })
+            })
+            .then(response => response.json())
+            .then(cleanupData => {
+                console.log("[DEBUG] Cleanup response: ", cleanupData);
+            })
+            .catch(error => {
+                console.error("[ERROR] Gagal membersihkan file sementara: ", error);
+            });
 
-        Swal.fire({
-            title: 'Sukses',
-            text: `Dokumen Word dengan ${pesertaIds.length} halaman berhasil diunduh!`,
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            // Reset form dan tutup modal
-            form.reset();
-            form.dataset.pesertaIds = "";
-            let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
-            modal.hide();
-            showPage(currentPage); // Perbarui paginasi
-            updateSelectedCount(); // Perbarui jumlah terpilih
-        });
+            pesertaIds.forEach(id => {
+                let row = document.querySelector(`.row-checkbox[value="${id}"]`);
+                if (row) {
+                    row.closest("tr").remove();
+                }
+            });
+
+            Swal.fire({
+                title: 'Sukses',
+                text: `Dua dokumen Word berhasil diunduh!`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                form.reset();
+                form.dataset.pesertaIds = "";
+                let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
+                modal.hide();
+                showPage(currentPage);
+                updateSelectedCount();
+            });
+        } else {
+            throw new Error(data.message);
+        }
     })
     .catch(error => {
         console.error("[ERROR] Gagal mengonversi: ", error);

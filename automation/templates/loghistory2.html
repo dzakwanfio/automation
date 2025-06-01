@@ -279,23 +279,45 @@
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const blob = await response.blob();
-            console.log("[DEBUG] File Word diterima");
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `Sertifikat_${new Date().toISOString().slice(0,10)}.docx`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
+            const data = await response.json();
+            if (data.status === "success") {
+                console.log("[DEBUG] Download URLs received: ", data.download_urls);
+                data.download_urls.forEach((url, index) => {
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.download = url.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    console.log("[DEBUG] File downloaded: ", url);
+                });
 
-            Swal.fire({
-                title: 'Sukses',
-                text: 'Dokumen Word berhasil diunduh!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+                // Bersihkan file sementara
+                fetch("{% url 'cleanup_temp_files' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                    body: JSON.stringify({ temp_files: data.temp_files })
+                })
+                .then(response => response.json())
+                .then(cleanupData => {
+                    console.log("[DEBUG] Cleanup response: ", cleanupData);
+                })
+                .catch(error => {
+                    console.error("[ERROR] Gagal membersihkan file sementara: ", error);
+                });
+
+                Swal.fire({
+                    title: 'Sukses',
+                    text: 'Dua dokumen Word berhasil diunduh!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                throw new Error(data.message);
+            }
         } catch (error) {
             console.error("[ERROR] Gagal mengunduh dokumen: ", error);
             Swal.fire({

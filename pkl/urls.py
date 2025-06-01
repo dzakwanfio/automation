@@ -54,7 +54,9 @@ urlpatterns = [
     path("download-log2/<int:log_id>/", automation.download_log2, name="download_log2"),
     path(
         "delete-all-logs2/", automation.delete_all_logs2, name="delete_all_logs2"
-    ),  # Endpoint baru
+    ), 
+    path('cleanup-temp-files/', automation.cleanup_temp_files, name='cleanup_temp_files'),
+    
 ]
 
 if settings.DEBUG:

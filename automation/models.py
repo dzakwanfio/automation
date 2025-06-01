@@ -96,9 +96,9 @@ class Siswa(models.Model):
 
 class LogHistory2(models.Model):
     name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255, blank=True, null=True)  # Tambahkan field email
-    handphone = models.CharField(max_length=15, blank=True, null=True)  # Tambahkan field handphone
-    city = models.CharField(max_length=100, blank=True, null=True)  # Tambahkan field city
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    handphone = models.CharField(max_length=15, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
     upload_date = models.DateTimeField(default=timezone.now)
     course_name = models.CharField(max_length=100)
     status = models.CharField(max_length=50)
@@ -110,6 +110,7 @@ class LogHistory2(models.Model):
     skema = models.CharField(max_length=100, blank=True, null=True)
     asesor = models.CharField(max_length=100, blank=True, null=True)
     lokasi_sertif = models.CharField(max_length=100, blank=True, null=True)
+    template = models.CharField(max_length=50, blank=True, null=True)  # Tambahkan field ini
 
     def __str__(self):
         return self.name

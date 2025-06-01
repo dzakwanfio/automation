@@ -69,12 +69,16 @@
             <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
 
             <!-- Pagination -->
-            <div class="pagination-container mb-4">
-                <button id="delete-all-btn" class="btn btn-danger">Hapus Semua</button>
-                <button class="btn-pagination prev-btn" disabled>Previous</button>
-                <span class="pagination-number">1</span>
-                <button class="btn-pagination next-btn">Next</button>
+            <div class="pagination-container d-flex justify-content-between align-items-center mb-4">
+                <button id="delete-all-btn" class="btn btn-danger">Delete All</button>
+            
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn-pagination prev-btn" disabled>Previous</button>
+                    <span class="pagination-number">1</span>
+                    <button class="btn-pagination next-btn">Next</button>
+                </div>
             </div>
+            
         </div>
     </div>
 </div>

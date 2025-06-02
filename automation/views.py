@@ -848,6 +848,9 @@ def edit_data_siswa(request, id):
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Peserta
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+
 
 @login_required(login_url="login")
 def generate_document(request):
@@ -1064,6 +1067,15 @@ def convert_document(request):
                         final_doc = temp_doc
                         first_doc = False
                     else:
+                        # Tambahkan page break
+                        page_break_paragraph = OxmlElement('w:p')
+                        run = OxmlElement('w:r')
+                        br = OxmlElement('w:br')
+                        br.set(qn('w:type'), 'page')
+                        run.append(br)
+                        page_break_paragraph.append(run)
+                        final_doc.element.body.append(page_break_paragraph)
+
                         for element in temp_doc.element.body:
                             final_doc.element.body.append(element)
 

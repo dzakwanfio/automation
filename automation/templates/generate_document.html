@@ -383,6 +383,16 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         });
         return;
     }
+    // Tampilkan loading popup
+    Swal.fire({
+        title: 'Memproses...',
+        text: 'Mohon tunggu, dokumen sedang diproses dan diunduh.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
 
     console.log("[DEBUG] Data form yang akan dikirim: ", formData);
 
@@ -405,7 +415,7 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
     .then(data => {
         if (data.status === "success") {
             console.log("[DEBUG] Download URLs received: ", data.download_urls);
-            // Unduh kedua file
+            // Unduh semua file
             data.download_urls.forEach((url, index) => {
                 const link = document.createElement("a");
                 link.href = url;
@@ -415,8 +425,7 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
                 document.body.removeChild(link);
                 console.log("[DEBUG] File downloaded: ", url);
             });
-
-            // Bersihkan file sementara
+            // Setelah proses download, lakukan cleanup dan tampilkan popup sukses
             fetch("{% url 'cleanup_temp_files' %}", {
                 method: "POST",
                 headers: {
@@ -427,35 +436,25 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
             })
             .then(response => response.json())
             .then(cleanupData => {
-                console.log("[DEBUG] Cleanup response: ", cleanupData);
-            })
-            .catch(error => {
-                console.error("[ERROR] Gagal membersihkan file sementara: ", error);
-            });
-
-            pesertaIds.forEach(id => {
-                let row = document.querySelector(`.row-checkbox[value="${id}"]`);
-                if (row) {
-                    row.closest("tr").remove();
-                }
-            });
-
-            Swal.fire({
-                title: 'Sukses',
-                text: `Dua dokumen Word berhasil diunduh!`,
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                form.reset();
-                form.dataset.pesertaIds = "";
-                let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
-                modal.hide();
-                showPage(currentPage);
-                updateSelectedCount();
+                Swal.fire({
+                    title: 'Sukses',
+                    text: `Empat dokumen Word berhasil diunduh!`,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    form.reset();
+                    form.dataset.pesertaIds = "";
+                    let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
+                    modal.hide();
+                    showPage(currentPage);
+                    updateSelectedCount();
+                });
             });
         } else {
+            Swal.close();
             throw new Error(data.message);
         }
+
     })
     .catch(error => {
         console.error("[ERROR] Gagal mengonversi: ", error);

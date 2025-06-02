@@ -150,6 +150,12 @@ input[type="checkbox"] {
     border-radius: 5px;
     font-weight: bold;
 }
+.submit-btn {
+    border-radius: 4px;
+    /* Sesuaikan agar sudut tidak terlalu membulat */
+    padding: 10px 20px;
+    font-weight: bold;
+}
 
 /* ======== Tombol Submit ======== */
 .submit-btn {

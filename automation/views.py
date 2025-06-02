@@ -224,19 +224,49 @@ def input_data(request):
                 for _, row in df.iterrows():
                     Peserta.objects.create(
                         uploaded_file=uploaded_file,
-                        nama=row["Nama"],
+                        nama=row["Nama"] if pd.notna(row["Nama"]) else None,
+                        jenis_kelamin=row["Jenis_Kelamin"] if pd.notna(row["Jenis_Kelamin"]) else None,
+                        nik=row["NIK"] if pd.notna(row["NIK"]) else None,
                         tempat_lahir=row["Tempat_Lahir"] if pd.notna(row["Tempat_Lahir"]) else None,
                         tanggal_lahir=row["Tanggal_Lahir"] if pd.notna(row["Tanggal_Lahir"]) else None,
-                        jenis_kelamin=row["Jenis_Kelamin"] if pd.notna(row["Jenis_Kelamin"]) else None,
-                        alamat=row["Alamat"] if pd.notna(row["Alamat"]) else None,
-                        nomor_hp=row["Handphone"],
+                        nisn=row["NISN"] if pd.notna(row["NISN"]) else None,
+                        agama_lkp=row["Agama_LKP"] if pd.notna(row["Agama_LKP"]) else None,
+                        handphone=row["Handphone"] if pd.notna(row["Handphone"]) else None,
+                        kewarganegaraan=row["Kewarganegaraan"] if pd.notna(row["Kewarganegaraan"]) else None,
+                        jenis_tinggal=row["Jenis_Tinggal"] if pd.notna(row["Jenis_Tinggal"]) else None,
+                        tanggal_masuk=row["Tanggal_Masuk"] if pd.notna(row["Tanggal_Masuk"]) else None,
                         email=row["Email"] if pd.notna(row["Email"]) else None,
+                        nama_ortu=row["Nama_Ortu"] if pd.notna(row["Nama_Ortu"]) else None,
+                        nik_ortu=row["NIK_Ortu"] if pd.notna(row["NIK_Ortu"]) else None,
+                        pekerjaan_ortu=row["Pekerjaan_Ortu"] if pd.notna(row["Pekerjaan_Ortu"]) else None,
+                        pendidikan_ortu=row["Pendidikan_Ortu"] if pd.notna(row["Pendidikan_Ortu"]) else None,
+                        penghasilan_ortu=row["Penghasilan_Ortu"] if pd.notna(row["Penghasilan_Ortu"]) else None,
+                        handphone_ortu=row["Handphone_Ortu"] if pd.notna(row["Handphone_Ortu"]) else None,
+                        tempat_lahir_ortu=row["Tempat_Lahir_Ortu"] if pd.notna(row["Tempat_Lahir_Ortu"]) else None,
+                        tanggal_lahir_ortu=row["Tanggal_Lahir_Ortu"] if pd.notna(row["Tanggal_Lahir_Ortu"]) else None,
+                        asal=row["Asal"] if pd.notna(row["Asal"]) else None,
+                        alamat=row["Alamat"] if pd.notna(row["Alamat"]) else None,
+                        rt=row["RT"] if pd.notna(row["RT"]) else None,
+                        rw=row["RW"] if pd.notna(row["RW"]) else None,
+                        kecamatan=row["Kecamatan"] if pd.notna(row["Kecamatan"]) else None,
+                        kelurahan=row["Kelurahan"] if pd.notna(row["Kelurahan"]) else None,
+                        kab_kota=row["Kab/Kota"] if pd.notna(row["Kab/Kota"]) else None,
+                        propinsi=row["Propinsi"] if pd.notna(row["Propinsi"]) else None,
+                        nama_ibu_kandung=row["Nama_Ibu_kandung"] if pd.notna(row["Nama_Ibu_kandung"]) else None,
+                        nama_ayah=row["Nama_Ayah"] if pd.notna(row["Nama_Ayah"]) else None,
+                        agama_kemdikbud=row["Agama_Kemdikbud"] if pd.notna(row["Agama_Kemdikbud"]) else None,
+                        penerima_kps=row["Penerima_KPS"] if pd.notna(row["Penerima_KPS"]) else None,
+                        layak_pip=row["Layak_PIP"] if pd.notna(row["Layak_PIP"]) else None,
+                        penerima_kip=row["Penerima_KIP"] if pd.notna(row["Penerima_KIP"]) else None,
+                        kode_pos=row["Kode_Pos"] if pd.notna(row["Kode_Pos"]) else None,
+                        alat_transportasi=row["Alat_Transportasi"] if pd.notna(row["Alat_Transportasi"]) else None,
                         pendidikan_terakhir=row["Pendidikan_Terakhir"] if pd.notna(row["Pendidikan_Terakhir"]) else None,
                         nama_lembaga=row["Nama_Lembaga"] if pd.notna(row["Nama_Lembaga"]) else None,
                         jabatan=row["Jabatan"] if pd.notna(row["Jabatan"]) else None,
                         alamat_kantor=row["Alamat_Kantor"] if pd.notna(row["Alamat_Kantor"]) else None,
                         telp_kantor=row["Telp_Kantor"] if pd.notna(row["Telp_Kantor"]) else None,
-                        kota=row["Kab/Kota"] if pd.notna(row["Kab/Kota"]) else None
+                        kota=row["Kab/Kota"] if pd.notna(row["Kab/Kota"]) else None,
+                        is_converted=False
                     )
 
                 messages.success(request, "File berhasil diunggah dan data peserta disimpan!")
@@ -821,7 +851,7 @@ from .models import Peserta
 
 @login_required(login_url="login")
 def generate_document(request):
-    peserta_list = Peserta.objects.filter(is_converted=False)
+    peserta_list = Peserta.objects.all()
     logger.info(f"Mengambil {peserta_list.count()} data peserta untuk generate_document")
     return render(request, 'generate_document.html', {'files': peserta_list})
 
@@ -880,7 +910,7 @@ def convert_document(request):
             skema = data.get("skema")
             asesor = data.get("asesor")
             lokasi_sertif = data.get("lokasi_sertif")
-            logger.debug("[DEBUG] Data diterima: peserta_ids=%s, jadwal=%s, tuk=%s, skema=%s, asesor=%s, lokasi_sertif=%s", 
+            logger.debug("[DEBUG] Data diterima: peserta_ids=%s, jadwal=%s, tuk=%s, skema=%s, asesor=%s, lokasi_sertif=%s",
                          peserta_ids, jadwal, tuk, skema, asesor, lokasi_sertif)
 
             # Langkah 2: Validasi input
@@ -900,13 +930,34 @@ def convert_document(request):
                 return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
 
             # Langkah 4: Format Tanggal_Sertif
-            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
+            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
-            # Langkah 5: Path ke kedua template Word
+            # Langkah 5: Pemetaan skema ke folder template
+            skema_to_folder = {
+                "Associate Data Analyst": "folder1",
+                "Instruktur Junior (KKNI Level III)": "folder2",
+                "Junior Information Management": "folder3",
+                "Pemasangan Jaringan Komputer": "folder4",
+                "Pengelolaan Backup dan Restore Data": "folder5",
+                "Pengelolaan Data Aplikasi Perkantoran": "folder6",
+                "Pengelolaan Keamanan Data Pengguna": "folder7",
+                "Pengelolaan Keamanan Jaringan": "folder8",
+            }
+
+            if skema not in skema_to_folder:
+                logger.error("[ERROR] Skema tidak valid: %s", skema)
+                return JsonResponse({"status": "error", "message": f"Skema '{skema}' tidak valid."}, status=400)
+
+            folder_name = skema_to_folder[skema]
+            logger.info("[INFO] Menggunakan template dari folder: %s untuk skema: %s", folder_name, skema)
+
+            # Langkah 6: Path ke kedua template Word berdasarkan folder
             template_paths = [
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT2.docx')
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT3.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT4.docx')
             ]
             for path in template_paths:
                 if not os.path.exists(path):
@@ -914,7 +965,7 @@ def convert_document(request):
                     return JsonResponse({"status": "error", "message": f"Template Word {path} tidak ditemukan."}, status=500)
 
             # Buat direktori untuk menyimpan file sementara di STATICFILES_DIRS
-            temp_dir = os.path.join(settings.BASE_DIR, 'automation', 'static', 'temp')  # Gunakan settings.BASE_DIR
+            temp_dir = os.path.join(settings.STATICFILES_DIRS[0], 'temp')
             if not os.path.exists(temp_dir):
                 os.makedirs(temp_dir)
                 logger.info("[INFO] Membuat direktori temp: %s", temp_dir)
@@ -923,11 +974,11 @@ def convert_document(request):
             now = time.time()
             for filename in os.listdir(temp_dir):
                 file_path = os.path.join(temp_dir, filename)
-                if os.stat(file_path).st_mtime < now - 3600:  # 1 jam
+                if os.path.exists(file_path) and os.stat(file_path).st_mtime < now - 3600:  # 1 jam
                     os.remove(file_path)
                     logger.info("[INFO] Menghapus file lama: %s", file_path)
 
-            # Langkah 6: Proses semua peserta dan buat dokumen untuk kedua template
+            # Langkah 7: Proses semua peserta dan buat dokumen untuk kedua template
             download_urls = []
             temp_files = []
             for template_path in template_paths:
@@ -936,19 +987,48 @@ def convert_document(request):
 
                 for index, peserta in enumerate(peserta_list):
                     logger.debug("[DEBUG] Memproses peserta: %s (ID: %s) dengan template: %s", peserta.nama, peserta.id, template_path)
-                    
+
                     # Buat dokumen sementara untuk peserta ini
                     temp_doc = Document(template_path)
-                    
+
                     # Data untuk mengisi placeholder
                     data_dict = {
                         "Nama": peserta.nama or "-",
+                        "Jenis_Kelamin": peserta.jenis_kelamin or "-",
+                        "NIK": peserta.nik or "-",
                         "Tempat_Lahir": peserta.tempat_lahir or "-",
                         "Tanggal_Lahir": peserta.tanggal_lahir.strftime("%d %B %Y") if peserta.tanggal_lahir else "-",
-                        "Jenis_Kelamin": peserta.jenis_kelamin or "-",
-                        "Alamat": peserta.alamat or "-",
-                        "Handphone": peserta.nomor_hp or "-",
+                        "NISN": peserta.nisn or "-",
+                        "Agama_LKP": peserta.agama_lkp or "-",
+                        "Handphone": peserta.handphone or "-",
+                        "Kewarganegaraan": peserta.kewarganegaraan or "-",
+                        "Jenis_Tinggal": peserta.jenis_tinggal or "-",
+                        "Tanggal_Masuk": peserta.tanggal_masuk.strftime("%d %B %Y") if peserta.tanggal_masuk else "-",
                         "Email": peserta.email or "-",
+                        "Nama_Ortu": peserta.nama_ortu or "-",
+                        "NIK_Ortu": peserta.nik_ortu or "-",
+                        "Pekerjaan_Ortu": peserta.pekerjaan_ortu or "-",
+                        "Pendidikan_Ortu": peserta.pendidikan_ortu or "-",
+                        "Penghasilan_Ortu": peserta.penghasilan_ortu or "-",
+                        "Handphone_Ortu": peserta.handphone_ortu or "-",
+                        "Tempat_Lahir_Ortu": peserta.tempat_lahir_ortu or "-",
+                        "Tanggal_Lahir_Ortu": peserta.tanggal_lahir_ortu.strftime("%d %B %Y") if peserta.tanggal_lahir_ortu else "-",
+                        "Asal": peserta.asal or "-",
+                        "Alamat": peserta.alamat or "-",
+                        "RT": peserta.rt or "-",
+                        "RW": peserta.rw or "-",
+                        "Kecamatan": peserta.kecamatan or "-",
+                        "Kelurahan": peserta.kelurahan or "-",
+                        "Kab_Kota": peserta.kab_kota or "-",
+                        "Propinsi": peserta.propinsi or "-",
+                        "Nama_Ibu_kandung": peserta.nama_ibu_kandung or "-",
+                        "Nama_Ayah": peserta.nama_ayah or "-",
+                        "Agama_Kemdikbud": peserta.agama_kemdikbud or "-",
+                        "Penerima_KPS": peserta.penerima_kps or "-",
+                        "Layak_PIP": peserta.layak_pip or "-",
+                        "Penerima_KIP": peserta.penerima_kip or "-",
+                        "Kode_Pos": peserta.kode_pos or "-",
+                        "Alat_Transportasi": peserta.alat_transportasi or "-",
                         "Pendidikan_Terakhir": peserta.pendidikan_terakhir or "-",
                         "Nama_Lembaga": peserta.nama_lembaga or "-",
                         "Jabatan": peserta.jabatan or "-",
@@ -966,16 +1046,18 @@ def convert_document(request):
                     # Ganti placeholder di paragraf
                     for paragraph in temp_doc.paragraphs:
                         for key, value in data_dict.items():
-                            if "{{" + key + "}}" in paragraph.text:
-                                paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
+                            placeholder = "{{" + key + "}}"
+                            if placeholder in paragraph.text:
+                                paragraph.text = paragraph.text.replace(placeholder, str(value))
 
                     # Ganti placeholder di tabel
                     for table in temp_doc.tables:
                         for row in table.rows:
                             for cell in row.cells:
                                 for key, value in data_dict.items():
-                                    if "{{" + key + "}}" in cell.text:
-                                        cell.text = cell.text.replace("{{" + key + "}}", value)
+                                    placeholder = "{{" + key + "}}"
+                                    if placeholder in cell.text:
+                                        cell.text = cell.text.replace(placeholder, str(value))
 
                     # Gabungkan ke dokumen final
                     if first_doc:
@@ -989,7 +1071,7 @@ def convert_document(request):
                     LogHistory2.objects.create(
                         name=peserta.nama,
                         email=peserta.email or "-",
-                        handphone=peserta.nomor_hp or "-",
+                        handphone=peserta.handphone or "-",
                         city=peserta.kota or "-",
                         upload_date=timezone.now(),
                         course_name=jadwal,
@@ -1001,7 +1083,7 @@ def convert_document(request):
                         skema=skema,
                         asesor=asesor,
                         lokasi_sertif=lokasi_sertif,
-                        template="BOTH"
+                        template=f"{folder_name}/{os.path.basename(template_path)}"  # Gunakan field template
                     )
 
                     # Tandai peserta sebagai sudah dikonversi
@@ -1013,9 +1095,10 @@ def convert_document(request):
                 final_doc.save(buffer)
                 buffer.seek(0)
 
-                # Simpan ke file sementara di direktori statis dengan nama unik
+                # Simpan ke file sementara dengan nama unik
                 unique_id = str(uuid.uuid4())
-                filename = f"Sertifikat_{len(peserta_list)}_Peserta_{os.path.basename(template_path).replace('.docx', '')}_{unique_id}.docx"
+                template_name = os.path.basename(template_path).replace('.docx', '')
+                filename = f"Sertifikat_{len(peserta_list)}_Peserta_{template_name}_{unique_id}_{skema.replace(' ', '_')}.docx"
                 temp_file_path = os.path.join(temp_dir, filename)
                 with open(temp_file_path, 'wb') as temp_file:
                     temp_file.write(buffer.getvalue())
@@ -1035,12 +1118,12 @@ def convert_document(request):
                 static_url = f"/static/temp/{filename}"
                 download_urls.append(static_url)
 
-            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk %d peserta", len(peserta_list))
+            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk %d peserta dengan skema %s", len(peserta_list), skema)
             return JsonResponse({
                 "status": "success",
                 "download_urls": download_urls,
                 "temp_files": temp_files,
-                "message": "Dua dokumen berhasil dihasilkan!"
+                "message": f"Dua dokumen untuk skema '{skema}' berhasil dihasilkan!"
             })
 
         except json.JSONDecodeError as e:
@@ -1051,7 +1134,7 @@ def convert_document(request):
             return JsonResponse({"status": "error", "message": f"Error konversi: {str(e)}"}, status=500)
     else:
         logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
-        return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
+        return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=422)
 
 from .models import LogHistory2
 
@@ -1087,7 +1170,7 @@ def download_log2(request, log_id):
             log = get_object_or_404(LogHistory2, id=log_id)
             logger.debug("[DEBUG] Data log ditemukan: %s", log.__dict__)
 
-            # Ambil data peserta berdasarkan file_id (jika masih ada di Peserta) atau gunakan data dari LogHistory2
+            # Ambil data peserta berdasarkan file_id (jika masih ada) atau gunakan data dari LogHistory2
             peserta = None
             if log.file_id:
                 peserta = get_object_or_404(Peserta, id=log.file_id)
@@ -1099,6 +1182,7 @@ def download_log2(request, log_id):
                     'email': log.email,
                     'nomor_hp': log.handphone,
                     'kota': log.city,
+                    'tempat_lahir': None,
                     'tanggal_lahir': None,
                     'jenis_kelamin': None,
                     'alamat': None,
@@ -1109,10 +1193,28 @@ def download_log2(request, log_id):
                     'telp_kantor': None
                 })()
 
-            # Path ke kedua template Word
+            # Pemetaan skema ke folder
+            skema_to_folder = {
+                "Associate Data Analyst": "folder1",
+                "Instruktur Junior (KKNI Level III)": "folder2",
+                "Junior Information Management": "folder3",
+                "Pemasangan Jaringan Komputer": "folder4",
+                "Pengelolaan Backup dan Restore Data": "folder5",
+                "Pengelolaan Data Aplikasi Perkantoran": "folder6",
+                "Pengelolaan Keamanan Data Pengguna": "folder7",
+                "Pengelolaan Keamanan Jaringan": "folder8",
+            }
+
+            skema = log.skema or "Unknown Skema"
+            folder_name = skema_to_folder.get(skema, "default")
+            logger.info("[INFO] Menggunakan folder template: %s untuk skema: %s", folder_name, skema)
+
+            # Path ke template berdasarkan skema
             template_paths = [
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT1.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', 'DOCUMENT2.docx')
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT3.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT4.docx')
             ]
             for path in template_paths:
                 if not os.path.exists(path):
@@ -1120,27 +1222,28 @@ def download_log2(request, log_id):
                     return JsonResponse({"status": "error", "message": f"Template Word {path} tidak ditemukan."}, status=500)
 
             # Format Tanggal_Sertif
-            tanggal_sertif = datetime.datetime.now().strftime("%d %B %Y")
+            tanggal_sertif = format_tanggal_indonesia(timezone.now())
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
             # Gunakan data form yang disimpan di LogHistory2
             jadwal = log.jadwal or "No Schedule"
             tuk = log.tuk or "Default TUK"
-            skema = log.skema or "Default Skema"
             asesor = log.asesor or "Default Asesor"
             lokasi_sertif = log.lokasi_sertif or log.city or "Default Location"
 
             # Buat direktori untuk menyimpan file sementara
-            temp_dir = os.path.join(settings.STATIC_ROOT, 'temp')
+            temp_dir = os.path.join(settings.STATICFILES_DIRS[0], 'temp')
             if not os.path.exists(temp_dir):
                 os.makedirs(temp_dir)
+                logger.info("[INFO] Membuat direktori temp: %s", temp_dir)
 
-            # Bersihkan file lama (opsional)
+            # Bersihkan file lama
             now = time.time()
             for filename in os.listdir(temp_dir):
                 file_path = os.path.join(temp_dir, filename)
-                if os.stat(file_path).st_mtime < now - 3600:  # 1 jam
+                if os.path.exists(file_path) and os.stat(file_path).st_mtime < now - 3600:  # 1 jam
                     os.remove(file_path)
+                    logger.info("[INFO] Menghapus file lama: %s", file_path)
 
             # Proses dokumen untuk kedua template
             download_urls = []
@@ -1151,12 +1254,41 @@ def download_log2(request, log_id):
                 # Data untuk mengisi placeholder
                 data_dict = {
                     "Nama": peserta.nama or "-",
-                    "Tempat_Lahir": getattr(peserta, 'tempat_lahir', '-') or "-",
-                    "Tanggal_Lahir": getattr(peserta, 'tanggal_lahir', None).strftime("%d %B %Y") if getattr(peserta, 'tanggal_lahir', None) else "-",
                     "Jenis_Kelamin": getattr(peserta, 'jenis_kelamin', '-') or "-",
-                    "Alamat": getattr(peserta, 'alamat', '-') or "-",
-                    "Handphone": getattr(peserta, 'nomor_hp', '-') or "-",
+                    "NIK": getattr(peserta, 'nik', '-') or "-",
+                    "Tempat_Lahir": getattr(peserta, 'tempat_lahir', '-') or "-",
+                    "Tanggal_Lahir": peserta.tanggal_lahir.strftime("%d %B %Y") if getattr(peserta, 'tanggal_lahir', None) else "-",
+                    "NISN": getattr(peserta, 'nisn', '-') or "-",
+                    "Agama_LKP": getattr(peserta, 'agama_lkp', '-') or "-",
+                    "Handphone": getattr(peserta, 'handphone', '-') or "-",
+                    "Kewarganegaraan": getattr(peserta, 'kewarganegaraan', '-') or "-",
+                    "Jenis_Tinggal": getattr(peserta, 'jenis_tinggal', '-') or "-",
+                    "Tanggal_Masuk": peserta.tanggal_masuk.strftime("%d %B %Y") if getattr(peserta, 'tanggal_masuk', None) else "-",
                     "Email": getattr(peserta, 'email', '-') or "-",
+                    "Nama_Ortu": getattr(peserta, 'nama_ortu', '-') or "-",
+                    "NIK_Ortu": getattr(peserta, 'nik_ortu', '-') or "-",
+                    "Pekerjaan_Ortu": getattr(peserta, 'pekerjaan_ortu', '-') or "-",
+                    "Pendidikan_Ortu": getattr(peserta, 'pendidikan_ortu', '-') or "-",
+                    "Penghasilan_Ortu": getattr(peserta, 'penghasilan_ortu', '-') or "-",
+                    "Handphone_Ortu": getattr(peserta, 'handphone_ortu', '-') or "-",
+                    "Tempat_Lahir_Ortu": getattr(peserta, 'tempat_lahir_ortu', '-') or "-",
+                    "Tanggal_Lahir_Ortu": peserta.tanggal_lahir_ortu.strftime("%d %B %Y") if getattr(peserta, 'tanggal_lahir_ortu', None) else "-",
+                    "Asal": getattr(peserta, 'asal', '-') or "-",
+                    "Alamat": getattr(peserta, 'alamat', '-') or "-",
+                    "RT": getattr(peserta, 'rt', '-') or "-",
+                    "RW": getattr(peserta, 'rw', '-') or "-",
+                    "Kecamatan": getattr(peserta, 'kecamatan', '-') or "-",
+                    "Kelurahan": getattr(peserta, 'kelurahan', '-') or "-",
+                    "Kab_Kota": getattr(peserta, 'kab_kota', '-') or "-",
+                    "Propinsi": getattr(peserta, 'propinsi', '-') or "-",
+                    "Nama_Ibu_kandung": getattr(peserta, 'nama_ibu_kandung', '-') or "-",
+                    "Nama_Ayah": getattr(peserta, 'nama_ayah', '-') or "-",
+                    "Agama_Kemdikbud": getattr(peserta, 'agama_kemdikbud', '-') or "-",
+                    "Penerima_KPS": getattr(peserta, 'penerima_kps', '-') or "-",
+                    "Layak_PIP": getattr(peserta, 'layak_pip', '-') or "-",
+                    "Penerima_KIP": getattr(peserta, 'penerima_kip', '-') or "-",
+                    "Kode_Pos": getattr(peserta, 'kode_pos', '-') or "-",
+                    "Alat_Transportasi": getattr(peserta, 'alat_transportasi', '-') or "-",
                     "Pendidikan_Terakhir": getattr(peserta, 'pendidikan_terakhir', '-') or "-",
                     "Nama_Lembaga": getattr(peserta, 'nama_lembaga', '-') or "-",
                     "Jabatan": getattr(peserta, 'jabatan', '-') or "-",
@@ -1174,16 +1306,18 @@ def download_log2(request, log_id):
                 # Ganti placeholder di paragraf
                 for paragraph in final_doc.paragraphs:
                     for key, value in data_dict.items():
-                        if "{{" + key + "}}" in paragraph.text:
-                            paragraph.text = paragraph.text.replace("{{" + key + "}}", value)
+                        placeholder = "{{" + key + "}}"
+                        if placeholder in paragraph.text:
+                            paragraph.text = paragraph.text.replace(placeholder, str(value))
 
                 # Ganti placeholder di tabel
                 for table in final_doc.tables:
                     for row in table.rows:
                         for cell in row.cells:
                             for key, value in data_dict.items():
-                                if "{{" + key + "}}" in cell.text:
-                                    cell.text = cell.text.replace("{{" + key + "}}", value)
+                                placeholder = "{{" + key + "}}"
+                                if placeholder in cell.text:
+                                    cell.text = cell.text.replace(placeholder, str(value))
 
                 # Simpan dokumen ke BytesIO
                 buffer = BytesIO()
@@ -1192,7 +1326,9 @@ def download_log2(request, log_id):
 
                 # Simpan ke file sementara di direktori statis dengan nama unik
                 unique_id = str(uuid.uuid4())
-                filename = f"Sertifikat_{log.name}_{os.path.basename(template_path).replace('.docx', '')}_{unique_id}.docx"
+                template_basename = os.path.basename(template_path).replace('.docx', '')
+                # Fixed syntax error in f-string
+                filename = f"Sertifikat_{log.name}_{template_basename}_{unique_id}_{skema.replace(' ', '_')}.docx"
                 temp_file_path = os.path.join(temp_dir, filename)
                 with open(temp_file_path, 'wb') as temp_file:
                     temp_file.write(buffer.getvalue())
@@ -1205,12 +1341,12 @@ def download_log2(request, log_id):
                 static_url = f"/static/temp/{filename}"
                 download_urls.append(static_url)
 
-            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk log_id: %s", log_id)
+            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk log_id: %s dengan skema %s", log_id, skema)
             return JsonResponse({
                 "status": "success",
                 "download_urls": download_urls,
                 "temp_files": temp_files,
-                "message": "Dua dokumen berhasil dihasilkan!"
+                "message": f"Dua dokumen untuk skema '{skema}' berhasil dihasilkan!"
             })
 
         except Exception as e:

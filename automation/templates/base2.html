@@ -18,8 +18,13 @@
             <img src="{% static 'asset/logoTrust.jpg' %}" alt="TRUSTEntry Logo" class="img-fluid logo">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a href="{% url 'generate_document' %}" class="btn {% if request.path == '/generate_document/' %}btn-primary{% else %}nav-link{% endif %}">
+                    <a href="{% url 'generate_document' %}" class="btn {% if request.resolver_match.url_name == 'generate_document' %}btn-primary{% else %}nav-link{% endif %}">
                         Generate Document
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'input_and_generate' %}" class="btn {% if request.resolver_match.url_name == 'input_and_generate' %}btn-primary{% else %}nav-link{% endif %}">
+                        Input and Generate
                     </a>
                 </li>
                 <li class="nav-item">

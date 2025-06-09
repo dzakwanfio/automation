@@ -37,8 +37,8 @@
                                 Name <i class="fas fa-sort"></i>
                             </th>
                             <th>Email</th>
-                            <th>Handphone</th>
-                            <th>City</th>
+                            <th>Document Name</th>
+                            <th>Skema</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -47,8 +47,20 @@
                         <tr class="text-center" data-match="true" data-log-id="{{ log.id }}">
                             <td class="name-cell">{{ log.name }}</td>
                             <td>{{ log.email }}</td>
-                            <td>{{ log.handphone }}</td>
-                            <td>{{ log.city }}</td>
+                            <td>
+                                {% if 'DOCUMENT1' in log.template %}
+                                    Form Pendaftaran
+                                {% elif 'DOCUMENT2' in log.template %}
+                                    PERSETUJUAN ASESMEN DAN KERAHASIAAN
+                                {% elif 'DOCUMENT3' in log.template %}
+                                    ASESMEN MANDIRI
+                                {% elif 'DOCUMENT4' in log.template %}
+                                    PERMOHONAN SERTIFIKASI KOMPETENSI
+                                {% else %}
+                                    Unknown Document
+                                {% endif %}
+                            </td>
+                            <td>{{ log.skema }}</td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-sm btn-success download-btn" title="Download">
@@ -88,7 +100,7 @@
     // Basic Table Functions
     // ---------------------------------------------------
     let currentPage = 1;
-    const rowsPerPage = 10;
+    const rowsPerPage = 10; // Max 10 rows per page
     
     // Pagination Logic
     function showPage(page) {
@@ -200,7 +212,7 @@
     }
     
     // ---------------------------------------------------
-    // Delete All Functionality (New)
+    // Delete All Functionality
     // ---------------------------------------------------
     async function confirmDeleteAll() {
         console.log("[DEBUG] confirmDeleteAll called");
@@ -228,10 +240,10 @@
                     }
                 });
 
-                const response = await fetch('/delete-all-logs2/', {
+                const response = await fetch('/delete_all_logs2/', {
                     method: 'POST',
                     headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
+                        'X-CSRFToken': getCookie('string'),
                         'Content-Type': 'application/json'
                     }
                 });
@@ -267,10 +279,10 @@
         console.log("[DEBUG] downloadDocument called with logId: ", logId);
 
         try {
-            const response = await fetch(`/download-log2/${logId}/`, {
+            const response = await fetch(`/download_log2/${logId}/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-CSRFToken': getCookie('string'),
                     'Content-Type': 'application/json'
                 }
             });
@@ -292,26 +304,9 @@
                     console.log("[DEBUG] File downloaded: ", url);
                 });
 
-                // Bersihkan file sementara
-                fetch("{% url 'cleanup_temp_files' %}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRFToken": getCookie("csrftoken"),
-                    },
-                    body: JSON.stringify({ temp_files: data.temp_files })
-                })
-                .then(response => response.json())
-                .then(cleanupData => {
-                    console.log("[DEBUG] Cleanup response: ", cleanupData);
-                })
-                .catch(error => {
-                    console.error("[ERROR] Gagal membersihkan file sementara: ", error);
-                });
-
                 Swal.fire({
                     title: 'Sukses',
-                    text: 'Empat dokumen Word berhasil diunduh!',
+                    text: 'Dokumen berhasil diunduh!',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });

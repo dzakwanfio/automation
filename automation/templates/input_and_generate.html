@@ -1,22 +1,30 @@
 {% extends 'base2.html' %}
 {% load static %}
 
-{% block title %}Generate Document{% endblock %}
+{% block title %}Input and Generate Document{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'style/generate_document.css' %}">
+<style>
+    .modal-lg { max-width: 800px; }
+    .form-section { margin-bottom: 1rem; }
+    .form-section h6 { border-bottom: 1px solid #dee2e6; padding-bottom: 0.5rem; font-weight: bold; }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="fw-bold">Generate Document</h2>
+    <h2 class="fw-bold">Input and Generate Document</h2>
+    <div class="d-flex justify-content-end mb-2">
+        <button id="addPeserta" class="btn btn-primary">Add Peserta</button>
+    </div>
     <div class="card shadow-sm">
         <div class="card-header bg-teal text-white d-flex justify-content-between align-items-center">
-            <span class="fw-bold" style="font-size: 18px;">Manage Files</span>
+            <span class="fw-bold" style="font-size: 18px;">Manage Peserta</span>
             <div>
                 <label for="search" class="me-2" style="font-size: 16px;">Search:</label>
                 <input type="text" id="search" class="form-control d-inline-block" 
-                    style="width: 150px; font-size: 12px; padding: 4px 8px; height: auto;" 
+                    style="width: 150px; font-size: 14px; padding: 4px 8px; height: auto;" 
                     placeholder="search" 
                     oninput="searchData()">
             </div>
@@ -38,13 +46,13 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    {% for peserta in files %}
+                    {% for peserta in peserta_list %}
                     <tr class="text-center">
                         <td><input type="checkbox" class="row-checkbox" value="{{ peserta.id }}"></td>
                         <td class="name-cell">{{ peserta.nama }}</td>
                         <td>{{ peserta.email|default:"-" }}</td>
-                        <td>{{ peserta.handphone }}</td>
-                        <td>{{ peserta.kota|default:"-" }}</td> <!-- City dari Kab/Kota di Excel -->
+                        <td>{{ peserta.handphone|default:"-" }}</td>
+                        <td>{{ peserta.kota|default:"-" }}</td>
                     </tr>
                     {% empty %}
                     <tr class="text-center">
@@ -70,6 +78,112 @@
     </div>
 </div>
 
+<!-- Modal untuk Form Tambah Peserta -->
+<div class="modal fade" id="addPesertaModal" tabindex="-1" aria-labelledby="addPesertaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPesertaModalLabel">Tambah Peserta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPesertaForm">
+                    {% csrf_token %}
+                    <div class="form-section">
+                        <h6>Data Pribadi</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                                    <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nik" class="form-label">NIK</label>
+                                <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukkan NIK" maxlength="16">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan Tempat Lahir">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nisn" class="form-label">NISN</label>
+                                <input type="text" class="form-control" id="nisn" name="nisn" placeholder="Masukkan NISN" maxlength="10">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="handphone" class="form-label">Handphone</label>
+                                <input type="text" class="form-control" id="handphone" name="handphone" placeholder="Masukkan Nomor Handphone" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <textarea class="form-control" id="alamat" name="alamat" placeholder="Masukkan Alamat" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="kota" class="form-label">Kota</label>
+                                <input type="text" class="form-control" id="kota" name="kota" placeholder="Masukkan Kota">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="kode_pos" class="form-label">Kode Pos</label>
+                                <input type="text" class="form-control" id="kode_pos" name="kode_pos" placeholder="Masukkan Kode Pos" maxlength="5">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h6>Data Pendidikan dan Pekerjaan</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="pendidikan_terakhir" class="form-label">Pendidikan Terakhir</label>
+                                <select class="form-control" id="pendidikan_terakhir" name="pendidikan_terakhir">
+                                    <option value="" disabled selected>Pilih Pendidikan</option>
+                                    <option value="SMA/SMK">SMA/SMK</option>
+                                    <option value="D3">D3</option>
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nama_lembaga" class="form-label">Nama Lembaga</label>
+                                <input type="text" class="form-control" id="nama_lembaga" name="nama_lembaga" placeholder="Masukkan Nama Lembaga">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="jabatan" class="form-label">Jabatan</label>
+                                <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan">
+                            </div>
+                            <div class='col-md-6 mb-3'>
+                                <label for="alamat_kantor" class="form-label">Alamat Kantor</label>
+                                <input type="text" class="form-control" id="alamat_kantor" name="alamat_kantor" placeholder="Masukkan Alamat Kantor">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telp_kantor" class="form-label">Telepon Kantor</label>
+                                <input type="text" class="form-control" id="telp_kantor" name="telp_kantor" placeholder="Masukkan Telepon Kantor">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success" id="submitAddPeserta">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal untuk Form Convert -->
 <div class="modal fade" id="convertModal" tabindex="-1" aria-labelledby="convertModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -87,6 +201,7 @@
                     <div class="mb-3">
                         <label for="tuk" class="form-label">TUK</label>
                         <input type="text" class="form-control" id="tuk" name="tuk" placeholder="Masukkan TUK" required>
+                    </div>
                     <div class="mb-3">
                         <label for="skema" class="form-label">Skema</label>
                         <select class="form-control" id="skema" name="skema" required>
@@ -106,7 +221,7 @@
                         <input type="text" class="form-control" id="asesor" name="asesor" placeholder="Masukkan Nama Asesor" required>
                     </div>
                     <div class="mb-3">
-                        <label for="lokasi_sertif" class="form-label">Kota</label> <!-- Ganti label dan ID -->
+                        <label for="lokasi_sertif" class="form-label">Kota</label>
                         <input type="text" class="form-control" id="lokasi_sertif" name="lokasi_sertif" placeholder="Masukkan Kota" required>
                     </div>
                 </form>
@@ -120,6 +235,22 @@
 </div>
 
 <script>
+// Fungsi untuk mendapatkan CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 // Checkbox Select All & Update Selected Count
 document.getElementById("select-all").addEventListener("change", function() {
     let checkboxes = document.querySelectorAll(".row-checkbox");
@@ -176,20 +307,13 @@ function sortTable(columnIndex, header) {
     rows.sort((rowA, rowB) => {
         let cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
         let cellB = rowB.cells[columnIndex].textContent.trim().toLowerCase();
-
-        if (isAscending) {
-            return cellA.localeCompare(cellB);
-        } else {
-            return cellB.localeCompare(cellA);
-        }
+        return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellB);
     });
 
     table.innerHTML = "";
     rows.forEach(row => table.appendChild(row));
-
     header.setAttribute("data-sort", isAscending ? "desc" : "asc");
     updateSortIcons(header, isAscending);
-
     showPage(currentPage);
 }
 
@@ -199,7 +323,6 @@ function updateSortIcons(header, isAscending) {
         icon.classList.add("fa-sort");
         icon.style.color = "#6c757d";
     });
-
     let icon = header.querySelector("i");
     icon.classList.remove("fa-sort");
     icon.classList.add(isAscending ? "fa-sort-up" : "fa-sort-down");
@@ -213,7 +336,6 @@ const rowsPerPage = 10;
 function showPage(page) {
     let allRows = Array.from(document.querySelectorAll("#table-body tr"));
     let filteredRows = allRows.filter(row => row.dataset.match !== "false");
-
     let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
     if (page > totalPages) page = totalPages;
     if (page < 1) page = 1;
@@ -236,8 +358,7 @@ document.querySelector(".prev-btn").addEventListener("click", function() {
 });
 
 document.querySelector(".next-btn").addEventListener("click", function() {
-    let allRows = Array.from(document.querySelectorAll("#table-body tr"));
-    let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+    let filteredRows = Array.from(document.querySelectorAll("#table-body tr")).filter(row => row.dataset.match !== "false");
     let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
     if (currentPage < totalPages) {
         currentPage++;
@@ -250,6 +371,119 @@ window.addEventListener("load", function() {
         row.dataset.match = "true";
     });
     showPage(currentPage);
+});
+
+// Fungsi untuk tombol Add Peserta
+document.getElementById("addPeserta").addEventListener("click", function() {
+    console.log("[DEBUG] Tombol Add Peserta diklik pada: ", new Date().toLocaleString());
+    let modal = new bootstrap.Modal(document.getElementById("addPesertaModal"));
+    modal.show();
+});
+
+// Fungsi untuk submit form tambah peserta
+document.getElementById("submitAddPeserta").addEventListener("click", function() {
+    console.log("[DEBUG] Tombol Submit di modal tambah peserta diklik pada: ", new Date().toLocaleString());
+    let form = document.getElementById("addPesertaForm");
+    let formData = {
+        nama: form.querySelector("#nama").value,
+        jenis_kelamin: form.querySelector("#jenis_kelamin").value,
+        nik: form.querySelector("#nik").value,
+        tempat_lahir: form.querySelector("#tempat_lahir").value,
+        tanggal_lahir: form.querySelector("#tanggal_lahir").value,
+        nisn: form.querySelector("#nisn").value,
+        handphone: form.querySelector("#handphone").value,
+        email: form.querySelector("#email").value,
+        alamat: form.querySelector("#alamat").value,
+        kota: form.querySelector("#kota").value,
+        kode_pos: form.querySelector("#kode_pos").value,
+        pendidikan_terakhir: form.querySelector("#pendidikan_terakhir").value,
+        nama_lembaga: form.querySelector("#nama_lembaga").value,
+        jabatan: form.querySelector("#jabatan").value,
+        alamat_kantor: form.querySelector("#alamat_kantor").value,
+        telp_kantor: form.querySelector("#telp_kantor").value
+    };
+
+    // Validasi sederhana
+    if (!formData.nama || !formData.jenis_kelamin || !formData.handphone) {
+        console.log("[DEBUG] Validasi gagal: Nama, Jenis Kelamin, atau Handphone kosong");
+        Swal.fire({
+            title: 'Peringatan',
+            text: 'Nama, Jenis Kelamin, dan Handphone wajib diisi.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
+    Swal.fire({
+        title: 'Memproses...',
+        text: 'Mohon tunggu, data peserta sedang ditambahkan.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    fetch("{% url 'add_peserta' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        console.log("[DEBUG] Status respons: ", response.status, response.statusText);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("[DEBUG] Data respons dari server: ", data);
+        Swal.fire({
+            title: data.status === "success" ? 'Sukses' : 'Error',
+            text: data.message,
+            icon: data.status,
+            confirmButtonText: 'OK'
+        }).then(() => {
+            if (data.status === "success" && data.peserta) {
+                let tableBody = document.getElementById("table-body");
+                if (tableBody.querySelector("tr td[colspan='5']")) {
+                    tableBody.innerHTML = "";
+                }
+                let row = document.createElement("tr");
+                row.className = "text-center";
+                row.innerHTML = `
+                    <td><input type="checkbox" class="row-checkbox" value="${data.peserta.id}"></td>
+                    <td class="name-cell">${data.peserta.nama || '-'}</td>
+                    <td>${data.peserta.email || '-'}</td>
+                    <td>${data.peserta.handphone || '-'}</td>
+                    <td>${data.peserta.kota || '-'}</td>
+                `;
+                row.dataset.match = "true";
+                tableBody.appendChild(row);
+                document.querySelectorAll(".row-checkbox").forEach(checkbox => {
+                    checkbox.addEventListener("change", updateSelectedCount);
+                });
+                showPage(1);
+                updateSelectedCount();
+                form.reset();
+                let modal = bootstrap.Modal.getInstance(document.getElementById("addPesertaModal"));
+                modal.hide();
+            }
+        });
+    })
+    .catch(error => {
+        console.error("[ERROR] Gagal menambahkan peserta: ", error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Terjadi kesalahan saat menambahkan peserta: ' + error.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    });
 });
 
 // Fungsi untuk tombol Delete
@@ -281,7 +515,7 @@ document.getElementById("deletePeserta").addEventListener("click", function() {
     }).then((result) => {
         if (result.isConfirmed) {
             console.log("[DEBUG] Konfirmasi penghapusan diterima, mengirim ke server: ", selectedIds);
-            fetch("{% url 'delete_peserta' %}", {
+            fetch("{% url 'input_and_generate_delete_peserta' %}", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -305,15 +539,16 @@ document.getElementById("deletePeserta").addEventListener("click", function() {
                     confirmButtonText: 'OK'
                 }).then(() => {
                     if (data.status === "success") {
-                        // Hapus baris dari DOM
                         selectedIds.forEach(id => {
                             let row = document.querySelector(`.row-checkbox[value="${id}"]`);
-                            if (row) {
-                                row.closest("tr").remove();
-                            }
+                            if (row) row.closest("tr").remove();
                         });
-                        showPage(currentPage); // Perbarui paginasi
-                        updateSelectedCount(); // Perbarui jumlah terpilih
+                        if (document.querySelectorAll("#table-body tr").length === 0) {
+                            let tableBody = document.getElementById("table-body");
+                            tableBody.innerHTML = '<tr class="text-center"><td colspan="5">Tidak ada data tersedia</td></tr>';
+                        }
+                        showPage(currentPage);
+                        updateSelectedCount();
                     }
                 });
             })
@@ -349,16 +584,13 @@ document.getElementById("convertDocument").addEventListener("click", function() 
         return;
     }
 
-    // Simpan ID peserta di form untuk referensi
     document.getElementById("convertForm").dataset.pesertaIds = JSON.stringify(selectedIds);
     console.log("[DEBUG] Membuka modal dengan ID peserta: ", selectedIds);
-
-    // Buka modal secara manual
     let modal = new bootstrap.Modal(document.getElementById("convertModal"));
     modal.show();
 });
 
-// Fungsi untuk tombol Submit di modal
+// Fungsi untuk tombol Submit di modal konversi
 document.getElementById("submitConvertForm").addEventListener("click", function() {
     console.log("[DEBUG] Tombol Submit di modal diklik pada: ", new Date().toLocaleString());
     let form = document.getElementById("convertForm");
@@ -372,7 +604,6 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         peserta_ids: pesertaIds
     };
 
-    // Validasi sederhana
     if (!formData.jadwal || !formData.tuk || !formData.skema || !formData.asesor || !formData.lokasi_sertif) {
         console.log("[DEBUG] Validasi gagal: Ada field yang kosong");
         Swal.fire({
@@ -383,7 +614,7 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
         });
         return;
     }
-    // Tampilkan loading popup
+
     Swal.fire({
         title: 'Memproses...',
         text: 'Mohon tunggu, dokumen sedang diproses dan diunduh.',
@@ -396,8 +627,7 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
 
     console.log("[DEBUG] Data form yang akan dikirim: ", formData);
 
-    // Kirim data ke server untuk konversi
-    fetch("{% url 'convert_document' %}", {
+    fetch("{% url 'input_and_generate_convert_document' %}", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -415,7 +645,6 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
     .then(data => {
         if (data.status === "success") {
             console.log("[DEBUG] Download URLs received: ", data.download_urls);
-            // Unduh semua file
             data.download_urls.forEach((url, index) => {
                 const link = document.createElement("a");
                 link.href = url;
@@ -425,36 +654,23 @@ document.getElementById("submitConvertForm").addEventListener("click", function(
                 document.body.removeChild(link);
                 console.log("[DEBUG] File downloaded: ", url);
             });
-            // Setelah proses download, lakukan cleanup dan tampilkan popup sukses
-            fetch("{% url 'cleanup_temp_files' %}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": getCookie("csrftoken"),
-                },
-                body: JSON.stringify({ temp_files: data.temp_files })
-            })
-            .then(response => response.json())
-            .then(cleanupData => {
-                Swal.fire({
-                    title: 'Sukses',
-                    text: `Empat dokumen Word berhasil diunduh!`,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    form.reset();
-                    form.dataset.pesertaIds = "";
-                    let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
-                    modal.hide();
-                    showPage(currentPage);
-                    updateSelectedCount();
-                });
+            Swal.fire({
+                title: 'Sukses',
+                text: `Empat dokumen Word berhasil diunduh!`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                form.reset();
+                form.dataset.pesertaIds = "";
+                let modal = bootstrap.Modal.getInstance(document.getElementById("convertModal"));
+                modal.hide();
+                showPage(currentPage);
+                updateSelectedCount();
             });
         } else {
             Swal.close();
             throw new Error(data.message);
         }
-
     })
     .catch(error => {
         console.error("[ERROR] Gagal mengonversi: ", error);

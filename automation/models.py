@@ -1,3 +1,4 @@
+# automation/models.py
 import os
 from django.db import models
 from django.utils import timezone
@@ -26,12 +27,61 @@ class Peserta(models.Model):
     uploaded_file = models.ForeignKey(UploadedFile, on_delete=models.CASCADE, null=True, blank=True)
     nama = models.CharField(max_length=100)
     jenis_kelamin = models.CharField(max_length=10, blank=True, null=True)
-    nik = models.CharField(max_length=16, blank=True, null=True)  # NIK biasanya 16 digit
+    nik = models.CharField(max_length=16, blank=True, null=True)
     tempat_lahir = models.CharField(max_length=100, blank=True, null=True)
     tanggal_lahir = models.DateField(blank=True, null=True)
-    nisn = models.CharField(max_length=10, blank=True, null=True)  # NISN biasanya 10 digit
+    nisn = models.CharField(max_length=10, blank=True, null=True)
     agama_lkp = models.CharField(max_length=50, blank=True, null=True)
-    handphone = models.CharField(max_length=15, blank=True, null=True)  # Menggantikan nomor_hp
+    handphone = models.CharField(max_length=15, blank=True, null=True)
+    kewarganegaraan = models.CharField(max_length=50, blank=True, null=True)
+    jenis_tinggal = models.CharField(max_length=50, blank=True, null=True)
+    tanggal_masuk = models.DateField(blank=True, null=True)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    nama_ortu = models.CharField(max_length=100, blank=True, null=True)
+    nik_ortu = models.CharField(max_length=16, blank=True, null=True)
+    pekerjaan_ortu = models.CharField(max_length=100, blank=True, null=True)
+    pendidikan_ortu = models.CharField(max_length=100, blank=True, null=True)
+    penghasilan_ortu = models.CharField(max_length=100, blank=True, null=True)
+    handphone_ortu = models.CharField(max_length=15, blank=True, null=True)
+    tempat_lahir_ortu = models.CharField(max_length=100, blank=True, null=True)
+    tanggal_lahir_ortu = models.DateField(blank=True, null=True)
+    asal = models.CharField(max_length=100, blank=True, null=True)
+    alamat = models.TextField(blank=True, null=True)
+    rt = models.CharField(max_length=10, blank=True, null=True)
+    rw = models.CharField(max_length=10, blank=True, null=True)
+    kecamatan = models.CharField(max_length=100, blank=True, null=True)
+    kelurahan = models.CharField(max_length=100, blank=True, null=True)
+    kab_kota = models.CharField(max_length=100, blank=True, null=True)
+    propinsi = models.CharField(max_length=100, blank=True, null=True)
+    nama_ibu_kandung = models.CharField(max_length=100, blank=True, null=True)
+    nama_ayah = models.CharField(max_length=100, blank=True, null=True)
+    agama_kemdikbud = models.CharField(max_length=50, blank=True, null=True)
+    penerima_kps = models.CharField(max_length=10, blank=True, null=True)
+    layak_pip = models.CharField(max_length=10, blank=True, null=True)
+    penerima_kip = models.CharField(max_length=10, blank=True, null=True)
+    kode_pos = models.CharField(max_length=10, blank=True, null=True)
+    alat_transportasi = models.CharField(max_length=50, blank=True, null=True)
+    pendidikan_terakhir = models.CharField(max_length=100, blank=True, null=True)
+    nama_lembaga = models.CharField(max_length=255, blank=True, null=True)
+    jabatan = models.CharField(max_length=100, blank=True, null=True)
+    alamat_kantor = models.TextField(blank=True, null=True)
+    telp_kantor = models.CharField(max_length=15, blank=True, null=True)
+    kota = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_converted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.nama
+
+class ManualPeserta(models.Model):
+    nama = models.CharField(max_length=100)
+    jenis_kelamin = models.CharField(max_length=10, blank=True, null=True)
+    nik = models.CharField(max_length=16, blank=True, null=True)
+    tempat_lahir = models.CharField(max_length=100, blank=True, null=True)
+    tanggal_lahir = models.DateField(blank=True, null=True)
+    nisn = models.CharField(max_length=10, blank=True, null=True)
+    agama_lkp = models.CharField(max_length=50, blank=True, null=True)
+    handphone = models.CharField(max_length=15, blank=True, null=True)
     kewarganegaraan = models.CharField(max_length=50, blank=True, null=True)
     jenis_tinggal = models.CharField(max_length=50, blank=True, null=True)
     tanggal_masuk = models.DateField(blank=True, null=True)
@@ -139,7 +189,7 @@ class LogHistory2(models.Model):
     skema = models.CharField(max_length=100, blank=True, null=True)
     asesor = models.CharField(max_length=100, blank=True, null=True)
     lokasi_sertif = models.CharField(max_length=100, blank=True, null=True)
-    template = models.CharField(max_length=100, blank=True, null=True)  # Tambahkan field ini
+    template = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name

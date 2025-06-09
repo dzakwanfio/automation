@@ -1,0 +1,179 @@
+/* ======== Bagian Kontainer & Judul ======== */
+.container {
+    max-width: 95%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    color: #000;
+}
+
+/* ======== Card untuk Tabel ======== */
+.card {
+    border: 3px;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.card-header {
+    background-color: #006D77 !important;
+    color: white !important;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ======== Tabel ======== */
+.table-container {
+    width: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed; /* Biar kolom ukurannya tetap */
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: white;
+}
+
+/* ======== Header Tabel (th) ======== */
+th {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Tetap di satu baris */
+    overflow: visible;   /* <<< Perbaikan: biar teks header tidak terpotong */
+    text-overflow: unset; /* <<< Perbaikan: hilangkan elipsis di header */
+    background-color: #006D77;
+    color: white;
+    font-weight: bold;
+}
+
+/* ======== Isi Tabel (td) ======== */
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Tetap ellipsis untuk isi */
+}
+
+/* ======== Atur Ulang Lebar Kolom ======== */
+th\:nth-child(1), td\:nth-child(1) { width: 5%; }
+th\:nth-child(2), td\:nth-child(2) { width: 25%; }
+th\:nth-child(3), td\:nth-child(3) { width: 25%; }
+th\:nth-child(4), td\:nth-child(4) { width: 25%; }
+th\:nth-child(5), td\:nth-child(5) { width: 20%; }
+
+/* ======== Checkbox ======== */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin: 0;
+}
+
+/* ======== Tombol CRUD (Edit & Delete) ======== */
+.text-warning {
+    color: #FFA500 !important;
+}
+
+.text-danger {
+    color: #DC3545 !important;
+}
+
+.btn-action {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 5px;
+    transition: 0.2s;
+}
+
+.btn-action.edit {
+    color: #FFA500;
+}
+
+.btn-action.edit:hover {
+    color: #CC8400;
+}
+
+.btn-action.delete {
+    color: #DC3545;
+}
+
+.btn-action.delete:hover {
+    color: #A71D2A;
+}
+
+/* ======== Pagination ======== */
+.pagination-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.btn-pagination {
+    background-color: #f0f0f0;
+    color: #000;
+    border: 1px solid #ccc;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-pagination:hover {
+    background-color: #ddd;
+}
+
+.btn-pagination:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.pagination-number {
+    background-color: #006D77;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.submit-btn {
+    border-radius: 4px;
+    /* Sesuaikan agar sudut tidak terlalu membulat */
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+/* ======== Tombol Submit ======== */
+.submit-btn {
+    background-color: #008000;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    width: auto;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #006400;
+}
+
+/* ======== Klik Sort pada TH ======== */
+th[onclick] {
+    cursor: pointer !important;
+}

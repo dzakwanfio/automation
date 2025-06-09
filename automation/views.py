@@ -955,7 +955,7 @@ def convert_document(request):
             folder_name = skema_to_folder[skema]
             logger.info("[INFO] Menggunakan template dari folder: %s untuk skema: %s", folder_name, skema)
 
-            # Langkah 6: Path ke kedua template Word berdasarkan folder
+            # Langkah 6: Path ke template Word berdasarkan folder
             template_paths = [
                 os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
                 os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
@@ -1436,6 +1436,371 @@ def cleanup_temp_files(request):
                 logger.warning("[WARN] File sementara tidak ditemukan: %s", temp_file)
 
         return JsonResponse({"status": "success", "message": "File sementara berhasil dihapus."})
+    except Exception as e:
+        logger.error("[ERROR] Gagal menghapus file sementara: %s", str(e))
+        return JsonResponse({"status": "error", "message": f"Gagal menghapus file: {str(e)}"}, status=500)
+
+from .models import ManualPeserta
+
+@login_required(login_url="login")
+def input_and_generate(request):
+    peserta_list = ManualPeserta.objects.all().order_by('nama')
+    return render(request, "input_and_generate.html", {
+        'peserta_list': peserta_list
+    })
+
+@login_required(login_url="login")
+def add_peserta(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            nama = data.get("nama")
+            jenis_kelamin = data.get("jenis_kelamin")
+            nik = data.get("nik")
+            tempat_lahir = data.get("tempat_lahir")
+            tanggal_lahir = data.get("tanggal_lahir")
+            nisn = data.get("nisn")
+            handphone = data.get("handphone")
+            email = data.get("email")
+            alamat = data.get("alamat")
+            kota = data.get("kota")
+            kode_pos = data.get("kode_pos")
+            pendidikan_terakhir = data.get("pendidikan_terakhir")
+            nama_lembaga = data.get("nama_lembaga")
+            jabatan = data.get("jabatan")
+            alamat_kantor = data.get("alamat_kantor")
+            telp_kantor = data.get("telp_kantor")
+
+            if not nama or not jenis_kelamin or not handphone:
+                return JsonResponse({"status": "error", "message": "Nama, Jenis Kelamin, dan Handphone wajib diisi."}, status=400)
+
+            peserta = ManualPeserta.objects.create(
+                nama=nama,
+                jenis_kelamin=jenis_kelamin,
+                nik=nik or None,
+                tempat_lahir=tempat_lahir or None,
+                tanggal_lahir=tanggal_lahir or None,
+                nisn=nisn or None,
+                handphone=handphone,
+                email=email or None,
+                alamat=alamat or None,
+                kota=kota or None,
+                kode_pos=kode_pos or None,
+                pendidikan_terakhir=pendidikan_terakhir or None,
+                nama_lembaga=nama_lembaga or None,
+                jabatan=jabatan or None,
+                alamat_kantor=alamat_kantor or None,
+                telp_kantor=telp_kantor or None,
+                is_converted=False
+            )
+
+            return JsonResponse({
+                "status": "success",
+                "message": f"Peserta {nama} berhasil ditambahkan!",
+                "peserta": {
+                    "id": peserta.id,
+                    "nama": peserta.nama,
+                    "email": peserta.email,
+                    "handphone": peserta.handphone,
+                    "kota": peserta.kota
+                }
+            })
+
+        except Exception as e:
+            logger.error("[ERROR] Gagal menambah peserta: %s", str(e))
+            return JsonResponse({"status": "error", "message": f"Terjadi kesalahan: {str(e)}"}, status=500)
+
+    return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
+
+@login_required(login_url="login")
+def input_and_generate_delete_peserta(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            peserta_ids = data.get("peserta_ids", [])
+            if not peserta_ids:
+                return JsonResponse({"status": "error", "message": "Tidak ada peserta yang dipilih."}, status=400)
+
+            deleted_count = ManualPeserta.objects.filter(id__in=peserta_ids).delete()[0]
+            return JsonResponse({
+                "status": "success",
+                "message": f"{deleted_count} peserta berhasil dihapus."
+            })
+
+        except Exception as e:
+            logger.error("[ERROR] Gagal menghapus peserta: %s", str(e))
+            return JsonResponse({"status": "error", "message": f"Terjadi kesalahan: {str(e)}"}, status=500)
+
+    return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
+
+@login_required(login_url="login")
+def input_and_generate_convert_document(request):
+    logger.info("[DEBUG] Memproses permintaan input_and_generate_convert_document pada: %s", request.path)
+    if request.method == "POST":
+        try:
+            # Langkah 1: Parse request body
+            logger.debug("[DEBUG] Request body: %s", request.body)
+            data = json.loads(request.body)
+            peserta_ids = data.get("peserta_ids", [])
+            jadwal = data.get("jadwal")
+            tuk = data.get("tuk")
+            skema = data.get("skema")
+            asesor = data.get("asesor")
+            lokasi_sertif = data.get("lokasi_sertif")
+            logger.debug("[DEBUG] Data diterima: peserta_ids=%s, jadwal=%s, tuk=%s, skema=%s, asesor=%s, lokasi_sertif=%s",
+                         peserta_ids, jadwal, tuk, skema, asesor, lokasi_sertif)
+
+            # Langkah 2: Validasi input
+            if not peserta_ids:
+                logger.warning("[ERROR] Tidak ada peserta dipilih untuk konversi")
+                return JsonResponse({"status": "error", "message": "Pilih setidaknya satu peserta."}, status=400)
+
+            if not all([jadwal, tuk, skema, asesor, lokasi_sertif]):
+                logger.warning("[ERROR] Field form tidak lengkap")
+                return JsonResponse({"status": "error", "message": "Semua field form harus diisi."}, status=400)
+
+            # Langkah 3: Mengambil data dari tabel ManualPeserta
+            logger.debug("[INFO] Mengambil peserta dengan ID: %s", peserta_ids)
+            peserta_list = ManualPeserta.objects.filter(id__in=peserta_ids)
+            if not peserta_list.exists():
+                logger.error("[ERROR] Peserta tidak ditemukan: %s", peserta_ids)
+                return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
+
+            # Langkah 4: Membuat format tanggal_sertif
+            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
+            logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
+
+            # Langkah 5: Menentukan folder berdasarkan skema
+            skema_to_folder = {
+                "Associate Data Analyst": "folder1",
+                "Instruktur Junior (KKNI Level III)": "folder2",
+                "Junior Information Management": "folder3",
+                "Pemeserta Jaringan Komputer": "folder4",
+                "Peserta": "pengeserta",
+                "peserta": "pendidikan",
+                "pendidikan": "pendidikan",
+            }
+
+            if skema in skema_to_folder:
+                folder_name = skema_to_folder[skema]
+                logger.info("[INFO] Menggunakan folder template: %s untuk skema: %s", folder_name, skema)
+            else:
+                logger.error("[ERROR] Skema tidak valid: %s", skema)
+                return JsonResponse({"status": "error", "message": f"Skema '{skema}' tidak valid."}, status=400)
+
+            # Langkah 6: Menentukan path ke template Word
+            template_paths = [
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT3.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT4.docx')
+            ]
+            for template_path in template_paths:
+                if not os.path.exists(template_path):
+                    logger.error("[ERROR] Template Word tidak ada di: %s", template_path)
+                    return JsonResponse({"status": "error", "message": f"Template Word {template_path}: tidak ditemukan."}, status=500)
+
+            # Membuat direktori sementara di STATICFILES_DIRS
+            temp_dir = os.path.join(settings.STATICFILES_DIRS[0], 'temp')
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+                logger.info("[INFO] Direktori temp dibuat: %s", temp_dir)
+
+            # Membersihkan file lama
+            now = time.time()
+            for filename in os.listdir(temp_dir):
+                file_path = os.path.join(temp_dir, filename)
+                if os.path.isfile(file_path) and os.stat(file_path).st_mtime < now - 3600:  # 1 jam
+                    os.remove(file_path)
+                    logger.info("[INFO] File lama dihapus: %s", file_path)
+
+            # Langkah 7: Memproses peserta dan membuat dokumen
+            download_urls = []
+            temp_files = []
+            for template_path in template_paths:
+                final_doc = Document()
+                first_doc = True
+
+                for index, peserta in enumerate(peserta_list):
+                    logger.debug("[INFO] Memproses peserta: %s (ID: %d) dengan template %s", peserta.nama, peserta.id, template_path)
+
+                    # Mengambil template dokumen
+                    temp_doc = Document(template_path)
+
+                    # Data untuk placeholder
+                    data_dict = {
+                        "Nama": peserta.nama or "-",
+                        "Jenis_Kelamin": peserta.jenis_kelamin or "-",
+                        "NIK": peserta.nik or "-",
+                        "Tempat_Lahir": peserta.tempat_lahir or "-",
+                        "Tanggal_Lahir": peserta.tanggal_lahir.strftime("%d %B %Y") if peserta.tanggal_lahir else "-",
+                        "NISN": peserta.nisn or "-",
+                        "Handphone": peserta.handphone or "-",
+                        "Email": peserta.email or "-",
+                        "Alamat": peserta.alamat or "-",
+                        "Kota": peserta.kota or "-",
+                        "KodePos": peserta.kode_pos or "-",
+                        "Pendidikan_Terakhir": peserta.pendidikan_terakhir or "-",
+                        "Nama_Lembaga": peserta.nama_lembaga or "-",
+                        "Jabatan": peserta.jabatan or "-",
+                        "Alamat_Kantor": peserta.alamat_kantor or "-",
+                        "Telp_Kantor": peserta.telp_kantor or "-",
+                        # Field tambahan dari template ( diasumsikan default ke "-")
+                        "Agama_LKP": getattr(peserta, "agama_lkp", "-"),
+                        "Kewarganegaraan": getattr(peserta, "kewarganegaraan", "-"),
+                        "Jenis_Tinggal": getattr(peserta, "jenis_tinggal", "-"),
+                        "Tanggal_Masuk": "-",
+                        "Nama_Ortu": getattr(peserta, "nama_ortu", "-"),
+                        "NIK_Ortu": getattr(peserta, "nik_ortu", "-"),
+                        "Pekerjaan_Ortu": getattr(peserta, "pekerjaan_ortu", "-"),
+                        "Pendidikan_Ortu": getattr(peserta, "pendidikan_ortu", "-"),
+                        "Penghasilan_Ortu": getattr(peserta, "penghasilan_ortu", "-"),
+                        "Handphone_Ortu": getattr(peserta, "handphone_ortu", "-"),
+                        "Tempat_Lahir_Ortu": getattr(peserta, "tempat_lahir_ortu", "-"),
+                        "Tanggal_Lahir_Ortu": (peserta.tanggal_lahir_ortu.strftime("%d %B %Y") if getattr(peserta, "tanggal_lahir_ortu", None) else "-"),
+                        "Asal": getattr(peserta, "asal", "-"),
+                        "RT": getattr(peserta, "rt", "-"),
+                        "RW": getattr(peserta, "rw", "-"),
+                        "Kecamatan": getattr(peserta, "kecamatan", "-"),
+                        "Kelurahan": getattr(peserta, "kelurahan", "-"),
+                        "Kab_Kota": getattr(peserta, "kab_kota", "-"),
+                        "Propinsi": getattr(peserta, "propinsi", "-"),
+                        "Nama_Ibu_Kandung": getattr(peserta, "nama_ibu_kandung", "-"),
+                        "Nama_Ayah": getattr(peserta, "nama_ayah", "-"),
+                        "Agama_Kemdikbud": getattr(peserta, "agama_kemdikbud", "-"),
+                        "Penerima_KPS": getattr(peserta, "penerima_kps", "-"),
+                        "Layak_PIP": getattr(peserta, "layak_pip", "-"),
+                        "Penerima_KIP": getattr(peserta, "penerima_kip", "-"),
+                        "Alat_Transportasi": getattr(peserta, "alat_transportasi", "-"),
+                        # Data dari form konversi
+                        "Jadwal": jadwal,
+                        "TUK": tuk,
+                        "Lokasi_Sertif": lokasi_sertif,
+                        "Skema": skema,
+                        "Asesor": asesor,
+                        "Tanggal_Sertif": tanggal_sertif
+                    }
+                    # Ganti placeholder di paragraf
+                    for paragraph in temp_doc.paragraphs:
+                        for key, value in data_dict.items():
+                            placeholder = "{{" + key + "}}"
+                            if placeholder in paragraph.text:
+                                paragraph.text = paragraph.text.replace(placeholder, str(value))
+
+                    # Ganti placeholder dalam tabel
+                    for table in temp_doc.tables:
+                        for row in table.rows:
+                            for cell in row.cells:
+                                for key, value in data_dict.items():
+                                    placeholder = f"{{{{{key}}}}}"
+                                    if placeholder in cell.text:
+                                        cell.text = cell.text.replace(placeholder, str(value))
+
+                    # Gabungkan dokumen
+                    if first_doc:
+                        final_doc = temp_doc
+                        first_doc = False
+                    else:
+                        page_break_paragraph = OxmlElement('w:p')
+                        run = OxmlElement('w:r')
+                        br = OxmlElement('w:br')
+                        br.set(qn('w:type'), 'page')
+                        run.append(br)
+                        page_break_paragraph.append(run)
+                        final_doc.element.body.append(page_break_paragraph)
+
+                        for element in temp_doc.element.body:
+                            final_doc.element.body.append(element)
+
+                    # Simpan log ke tabel LogHistory2
+                    LogHistory2.objects.create(
+                        name=peserta.nama,
+                        email=peserta.email or "-",
+                        handphone=peserta.handphone or "-",
+                        city=peserta.kota or "-",
+                        upload_date=timezone.now(),
+                        course_name=jadwal,
+                        status="Converted",
+                        process_time=timezone.now(),
+                        file_id=peserta.id,
+                        jadwal=jadwal,
+                        tuk=tuk,
+                        skema=skema,
+                        asesor=asesor,
+                        lokasi_sertif=lokasi_sertif,
+                        template=f"{folder_name}/{os.path.basename(template_path)}"
+                    )
+
+                    # Tandai peserta sebagai sudah dikonversi
+                    peserta.is_converted = True
+                    peserta.save()
+
+                # Simpan dokumen ke BytesIO
+                buffer = BytesIO()
+                final_doc.save(buffer)
+                buffer.seek(0)
+
+                # Simpan file sementara
+                unique_id = str(uuid.uuid4())
+                template_name = os.path.basename(template_path).replace('.docx', '')
+                filename = f"Sertifikasi_{len(peserta_list)}_Peserta_{template_name}_{unique_id}_{skema.replace(' ', '_')}.docx"
+                temp_file_path = os.path.join(temp_dir, filename)
+                with open(temp_file_path, 'wb') as temp_file:
+                    temp_file.write(buffer.getvalue())
+                buffer.close()
+
+                # Verifikasi file
+                if os.path.exists(temp_file_path):
+                    logger.info("[INFO] File sementara dibuat: %s", temp_file_path)
+                else:
+                    logger.error("[ERROR] Gagal membuat file: %s", temp_file_path)
+                    return JsonResponse({"status": "error", "message": f"Gagal membuat file: {temp_file_path}"}, status=500)
+
+                temp_files.append(temp_file_path)
+                static_url = f"/static/temp/{filename}"
+                download_urls.append(static_url)
+
+            logger.info("[INFO] Berhasil menghasilkan 4 dokumen untuk %d peserta dengan skema %s", len(peserta_list), skema)
+            return JsonResponse({
+                "status": "success",
+                "download_urls": download_urls,
+                "temp_files": temp_files,
+                "message": f"Empat dokumen untuk skema '{skema}' berhasil dihasilkan!"
+            })
+
+        except json.JSONDecodeError as e:
+            logger.error("[ERROR] Gagal parsing JSON: %s", str(e))
+            return JsonResponse({"status": "error", "message": f"Gagal parsing JSON: {str(e)}"}, status=400)
+        except Exception as e:
+            logger.error("[ERROR] Error konversi: %s\n%s", str(e), traceback.format_exc())
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    else:
+        logger.warning("[WARN] Metode tidak diizinkan: %s", request.method)
+        return JsonResponse({"status": "error", "message": "Metode tidak diizinkan."}, status=405)
+
+@require_POST
+@login_required(login_url="login")
+def input_and_generate_cleanup_temp_files(request):
+    logger.info("[DEBUG] Memproses permintaan input_and_generate_cleanup_temp_files pada: %s", request.path)
+    try:
+        data = json.loads(request.body)
+        temp_files = data.get("temp_files", [])
+        logger.debug("[DEBUG] Menerima permintaan cleanup untuk file: %s", temp_files)
+
+        temp_dir = os.path.join(settings.STATICFILES_DIRS[0], 'temp')
+        for temp_file in temp_files:
+            # Pastikan file berada di direktori temp untuk keamanan
+            temp_file_path = os.path.join(temp_dir, os.path.basename(temp_file))
+            if os.path.exists(temp_file_path):
+                os.remove(temp_file_path)
+                logger.info("[INFO] Berhasil menghapus file sementara: %s", temp_file_path)
+            else:
+                logger.warning("[WARN] File sementara tidak ditemukan: %s", temp_file_path)
+
+        return JsonResponse({"status": "success", "message": "File sementara berhasil dihapus."})
+    except json.JSONDecodeError as e:
+        logger.error("[ERROR] Gagal parsing JSON: %s", str(e))
+        return JsonResponse({"status": "error", "message": f"Data request tidak valid: {str(e)}"}, status=400)
     except Exception as e:
         logger.error("[ERROR] Gagal menghapus file sementara: %s", str(e))
         return JsonResponse({"status": "error", "message": f"Gagal menghapus file: {str(e)}"}, status=500)

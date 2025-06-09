@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Input Data Status{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/log_history.css' %}">
+<!-- FontAwesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+{% endblock %}
+
+{% block content %}
+<!-- SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <h2 class="fw-bold">STATUS UPLOAD DATA</h2>
+
+    <!-- Filter Section (diletakkan di atas tabel) -->
+    <div class="d-flex justify-content-end mt-3">
+        <label for="search" class="me-2" style="font-size: 16px;">Search:</label>
+        <input type="text" id="search" class="form-control w-auto" placeholder="Search" oninput="searchData()">
+    </div>
+
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="border-bottom bg-teal text-white">
+                        <tr class="text-center">
+                            <th>Nama File</th>
+                            <th>Upload Date</th>
+                            <th>Jam</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        {% for file in files %}
+                        <tr class="text-center" data-match="true" data-file-id="{{ file.id }}">
+                            <td>{{ file.file.name }}</td>
+                            <td>{{ file.uploaded_at|date:"d F Y" }}</td>
+                            <td>{{ file.uploaded_at|time:"H:i" }}</td>
+                            <td>
+                                <span class="badge bg-{% if file.status == 'success' %}success{% else %}danger{% endif %}">
+                                    {{ file.status|capfirst }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr class="text-center">
+                            <td colspan="4">No history available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="no-results" class="text-center text-danger mt-3" style="display: none;">No matching results</p>
+
+            <!-- Pagination (Previous & Next) -->
+            <div class="pagination-container mb-4">
+                <button class="btn-pagination prev-btn" disabled>Previous</button>
+                <span class="pagination-number">1</span>
+                <button class="btn-pagination next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------------------------------------------------
+    // Pagination Logic
+    // ---------------------------------------------------
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    function showPage(page) {
+        let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+        let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+        if (page > totalPages) page = totalPages;
+        if (page < 1) page = 1;
+        currentPage = page;
+
+        // Hanya menampilkan baris yang sesuai dengan halaman yang dipilih
+        filteredRows.forEach((row, index) => {
+            row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage)
+                ? ""
+                : "none";
+        });
+
+        // Update pagination controls
+        document.querySelector(".pagination-number").textContent = page;
+        document.querySelector(".prev-btn").disabled = (page === 1);
+        document.querySelector(".next-btn").disabled = (page === totalPages);
+
+        // Tampilkan pesan jika tidak ada hasil pencarian
+        document.getElementById("no-results").style.display = filteredRows.length === 0 ? "block" : "none";
+    }
+
+    document.querySelector(".prev-btn").addEventListener("click", function() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    });
+
+    document.querySelector(".next-btn").addEventListener("click", function() {
+        let allRows = Array.from(document.querySelectorAll("#table-body tr"));
+        let filteredRows = allRows.filter(row => row.dataset.match !== "false");
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage) || 1;
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    });
+
+
+
+    // ---------------------------------------------------
+    // Resume Process Logic
+    // ---------------------------------------------------
+    document.querySelectorAll(".resume-btn").forEach(button => {
+        button.addEventListener("click", async function() {
+            const row = this.closest("tr");
+            const fileId = row.dataset.fileId;
+
+            const { value: accept } = await Swal.fire({
+                title: "Melanjutkan Proses",
+                text: "Apakah Anda yakin ingin melanjutkan proses pengentry-an ini?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Ya, Lanjutkan",
+                cancelButtonText: "Batal",
+                reverseButtons: true
+            });
+
+            if (!accept) return;
+
+            const progressPopup = Swal.fire({
+                title: 'Memproses Data',
+                html: `Memproses pengentry-an data...<br><br>
+                      <div class="progress" style="height: 20px; margin-top:10px;">
+                        <div id="file-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%;">0%</div>
+                      </div>
+                      <div id="current-status" class="mt-2 text-muted">Memulai proses...</div>`,
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            try {
+                document.getElementById('current-status').textContent = 'Mengirim permintaan ke server...';
+
+                const response = await fetch("/resume-process/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: JSON.stringify({ file_id: fileId })
+                });
+
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    // Perbarui status di DOM tanpa redirect
+                    const statusCell = row.querySelector(".badge");
+                    statusCell.classList.remove("bg-danger");
+                    statusCell.classList.add("bg-success");
+                    statusCell.textContent = "Success";
+
+                    const actionCell = row.querySelector("td:last-child");
+                    actionCell.innerHTML = ""; // Hapus tombol play
+
+                    const processTimeCell = row.querySelector("td:nth-child(5)");
+                    processTimeCell.textContent = new Date().toISOString().replace("T", " ").slice(0, 16);
+
+                    await Swal.fire({
+                        title: "Sukses!",
+                        text: data.message,
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    });
+                } else {
+                    await Swal.fire({
+                        title: "Error!",
+                        text: data.message,
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+            } catch (error) {
+                console.error("Error during resume:", error);
+                await Swal.fire({
+                    title: "Error!",
+                    text: "Gagal memproses data: " + error.message,
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            } finally {
+                Swal.close();
+            }
+        });
+    });
+
+    // Fungsi untuk mendapatkan CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+{% endblock %}

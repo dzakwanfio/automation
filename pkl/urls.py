@@ -58,9 +58,10 @@ urlpatterns = [
     path("delete-log2/<int:log_id>/", automation.delete_log2, name="delete_log2"),
     path("download-log2/<int:log_id>/", automation.download_log2, name="download_log2"),
     path(
-        "delete-all-logs2/", automation.delete_all_logs2, name="delete_all_logs2"
+        "delete_all_logs2/", automation.delete_all_logs2, name="delete_all_logs2"
     ), 
     path('cleanup-temp-files/', automation.cleanup_temp_files, name='cleanup_temp_files'),
+    path('input_data_status/', automation.input_data_status, name='input_data_status'),
     
 ]
 

@@ -3,6 +3,9 @@ import os
 from django.db import models
 from django.utils import timezone
 
+from django.db import models
+import os
+
 class UploadedFile(models.Model):
     course_name = models.CharField(max_length=255)
     start_date = models.DateField()
@@ -13,6 +16,11 @@ class UploadedFile(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_failed = models.BooleanField(default=False)
     last_processed_row = models.IntegerField(default=0)
+    status = models.CharField(
+        max_length=10,
+        choices=[('success', 'Success'), ('failed', 'Failed')],
+        default='success'
+    )
 
     def __str__(self):
         return self.course_name
@@ -22,6 +30,7 @@ class UploadedFile(models.Model):
             if os.path.isfile(self.file.path):
                 os.remove(self.file.path)
         super().delete(*args, **kwargs)
+
 
 class Peserta(models.Model):
     uploaded_file = models.ForeignKey(UploadedFile, on_delete=models.CASCADE, null=True, blank=True)

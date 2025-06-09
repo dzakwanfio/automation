@@ -243,7 +243,7 @@
                 const response = await fetch('/delete_all_logs2/', {
                     method: 'POST',
                     headers: {
-                        'X-CSRFToken': getCookie('string'),
+                        'X-CSRFToken': getCookie('csrftoken'), // Pastikan token CSRF dikirim dengan benar
                         'Content-Type': 'application/json'
                     }
                 });
@@ -268,6 +268,7 @@
             }
         }
     }
+
 
     // Event listener untuk tombol Hapus Semua
     document.getElementById('delete-all-btn').addEventListener('click', confirmDeleteAll);
@@ -336,6 +337,7 @@
     });
 
     // Fungsi untuk mendapatkan CSRF token
+    // Fungsi untuk mendapatkan token CSRF
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -350,6 +352,7 @@
         }
         return cookieValue;
     }
+
 
     // Initialize
     window.addEventListener("load", () => {

@@ -177,3 +177,36 @@ input[type="checkbox"] {
 th[onclick] {
     cursor: pointer !important;
 }
+
+#skema {
+    /* Hilangkan panah default browser */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Tambahkan padding di kanan untuk ruang panah */
+    padding-right: 30px;
+    /* Tambahkan ikon panah kustom */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    /* Pastikan warna teks dan latar belakang sesuai dengan form-control */
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+/* Placeholder untuk select */
+#skema option[disabled][selected] {
+    color: #6c757d; /* Warna abu-abu untuk placeholder */
+}
+
+/* Pastikan dropdown tetap responsif */
+@media (max-width: 576px) {
+    #skema {
+        font-size: 14px;
+        padding-right: 25px;
+        background-size: 14px;
+    }
+}

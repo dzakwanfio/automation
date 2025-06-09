@@ -11,6 +11,31 @@
         font-size: 0.875em;
         margin-top: 5px;
     }
+
+    /* Tabel Status */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .badge-failed {
+        background-color: #dc3545;
+        color: white;
+    }
 </style>
 {% endblock %}
 
@@ -43,7 +68,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    
+
     <form method="POST" enctype="multipart/form-data" id="inputForm">
         {% csrf_token %}
         
@@ -51,7 +76,7 @@
         
         <div class="form-group">
             <label for="course_name">Course Name</label>
-            <input type="text" id="course_name" name="course_name" class="form-control">
+            <input type="text" id="course_name" name="course_name" class="form-control" placeholder="Masukkan Course">
             <span class="error-message" id="error-course-name"></span>
         </div>
         
@@ -84,7 +109,7 @@
         
         <div class="form-group">
             <label for="destination">Destination Link</label>
-            <input type="url" id="destination" name="destination" class="form-control" placeholder="Enter destination URL">
+            <input type="url" id="destination" name="destination" class="form-control" placeholder="Masukkan URL tujuan">
             <span class="error-message" id="error-destination"></span>
         </div>
         
@@ -92,9 +117,13 @@
             <label for="file_upload">Upload File</label>
             <input type="file" id="file_upload" name="file_upload" accept=".csv, .xls, .xlsx" class="form-control file-upload">
             <span class="error-message" id="error-file-upload"></span>
+            <a href="{% static 'xlsx/Template_Peserta.xlsx' %}" class="btn btn-link btn-sm mt-2" download>Unduh Template Peserta</a>
         </div>
         
         <button type="submit" class="btn-submit">SUBMIT</button>
+        <div class="form-group mt-3">
+            <a href="{% url 'input_data_status' %}" class="btn btn-secondary btn-sm">Lihat Status Upload</a>
+        </div>
     </form>
 </div>
 
@@ -112,7 +141,7 @@
         
         const courseName = document.getElementById('course_name');
         if (!courseName.value.trim()) {
-            showError('error-course-name', 'Course Name is required');
+            showError('error-course-name', 'Nama Kursus wajib diisi');
             isValid = false;
         } else {
             clearError('error-course-name');
@@ -120,7 +149,7 @@
         
         const startDate = document.getElementById('start_date');
         if (!startDate.value) {
-            showError('error-start-date', 'Start Date is required');
+            showError('error-start-date', 'Tanggal Mulai wajib diisi');
             isValid = false;
         } else {
             clearError('error-start-date');
@@ -128,15 +157,28 @@
         
         const endDate = document.getElementById('end_date');
         if (!endDate.value) {
-            showError('error-end-date', 'End Date is required');
+            showError('error-end-date', 'Tanggal Selesai wajib diisi');
             isValid = false;
         } else {
             clearError('error-end-date');
         }
         
         const destination = document.getElementById('destination');
+        const allowedUrls = [
+            'https://lkpdispendik.surabaya.go.id',
+            'http://manajemen.vokasi.kemdikbud.go.id'
+        ];
         if (!destination.value.trim()) {
-            showError('error-destination', 'Destination Link is required');
+            showError('error-destination', 'Link Tujuan wajib diisi');
+            isValid = false;
+        } else if (!allowedUrls.includes(destination.value.trim())) {
+            showError('error-destination', 'Link Tujuan hanya boleh https://lkpdispendik.surabaya.go.id atau http://manajemen.vokasi.kemdikbud.go.id');
+            Swal.fire({
+                title: 'Peringatan',
+                text: 'Link Tujuan hanya boleh https://lkpdispendik.surabaya.go.id atau http://manajemen.vokasi.kemdikbud.go.id',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
             isValid = false;
         } else {
             clearError('error-destination');
@@ -144,7 +186,7 @@
         
         const fileUpload = document.getElementById('file_upload');
         if (!fileUpload.files.length) {
-            showError('error-file-upload', 'Please upload a file');
+            showError('error-file-upload', 'Harap unggah file');
             isValid = false;
         } else {
             clearError('error-file-upload');

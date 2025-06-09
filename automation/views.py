@@ -933,7 +933,7 @@ def convert_document(request):
                 return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
 
             # Langkah 4: Format Tanggal_Sertif
-            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
+            tanggal_sertif = format_tanggal_indonesia(timezone.now())
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
             # Langkah 5: Pemetaan skema ke folder template
@@ -957,10 +957,10 @@ def convert_document(request):
 
             # Langkah 6: Path ke template Word berdasarkan folder
             template_paths = [
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT3.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT4.docx')
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'FormPendaftaran.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'AK01.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'APL02.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'APL01.docx')
             ]
             for path in template_paths:
                 if not os.path.exists(path):
@@ -984,6 +984,8 @@ def convert_document(request):
             # Langkah 7: Proses semua peserta dan buat dokumen untuk kedua template
             download_urls = []
             temp_files = []
+            counter = 1  # Inisialisasi counter untuk nomor urut
+
             for template_path in template_paths:
                 final_doc = Document()
                 first_doc = True
@@ -1095,7 +1097,7 @@ def convert_document(request):
                         skema=skema,
                         asesor=asesor,
                         lokasi_sertif=lokasi_sertif,
-                        template=f"{folder_name}/{os.path.basename(template_path)}"  # Gunakan field template
+                        template=f"{folder_name}/{os.path.basename(template_path)}"
                     )
 
                     # Tandai peserta sebagai sudah dikonversi
@@ -1107,10 +1109,9 @@ def convert_document(request):
                 final_doc.save(buffer)
                 buffer.seek(0)
 
-                # Simpan ke file sementara dengan nama unik
-                unique_id = str(uuid.uuid4())
+                # Simpan ke file sementara dengan nomor urut
                 template_name = os.path.basename(template_path).replace('.docx', '')
-                filename = f"Sertifikat_{len(peserta_list)}_Peserta_{template_name}_{unique_id}_{skema.replace(' ', '_')}.docx"
+                filename = f"Sertifikat_{len(peserta_list)}_Peserta_{template_name}_{skema.replace(' ', '_')}.docx"
                 temp_file_path = os.path.join(temp_dir, filename)
                 with open(temp_file_path, 'wb') as temp_file:
                     temp_file.write(buffer.getvalue())
@@ -1130,12 +1131,15 @@ def convert_document(request):
                 static_url = f"/static/temp/{filename}"
                 download_urls.append(static_url)
 
-            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk %d peserta dengan skema %s", len(peserta_list), skema)
+                # Tambah counter untuk template berikutnya
+                counter += 1
+
+            logger.info("[INFO] Berhasil menghasilkan 4 dokumen Word untuk %d peserta dengan skema %s", len(peserta_list), skema)
             return JsonResponse({
                 "status": "success",
                 "download_urls": download_urls,
                 "temp_files": temp_files,
-                "message": f"Dua dokumen untuk skema '{skema}' berhasil dihasilkan!"
+                "message": f"Empat dokumen untuk skema '{skema}' berhasil dihasilkan!"
             })
 
         except json.JSONDecodeError as e:
@@ -1192,7 +1196,7 @@ def download_log2(request, log_id):
                 peserta = type('Peserta', (), {
                     'nama': log.name,
                     'email': log.email,
-                    'nomor_hp': log.handphone,
+                    'handphone': log.handphone,
                     'kota': log.city,
                     'tempat_lahir': None,
                     'tanggal_lahir': None,
@@ -1223,10 +1227,10 @@ def download_log2(request, log_id):
 
             # Path ke template berdasarkan skema
             template_paths = [
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT3.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT4.docx')
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'FormPendaftaran.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'AK01.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'APL02.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'APL01.docx')
             ]
             for path in template_paths:
                 if not os.path.exists(path):
@@ -1260,6 +1264,8 @@ def download_log2(request, log_id):
             # Proses dokumen untuk kedua template
             download_urls = []
             temp_files = []
+            counter = 1  # Inisialisasi counter untuk nomor urut
+
             for template_path in template_paths:
                 final_doc = Document(template_path)
 
@@ -1336,11 +1342,9 @@ def download_log2(request, log_id):
                 final_doc.save(buffer)
                 buffer.seek(0)
 
-                # Simpan ke file sementara di direktori statis dengan nama unik
-                unique_id = str(uuid.uuid4())
+                # Simpan ke file sementara dengan nomor urut
                 template_basename = os.path.basename(template_path).replace('.docx', '')
-                # Fixed syntax error in f-string
-                filename = f"Sertifikat_{log.name}_{template_basename}_{unique_id}_{skema.replace(' ', '_')}.docx"
+                filename = f"Sertifikat_{log.name}_{template_basename}_({counter})_{skema.replace(' ', '_')}.docx"
                 temp_file_path = os.path.join(temp_dir, filename)
                 with open(temp_file_path, 'wb') as temp_file:
                     temp_file.write(buffer.getvalue())
@@ -1353,12 +1357,15 @@ def download_log2(request, log_id):
                 static_url = f"/static/temp/{filename}"
                 download_urls.append(static_url)
 
-            logger.info("[INFO] Berhasil menghasilkan 2 dokumen Word untuk log_id: %s dengan skema %s", log_id, skema)
+                # Tambah counter untuk template berikutnya
+                counter += 1
+
+            logger.info("[INFO] Berhasil menghasilkan 4 dokumen Word untuk log_id: %s dengan skema %s", log_id, skema)
             return JsonResponse({
                 "status": "success",
                 "download_urls": download_urls,
                 "temp_files": temp_files,
-                "message": f"Dua dokumen untuk skema '{skema}' berhasil dihasilkan!"
+                "message": f"Empat dokumen untuk skema '{skema}' berhasil dihasilkan!"
             })
 
         except Exception as e:
@@ -1567,7 +1574,7 @@ def input_and_generate_convert_document(request):
                 return JsonResponse({"status": "error", "message": "Peserta tidak ditemukan."}, status=404)
 
             # Langkah 4: Membuat format tanggal_sertif
-            tanggal_sertif = format_tanggal_indonesia(datetime.datetime.now())
+            tanggal_sertif = format_tanggal_indonesia(timezone.now())
             logger.debug("[DEBUG] Tanggal_Sertif: %s", tanggal_sertif)
 
             # Langkah 5: Menentukan folder berdasarkan skema
@@ -1575,25 +1582,26 @@ def input_and_generate_convert_document(request):
                 "Associate Data Analyst": "folder1",
                 "Instruktur Junior (KKNI Level III)": "folder2",
                 "Junior Information Management": "folder3",
-                "Pemeserta Jaringan Komputer": "folder4",
-                "Peserta": "pengeserta",
-                "peserta": "pendidikan",
-                "pendidikan": "pendidikan",
+                "Pemasangan Jaringan Komputer": "folder4",
+                "Pengelolaan Backup dan Restore Data": "folder5",
+                "Pengelolaan Data Aplikasi Perkantoran": "folder6",
+                "Pengelolaan Keamanan Data Pengguna": "folder7",
+                "Pengelolaan Keamanan Jaringan": "folder8",
             }
 
-            if skema in skema_to_folder:
-                folder_name = skema_to_folder[skema]
-                logger.info("[INFO] Menggunakan folder template: %s untuk skema: %s", folder_name, skema)
-            else:
+            if skema not in skema_to_folder:
                 logger.error("[ERROR] Skema tidak valid: %s", skema)
                 return JsonResponse({"status": "error", "message": f"Skema '{skema}' tidak valid."}, status=400)
 
+            folder_name = skema_to_folder[skema]
+            logger.info("[INFO] Menggunakan folder template: %s untuk skema: %s", folder_name, skema)
+
             # Langkah 6: Menentukan path ke template Word
             template_paths = [
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT1.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT2.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT3.docx'),
-                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'DOCUMENT4.docx')
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'FormPendaftaran.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'AK01.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'APL02.docx'),
+                os.path.join(os.path.dirname(__file__), 'templates', 'docx', folder_name, 'APL01.docx')
             ]
             for template_path in template_paths:
                 if not os.path.exists(template_path):
@@ -1617,6 +1625,8 @@ def input_and_generate_convert_document(request):
             # Langkah 7: Memproses peserta dan membuat dokumen
             download_urls = []
             temp_files = []
+            counter = 1  # Inisialisasi counter untuk nomor urut
+
             for template_path in template_paths:
                 final_doc = Document()
                 first_doc = True
@@ -1645,7 +1655,6 @@ def input_and_generate_convert_document(request):
                         "Jabatan": peserta.jabatan or "-",
                         "Alamat_Kantor": peserta.alamat_kantor or "-",
                         "Telp_Kantor": peserta.telp_kantor or "-",
-                        # Field tambahan dari template ( diasumsikan default ke "-")
                         "Agama_LKP": getattr(peserta, "agama_lkp", "-"),
                         "Kewarganegaraan": getattr(peserta, "kewarganegaraan", "-"),
                         "Jenis_Tinggal": getattr(peserta, "jenis_tinggal", "-"),
@@ -1672,7 +1681,6 @@ def input_and_generate_convert_document(request):
                         "Layak_PIP": getattr(peserta, "layak_pip", "-"),
                         "Penerima_KIP": getattr(peserta, "penerima_kip", "-"),
                         "Alat_Transportasi": getattr(peserta, "alat_transportasi", "-"),
-                        # Data dari form konversi
                         "Jadwal": jadwal,
                         "TUK": tuk,
                         "Lokasi_Sertif": lokasi_sertif,
@@ -1741,9 +1749,8 @@ def input_and_generate_convert_document(request):
                 buffer.seek(0)
 
                 # Simpan file sementara
-                unique_id = str(uuid.uuid4())
                 template_name = os.path.basename(template_path).replace('.docx', '')
-                filename = f"Sertifikasi_{len(peserta_list)}_Peserta_{template_name}_{unique_id}_{skema.replace(' ', '_')}.docx"
+                filename = f"Sertifikasi_{len(peserta_list)}_Peserta_{template_name}_({counter})_{skema.replace(' ', '_')}.docx"
                 temp_file_path = os.path.join(temp_dir, filename)
                 with open(temp_file_path, 'wb') as temp_file:
                     temp_file.write(buffer.getvalue())
@@ -1759,6 +1766,9 @@ def input_and_generate_convert_document(request):
                 temp_files.append(temp_file_path)
                 static_url = f"/static/temp/{filename}"
                 download_urls.append(static_url)
+
+                # Tambah counter untuk template berikutnya
+                counter += 1
 
             logger.info("[INFO] Berhasil menghasilkan 4 dokumen untuk %d peserta dengan skema %s", len(peserta_list), skema)
             return JsonResponse({
@@ -1804,3 +1814,8 @@ def input_and_generate_cleanup_temp_files(request):
     except Exception as e:
         logger.error("[ERROR] Gagal menghapus file sementara: %s", str(e))
         return JsonResponse({"status": "error", "message": f"Gagal menghapus file: {str(e)}"}, status=500)
+
+@login_required(login_url="login")
+def input_data_status(request):
+    files = UploadedFile.objects.all()
+    return render(request, 'input_data_status.html', {'files': files})

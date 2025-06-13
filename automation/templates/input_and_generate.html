@@ -178,12 +178,12 @@
                                 <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="alamat_kantor" class="form-label">Alamat Kantor</label>
-                                <input type="text" class="form-control" id="alamat_kantor" name="alamat_kantor" placeholder="Masukkan Alamat Kantor" required>
+                                <label for="alamat_kantor" class="form-label">Alamat Lembaga</label>
+                                <input type="text" class="form-control" id="alamat_kantor" name="alamat_kantor" placeholder="Masukkan Alamat Lembaga" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="telp_kantor" class="form-label">Telepon Kantor</label>
-                                <input type="text" class="form-control" id="telp_kantor" name="telp_kantor" placeholder="Masukkan Telepon Kantor" required>
+                                <label for="telp_kantor" class="form-label">Telepon Lembaga</label>
+                                <input type="text" class="form-control" id="telp_kantor" name="telp_kantor" placeholder="Masukkan Telepon Lembaga" required>
                             </div>
                         </div>
                     </div>
@@ -248,6 +248,7 @@
 </div>
 
 <script>
+    
 // Fungsi untuk mendapatkan CSRF token
 function getCookie(name) {
     let cookieValue = null;
@@ -311,6 +312,28 @@ function searchData() {
     showPage(1);
 }
 
+// Fungsi untuk mengonversi teks tanggal Indonesia ke Date object
+function parseIndonesianDateTime(dateStr) {
+    // Contoh: "09 Juni 2025 11:54"
+    const bulanIndonesia = {
+        'januari': 'January', 'februari': 'February', 'maret': 'March', 'april': 'April',
+        'mei': 'May', 'juni': 'June', 'juli': 'July', 'agustus': 'August',
+        'september': 'September', 'oktober': 'October', 'november': 'November', 'desember': 'December'
+    };
+    if (!dateStr || dateStr === "-") return null;
+    const parts = dateStr.trim().split(' ');
+    if (parts.length < 4) return null;
+    const day = parts[0];
+    const month = bulanIndonesia[parts[1].toLowerCase()];
+    const year = parts[2];
+    const time = parts.slice(3).join(' ');
+    if (!month) return null;
+    const dateTimeStr = `${month} ${day}, ${year} ${time}`;
+    const parsedDate = new Date(dateTimeStr);
+    return isNaN(parsedDate) ? null : parsedDate;
+}
+
+
 // Sorting Table
 function sortTable(columnIndex, header) {
     let table = document.querySelector("#table-body");
@@ -320,7 +343,21 @@ function sortTable(columnIndex, header) {
     rows.sort((rowA, rowB) => {
         let cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
         let cellB = rowB.cells[columnIndex].textContent.trim().toLowerCase();
-        return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellB);
+
+        if (columnIndex === 5) { // Kolom Upload Date
+            let dateA = cellA === '-' ? null : parseIndonesianDateTime(cellA);
+            let dateB = cellB === '-' ? null : parseIndonesianDateTime(cellB);
+
+            if (!dateA && !dateB) return 0;
+            if (!dateA) return isAscending ? 1 : -1;
+            if (!dateB) return isAscending ? -1 : 1;
+
+            return isAscending ? dateA - dateB : dateB - dateA;
+        } else if (columnIndex === 1) { // Kolom Nama
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        }
+
+        return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
     });
 
     table.innerHTML = "";

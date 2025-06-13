@@ -93,3 +93,47 @@ Stacktrace:
 2025-05-20 13:40:00,502 - INFO - Attempting to close all windows and quit driver...
 2025-05-20 13:40:02,736 - INFO - Driver quit successfully.
 2025-05-28 09:42:37,314 - ERROR - URL tidak valid: https://hebat.elearning.unair.ac.id
+2025-06-09 16:33:42,472 - INFO - Attempting to close all windows and quit driver...
+2025-06-09 16:33:42,550 - ERROR - Failed to quit driver: Message: invalid session id
+Stacktrace:
+	GetHandleVerifier [0x0x7ff7262d3905+25605]
+	(No symbol) [0x0x7ff726223a10]
+	(No symbol) [0x0x7ff725febf70]
+	(No symbol) [0x0x7ff72602c853]
+	(No symbol) [0x0x7ff726059d12]
+	(No symbol) [0x0x7ff726004e2b]
+	(No symbol) [0x0x7ff726056917]
+	(No symbol) [0x0x7ff72605602c]
+	(No symbol) [0x0x7ff725fc2c75]
+	(No symbol) [0x0x7ff72612e10d]
+	(No symbol) [0x0x7ff72613dce8]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263b88d9+265161]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263c01b1+296097]
+	(No symbol) [0x0x7ff7262321b1]
+	(No symbol) [0x0x7ff725fc17a7]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff72650c4b8+1656744]
+	BaseThreadInitThunk [0x0x7ffe685fe8d7+23]
+	RtlUserThreadStart [0x0x7ffe69c9c5dc+44]
+
+2025-06-09 16:35:28,839 - INFO - Attempting to close all windows and quit driver...
+2025-06-09 16:35:29,021 - ERROR - Failed to quit driver: Message: invalid session id
+Stacktrace:
+	GetHandleVerifier [0x0x7ff7262d3905+25605]
+	(No symbol) [0x0x7ff726223a10]
+	(No symbol) [0x0x7ff725febf70]
+	(No symbol) [0x0x7ff72602c853]
+	(No symbol) [0x0x7ff726059d12]
+	(No symbol) [0x0x7ff726004e2b]
+	(No symbol) [0x0x7ff726056917]
+	(No symbol) [0x0x7ff72605602c]
+	(No symbol) [0x0x7ff725fc2c75]
+	(No symbol) [0x0x7ff72612e10d]
+	(No symbol) [0x0x7ff72613dce8]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263b88d9+265161]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263c01b1+296097]
+	(No symbol) [0x0x7ff7262321b1]
+	(No symbol) [0x0x7ff725fc17a7]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff72650c4b8+1656744]
+	BaseThreadInitThunk [0x0x7ffe685fe8d7+23]
+	RtlUserThreadStart [0x0x7ffe69c9c5dc+44]
+

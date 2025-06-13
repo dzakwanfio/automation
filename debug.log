@@ -249,3 +249,459 @@
 [2025-06-09 15:03:11,532] INFO root Files in otomatisasi view: 3 files found
 [2025-06-09 15:03:18,083] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
 [2025-06-09 15:03:38,166] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:08:07,033] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:08:18,062] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:08:36,623] INFO automation.views [DEBUG] Memproses permintaan input_and_generate_convert_document pada: /input_and_generate/convert_document/
+[2025-06-09 15:08:36,623] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-06-13","tuk":"SUGENG","skema":"Pengelolaan Backup dan Restore Data","asesor":"SUGENG","lokasi_sertif":"SUGENG","peserta_ids":["5"]}'
+[2025-06-09 15:08:36,623] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['5'], jadwal=2025-06-13, tuk=SUGENG, skema=Pengelolaan Backup dan Restore Data, asesor=SUGENG, lokasi_sertif=SUGENG
+[2025-06-09 15:08:36,624] DEBUG automation.views [INFO] Mengambil peserta dengan ID: ['5']
+[2025-06-09 15:08:36,625] DEBUG automation.views [DEBUG] Tanggal_Sertif: 09 Juni 2025
+[2025-06-09 15:08:36,626] INFO automation.views [INFO] Menggunakan folder template: folder5 untuk skema: Pengelolaan Backup dan Restore Data
+[2025-06-09 15:08:36,626] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_eada27d6-0237-4aa0-bb1c-5fddf53439ea_Associate_Data_Analyst.docx
+[2025-06-09 15:08:36,627] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Instruktur_Junior_(KKNI_Level_III).docx
+[2025-06-09 15:08:36,627] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Instruktur_Junior_(KKNI_Level_III)_(2).docx
+[2025-06-09 15:08:36,628] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Instruktur_Junior_(KKNI_Level_III)_329bb3f9-764f-4eb3-80a5-415efdf20877.docx
+[2025-06-09 15:08:36,628] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Instruktur_Junior_(KKNI_Level_III)_c5cb85dc-3388-4646-98ef-496c6d86d6c5.docx
+[2025-06-09 15:08:36,628] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Junior_Information_Management_71e30cc1-568b-48e9-81f6-251a4bacf72d.docx
+[2025-06-09 15:08:36,629] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Junior_Information_Management_c44f87e7-517c-4d79-ae17-9d2f2729ca2c.docx
+[2025-06-09 15:08:36,629] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Pemasangan_Jaringan_Komputer_20070951-8809-4dc7-bb54-8b746c2798c5.docx
+[2025-06-09 15:08:36,629] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Pemasangan_Jaringan_Komputer_20250609_113105.docx
+[2025-06-09 15:08:36,630] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_2ad4a98d-d3e5-409f-8c34-eec2991fcefa_Associate_Data_Analyst.docx
+[2025-06-09 15:08:36,630] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Instruktur_Junior_(KKNI_Level_III).docx
+[2025-06-09 15:08:36,631] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Instruktur_Junior_(KKNI_Level_III)_(4).docx
+[2025-06-09 15:08:36,632] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Instruktur_Junior_(KKNI_Level_III)_7dbb7f4f-23ce-4f47-bba1-cf234a8fb74a.docx
+[2025-06-09 15:08:36,632] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Instruktur_Junior_(KKNI_Level_III)_c7d75525-59ea-41a8-b84d-7429694813f9.docx
+[2025-06-09 15:08:36,633] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Junior_Information_Management_bbcc7c32-51a5-4ef5-93f4-37f5ba5fdca8.docx
+[2025-06-09 15:08:36,633] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Junior_Information_Management_beb1de66-8ed6-443e-88e7-0f8e520d0203.docx
+[2025-06-09 15:08:36,634] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Pemasangan_Jaringan_Komputer_20250609_113111.docx
+[2025-06-09 15:08:36,634] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Pemasangan_Jaringan_Komputer_ad2acd22-d688-466e-829b-0059cea123cf.docx
+[2025-06-09 15:08:36,635] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_12baa7d2-54fb-4941-9196-50b871e90bc3_Associate_Data_Analyst.docx
+[2025-06-09 15:08:36,635] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Instruktur_Junior_(KKNI_Level_III).docx
+[2025-06-09 15:08:36,636] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Instruktur_Junior_(KKNI_Level_III)_(3).docx
+[2025-06-09 15:08:36,636] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Instruktur_Junior_(KKNI_Level_III)_638f6e97-44ae-4bf1-b05e-7932641fff99.docx
+[2025-06-09 15:08:36,637] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Instruktur_Junior_(KKNI_Level_III)_b3f6c7d9-2093-40a8-bb05-f7796b8c0cd2.docx
+[2025-06-09 15:08:36,637] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Junior_Information_Management_63ac335a-18c7-48c4-9823-c0a0699f36bc.docx
+[2025-06-09 15:08:36,638] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Junior_Information_Management_c0c9d82a-b6cc-4ada-ad1e-66bc07a8419e.docx
+[2025-06-09 15:08:36,638] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Pemasangan_Jaringan_Komputer_20250609_113110.docx
+[2025-06-09 15:08:36,639] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Pemasangan_Jaringan_Komputer_3d0e75dc-b074-4e91-b80c-8316f9b768ff.docx
+[2025-06-09 15:08:36,640] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_695fe38c-13d6-49e6-bfb4-bb5834a03aed_Associate_Data_Analyst.docx
+[2025-06-09 15:08:36,641] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Instruktur_Junior_(KKNI_Level_III).docx
+[2025-06-09 15:08:36,642] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Instruktur_Junior_(KKNI_Level_III)_(1).docx
+[2025-06-09 15:08:36,642] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Instruktur_Junior_(KKNI_Level_III)_21fd9de0-8090-4dff-883b-dab9caac1727.docx
+[2025-06-09 15:08:36,643] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Instruktur_Junior_(KKNI_Level_III)_72d29f80-ec9e-493d-af79-613158fab02e.docx
+[2025-06-09 15:08:36,644] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management_17c111bd-f587-4748-9b13-0bcfc0939c6c.docx
+[2025-06-09 15:08:36,645] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management_6a413f49-a24e-4372-8bc0-e23b8a101374.docx
+[2025-06-09 15:08:36,646] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Pemasangan_Jaringan_Komputer_20250609_113103.docx
+[2025-06-09 15:08:36,646] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Pemasangan_Jaringan_Komputer_b7cd9a2d-64bc-40de-b4f6-96eae10e71ce.docx
+[2025-06-09 15:08:36,647] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_2_Peserta_DOCUMENT1_c91183b8-28ae-4c33-807f-8cc252056137_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:36,648] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_2_Peserta_DOCUMENT2_adbcf538-c56b-4bf0-a311-6ab535cab4b9_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:36,648] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_2_Peserta_DOCUMENT3_49ba7b76-d72b-4e5f-af1b-f502990b8fa1_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:36,649] INFO automation.views [INFO] File lama dihapus: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_2_Peserta_DOCUMENT4_418b12f0-5f2e-4373-8983-fa0964fd7dbb_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:36,662] DEBUG automation.views [INFO] Memproses peserta: DWI RINGGA EDWID DIAN NEGARA (ID: 5) dengan template D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\FormPendaftaran.docx
+[2025-06-09 15:08:37,003] INFO automation.views [INFO] File sementara dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikasi_1_Peserta_FormPendaftaran_(1)_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:37,010] DEBUG automation.views [INFO] Memproses peserta: DWI RINGGA EDWID DIAN NEGARA (ID: 5) dengan template D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\AK01.docx
+[2025-06-09 15:08:37,333] INFO automation.views [INFO] File sementara dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikasi_1_Peserta_AK01_(2)_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:37,341] DEBUG automation.views [INFO] Memproses peserta: DWI RINGGA EDWID DIAN NEGARA (ID: 5) dengan template D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\APL02.docx
+[2025-06-09 15:08:39,646] INFO automation.views [INFO] File sementara dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikasi_1_Peserta_APL02_(3)_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:39,654] DEBUG automation.views [INFO] Memproses peserta: DWI RINGGA EDWID DIAN NEGARA (ID: 5) dengan template D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\APL01.docx
+[2025-06-09 15:08:40,034] INFO automation.views [INFO] File sementara dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikasi_1_Peserta_APL01_(4)_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:08:40,035] INFO automation.views [INFO] Berhasil menghasilkan 4 dokumen untuk 1 peserta dengan skema Pengelolaan Backup dan Restore Data
+[2025-06-09 15:09:18,573] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:09:31,703] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-06-09 15:09:31,703] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-06-11","tuk":"SUGENG","skema":"Pengelolaan Backup dan Restore Data","asesor":"SUGENG","lokasi_sertif":"SUGENG","peserta_ids":["171"]}'
+[2025-06-09 15:09:31,703] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['171'], jadwal=2025-06-11, tuk=SUGENG, skema=Pengelolaan Backup dan Restore Data, asesor=SUGENG, lokasi_sertif=SUGENG
+[2025-06-09 15:09:31,703] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['171']
+[2025-06-09 15:09:31,704] DEBUG automation.views [DEBUG] Tanggal_Sertif: 09 Juni 2025
+[2025-06-09 15:09:31,704] INFO automation.views [INFO] Menggunakan template dari folder: folder5 untuk skema: Pengelolaan Backup dan Restore Data
+[2025-06-09 15:09:31,713] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\FormPendaftaran.docx
+[2025-06-09 15:09:31,733] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-11', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Pengelolaan Backup dan Restore Data', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:09:32,066] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:09:32,072] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\AK01.docx
+[2025-06-09 15:09:32,077] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-11', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Pengelolaan Backup dan Restore Data', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:09:32,374] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:09:32,381] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\APL02.docx
+[2025-06-09 15:09:32,391] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-11', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Pengelolaan Backup dan Restore Data', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:09:34,370] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:09:34,377] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder5\APL01.docx
+[2025-06-09 15:09:34,383] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-11', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Pengelolaan Backup dan Restore Data', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:09:34,709] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Pengelolaan_Backup_dan_Restore_Data.docx
+[2025-06-09 15:09:34,709] INFO automation.views [INFO] Berhasil menghasilkan 4 dokumen Word untuk 1 peserta dengan skema Pengelolaan Backup dan Restore Data
+[2025-06-09 15:09:34,720] DEBUG automation.views [DEBUG] Menerima permintaan cleanup untuk file: ['D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_FormPendaftaran_Pengelolaan_Backup_dan_Restore_Data.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_AK01_Pengelolaan_Backup_dan_Restore_Data.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_APL02_Pengelolaan_Backup_dan_Restore_Data.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_APL01_Pengelolaan_Backup_dan_Restore_Data.docx']
+[2025-06-09 15:09:34,721] ERROR automation.views [ERROR] Gagal menghapus file sementara: [WinError 32] The process cannot access the file because it is being used by another process: 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_FormPendaftaran_Pengelolaan_Backup_dan_Restore_Data.docx'
+[2025-06-09 15:09:34,721] ERROR django.request Internal Server Error: /cleanup-temp-files/
+[2025-06-09 15:10:53,971] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:10:56,001] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:12:40,096] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:12:42,001] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:12:46,687] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:12:48,530] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:20:23,996] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:20:25,962] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:20:38,134] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:20:38,369] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:20:38,548] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:20:38,712] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:20:38,851] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:20:39,029] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 15:20:50,642] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-06-09 15:20:50,643] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-06-13","tuk":"SUGENG","skema":"Junior Information Management","asesor":"SUGENG","lokasi_sertif":"SUGENG","peserta_ids":["171"]}'
+[2025-06-09 15:20:50,643] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['171'], jadwal=2025-06-13, tuk=SUGENG, skema=Junior Information Management, asesor=SUGENG, lokasi_sertif=SUGENG
+[2025-06-09 15:20:50,643] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['171']
+[2025-06-09 15:20:50,643] DEBUG automation.views [DEBUG] Tanggal_Sertif: 09 Juni 2025
+[2025-06-09 15:20:50,644] INFO automation.views [INFO] Menggunakan template dari folder: folder3 untuk skema: Junior Information Management
+[2025-06-09 15:20:50,656] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\FormPendaftaran.docx
+[2025-06-09 15:20:50,687] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:20:51,026] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management.docx
+[2025-06-09 15:20:51,033] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\AK01.docx
+[2025-06-09 15:20:51,038] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:20:52,715] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Junior_Information_Management.docx
+[2025-06-09 15:20:52,722] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\APL02.docx
+[2025-06-09 15:20:52,730] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:20:53,665] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Junior_Information_Management.docx
+[2025-06-09 15:20:53,673] DEBUG automation.views [DEBUG] Memproses peserta: Sifulan (ID: 171) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\APL01.docx
+[2025-06-09 15:20:53,680] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Sifulan', 'Jenis_Kelamin': 'L', 'NIK': '3410100200', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '01 January 2000', 'NISN': '3410100200', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345678', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '01 January 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '01 January 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Mulyorejo', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:20:54,495] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Junior_Information_Management.docx
+[2025-06-09 15:20:54,496] INFO automation.views [INFO] Berhasil menghasilkan 4 dokumen Word untuk 1 peserta dengan skema Junior Information Management
+[2025-06-09 15:20:54,507] DEBUG automation.views [DEBUG] Menerima permintaan cleanup untuk file: ['D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_AK01_Junior_Information_Management.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_APL02_Junior_Information_Management.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_APL01_Junior_Information_Management.docx']
+[2025-06-09 15:20:54,508] ERROR automation.views [ERROR] Gagal menghapus file sementara: [WinError 32] The process cannot access the file because it is being used by another process: 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management.docx'
+[2025-06-09 15:20:54,508] ERROR django.request Internal Server Error: /cleanup-temp-files/
+[2025-06-09 15:21:17,059] INFO automation.views [DEBUG] Memproses permintaan delete_peserta pada: /delete-peserta/
+[2025-06-09 15:21:17,060] DEBUG automation.views [DEBUG] ID peserta yang diterima: ['171', '172', '173', '174', '175', '176', '177', '178', '179', '180', '181', '182', '183', '184', '185', '186', '187', '188', '189', '190', '191', '192', '193', '194', '195', '196']
+[2025-06-09 15:21:17,060] DEBUG automation.views [DEBUG] ID peserta setelah konversi: [171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196]
+[2025-06-09 15:21:17,063] INFO automation.views [INFO] Berhasil menghapus 26 peserta dengan ID: [171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196]
+[2025-06-09 15:21:21,882] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-06-09 15:21:34,997] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-06-09 15:21:35,010] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-06-09 15:21:35,012] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 15:21:35,012] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 15:21:35,013] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-06-09 15:21:35,014] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 15:21:35,014] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 15:21:35,020] ERROR automation.views Error processing file: ['Nilai “01 Januari 2000” mempunyai format tanggal yang tidak valid. Tanggal harus dalam format YYYY-MM-DD.']
+[2025-06-09 15:21:53,344] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:21:54,541] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:25:41,835] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:25:43,848] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:25:48,524] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:25:50,457] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:26:18,485] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:26:20,359] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:26:28,290] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:26:30,182] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:26:49,397] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:26:51,188] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:27:03,620] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:27:05,487] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:27:15,295] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:27:17,062] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:27:38,291] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:27:39,517] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:27:44,063] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:27:45,805] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:28:29,279] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:28:31,123] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:28:38,806] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:28:40,606] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:29:08,447] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:29:10,333] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:29:16,070] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:29:17,283] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:29:20,774] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:29:22,634] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:29:37,634] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:29:39,354] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:29:43,004] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:29:44,161] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:30:15,484] INFO django.utils.autoreload D:\Intern\LSP Trust\automation\automation\views.py changed, reloading.
+[2025-06-09 15:30:17,442] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2025-06-09 15:30:26,190] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-06-09 15:30:26,196] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-06-09 15:30:26,196] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 15:30:26,197] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 15:30:26,198] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-06-09 15:30:26,198] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 15:30:26,199] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 15:30:26,248] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-06-09 15:30:38,634] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:30:50,179] INFO automation.views [DEBUG] Memproses permintaan convert_document pada: /convert-document/
+[2025-06-09 15:30:50,179] DEBUG automation.views [DEBUG] Request body: b'{"jadwal":"2025-06-13","tuk":"SUGENG","skema":"Junior Information Management","asesor":"SUGENG","lokasi_sertif":"SUGENG","peserta_ids":["198"]}'
+[2025-06-09 15:30:50,180] DEBUG automation.views [DEBUG] Data diterima: peserta_ids=['198'], jadwal=2025-06-13, tuk=SUGENG, skema=Junior Information Management, asesor=SUGENG, lokasi_sertif=SUGENG
+[2025-06-09 15:30:50,180] DEBUG automation.views [DEBUG] Mengambil peserta dengan ID: ['198']
+[2025-06-09 15:30:50,181] DEBUG automation.views [DEBUG] Tanggal_Sertif: 09 Juni 2025
+[2025-06-09 15:30:50,181] INFO automation.views [INFO] Menggunakan template dari folder: folder3 untuk skema: Junior Information Management
+[2025-06-09 15:30:50,193] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 198) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\FormPendaftaran.docx
+[2025-06-09 15:30:50,225] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Jenis_Kelamin': 'L', 'NIK': '3410100222', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 Januari 2000', 'NISN': '3410100222', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345679', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '02 Januari 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '02 Januari 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:30:50,550] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management.docx
+[2025-06-09 15:30:50,557] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 198) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\AK01.docx
+[2025-06-09 15:30:50,562] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Jenis_Kelamin': 'L', 'NIK': '3410100222', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 Januari 2000', 'NISN': '3410100222', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345679', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '02 Januari 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '02 Januari 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:30:51,837] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_AK01_Junior_Information_Management.docx
+[2025-06-09 15:30:51,844] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 198) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\APL02.docx
+[2025-06-09 15:30:51,851] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Jenis_Kelamin': 'L', 'NIK': '3410100222', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 Januari 2000', 'NISN': '3410100222', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345679', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '02 Januari 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '02 Januari 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:30:52,836] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL02_Junior_Information_Management.docx
+[2025-06-09 15:30:52,846] DEBUG automation.views [DEBUG] Memproses peserta: Abe (ID: 198) dengan template: D:\Intern\LSP Trust\automation\automation\templates\docx\folder3\APL01.docx
+[2025-06-09 15:30:52,853] DEBUG automation.views [DEBUG] Data untuk placeholder: {'Nama': 'Abe', 'Jenis_Kelamin': 'L', 'NIK': '3410100222', 'Tempat_Lahir': 'Surabaya', 'Tanggal_Lahir': '20 Januari 2000', 'NISN': '3410100222', 'Agama_LKP': 'Kepercayaan', 'Handphone': '812345679', 'Kewarganegaraan': 'Indonesia', 'Jenis_Tinggal': 'Lainnya', 'Tanggal_Masuk': '02 Januari 2000', 'Email': 'ragowo@gmail.com', 'Nama_Ortu': 'Orang Tua', 'NIK_Ortu': '3410100200', 'Pekerjaan_Ortu': 'Karyawan', 'Pendidikan_Ortu': 'S1', 'Penghasilan_Ortu': '0', 'Handphone_Ortu': '62812345678', 'Tempat_Lahir_Ortu': 'Surabaya', 'Tanggal_Lahir_Ortu': '02 Januari 2000', 'Asal': 'Luar_Kota', 'Alamat': 'Jalan Raya Wonorejo 27', 'RT': '0', 'RW': '0', 'Kecamatan': 'Rungkut', 'Kelurahan': 'Wonorejo', 'Kab_Kota': 'Surabaya', 'Propinsi': 'Jawa Timur', 'Nama_Ibu_kandung': 'Ibu', 'Nama_Ayah': 'Ayah', 'Agama_Kemdikbud': 'Kepercayaan kpd Tuhan YME', 'Penerima_KPS': 'Tidak', 'Layak_PIP': 'Tidak Layak', 'Penerima_KIP': 'Tidak', 'Kode_Pos': '60296', 'Alat_Transportasi': 'Lainnya', 'Pendidikan_Terakhir': 'S1', 'Nama_Lembaga': 'Unair', 'Jabatan': 'Dosen', 'Alamat_Kantor': 'Dharmawangsa', 'Telp_Kantor': '81234567890', 'Jadwal': '2025-06-13', 'TUK': 'SUGENG', 'Lokasi_Sertif': 'SUGENG', 'Skema': 'Junior Information Management', 'Asesor': 'SUGENG', 'Tanggal_Sertif': '09 Juni 2025'}
+[2025-06-09 15:30:53,642] INFO automation.views [INFO] File sementara berhasil dibuat: D:\Intern\LSP Trust\automation\automation\static\temp\Sertifikat_1_Peserta_APL01_Junior_Information_Management.docx
+[2025-06-09 15:30:53,643] INFO automation.views [INFO] Berhasil menghasilkan 4 dokumen Word untuk 1 peserta dengan skema Junior Information Management
+[2025-06-09 15:30:53,654] DEBUG automation.views [DEBUG] Menerima permintaan cleanup untuk file: ['D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_AK01_Junior_Information_Management.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_APL02_Junior_Information_Management.docx', 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_APL01_Junior_Information_Management.docx']
+[2025-06-09 15:30:53,655] ERROR automation.views [ERROR] Gagal menghapus file sementara: [WinError 32] The process cannot access the file because it is being used by another process: 'D:\\Intern\\LSP Trust\\automation\\automation\\static\\temp\\Sertifikat_1_Peserta_FormPendaftaran_Junior_Information_Management.docx'
+[2025-06-09 15:30:53,655] ERROR django.request Internal Server Error: /cleanup-temp-files/
+[2025-06-09 15:35:57,496] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:15,271] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:15,724] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:15,918] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:16,082] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:16,243] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:16,381] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:41:16,528] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:43:49,321] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:43:50,698] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:43:51,261] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:43:51,471] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:43:51,658] INFO automation.views Mengambil 12 data peserta untuk generate_document
+[2025-06-09 15:44:11,323] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-06-09 15:44:26,714] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-06-09 15:44:26,720] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-06-09 15:44:26,720] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 15:44:26,720] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00'), Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 15:44:26,721] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20), datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-06-09 15:44:26,721] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 15:44:26,722] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2), datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 15:44:26,765] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-06-09 15:44:32,569] INFO automation.views Mengambil 24 data peserta untuk generate_document
+[2025-06-09 15:51:56,230] INFO automation.views Mengambil 24 data peserta untuk generate_document
+[2025-06-09 15:52:02,260] INFO automation.views Mengambil 24 data peserta untuk generate_document
+[2025-06-09 15:52:05,596] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-06-09 16:32:54,612] INFO root Files in otomatisasi view: 6 files found
+[2025-06-09 16:33:02,017] INFO root process_files called with file_ids: ['52'], from URL: /process-files/, Referer: http://127.0.0.1:8000/otomatisasi/
+[2025-06-09 16:33:02,018] INFO root Starting process for file: D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx, exists: True, URL: http://manajemen.vokasi.kemdikbud.go.id
+[2025-06-09 16:33:44,708] DEBUG root Subprocess stdout for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+[2025-06-09 16:33:44,709] DEBUG root Subprocess stderr for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx: === DEBUG INFO ===
+Current directory: D:\Intern\LSP Trust\automation\automation
+Script location: D:\Intern\LSP Trust\automation\automation\otomatisasi.py
+Args received: ['D:\\Intern\\LSP Trust\\automation\\automation\\otomatisasi.py', 'D:\\Intern\\LSP Trust\\automation\\uploads\\lkp2_template_baru_-_Copy.xlsx', '--url', 'http://manajemen.vokasi.kemdikbud.go.id']
+File 1 found: D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\logging\__init__.py", line 1153, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 1226, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from, url=args.url)
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 77, in process_files
+    logging.info(f"\u2705 Mengakses {url}. Silakan login di browser...")
+Message: '\u2705 Mengakses http://manajemen.vokasi.kemdikbud.go.id. Silakan login di browser...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 324, in process_files
+    driver.find_element(
+    ~~~~~~~~~~~~~~~~~~~^
+        By.XPATH, "//a[contains(text(),'Peserta Didik')]"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=137.0.3296.62)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff7262d3905+25605]
+	(No symbol) [0x0x7ff726223a10]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff726556f1a+1962506]
+	(No symbol) [0x0x7ff725fdbcd0]
+	(No symbol) [0x0x7ff725ffa76a]
+	(No symbol) [0x0x7ff72605f7c7]
+	(No symbol) [0x0x7ff726076eea]
+	(No symbol) [0x0x7ff726059bb3]
+	(No symbol) [0x0x7ff72602df56]
+	(No symbol) [0x0x7ff72602d463]
+	(No symbol) [0x0x7ff72602dd83]
+	(No symbol) [0x0x7ff72612e10d]
+	(No symbol) [0x0x7ff72613dce8]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263b88d9+265161]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263c01b1+296097]
+	(No symbol) [0x0x7ff7262321b1]
+	(No symbol) [0x0x7ff72622a654]
+	(No symbol) [0x0x7ff72622a7a3]
+	(No symbol) [0x0x7ff72621b976]
+	BaseThreadInitThunk [0x0x7ffe685fe8d7+23]
+	RtlUserThreadStart [0x0x7ffe69c9c5dc+44]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\logging\__init__.py", line 1153, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 1226, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from, url=args.url)
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 333, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=137.0.3296.62)\nStacktrace:\n\tGetHandleVerifier [0x0x7ff7262d3905+25605]\n\t(No symbol) [0x0x7ff726223a10]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x0x7ff726556f1a+1962506]\n\t(No symbol) [0x0x7ff725fdbcd0]\n\t(No symbol) [0x0x7ff725ffa76a]\n\t(No symbol) [0x0x7ff72605f7c7]\n\t(No symbol) [0x0x7ff726076eea]\n\t(No symbol) [0x0x7ff726059bb3]\n\t(No symbol) [0x0x7ff72602df56]\n\t(No symbol) [0x0x7ff72602d463]\n\t(No symbol) [0x0x7ff72602dd83]\n\t(No symbol) [0x0x7ff72612e10d]\n\t(No symbol) [0x0x7ff72613dce8]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x0x7ff7263b88d9+265161]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x0x7ff7263c01b1+296097]\n\t(No symbol) [0x0x7ff7262321b1]\n\t(No symbol) [0x0x7ff72622a654]\n\t(No symbol) [0x0x7ff72622a7a3]\n\t(No symbol) [0x0x7ff72621b976]\n\tBaseThreadInitThunk [0x0x7ffe685fe8d7+23]\n\tRtlUserThreadStart [0x0x7ffe69c9c5dc+44]\n'
+Arguments: ()
+
+[2025-06-09 16:33:44,711] DEBUG root Subprocess returncode for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx: 0
+[2025-06-09 16:33:44,715] INFO root File copied to temp location: D:\Intern\LSP Trust\automation\uploads\temp_failed_files\lkp2_template_baru_-_Copy.xlsx
+[2025-06-09 16:33:44,728] INFO root Removed UploadedFile entry for failed file: D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx, file preserved at: D:\Intern\LSP Trust\automation\uploads\temp_failed_files\lkp2_template_baru_-_Copy.xlsx
+[2025-06-09 16:33:44,728] INFO root Ensured process for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_-_Copy.xlsx is terminated.
+[2025-06-09 16:33:44,728] INFO root Returning response: status=error, failed_file_ids=[None]
+[2025-06-09 16:33:50,250] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+[2025-06-09 16:34:28,703] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-06-09 16:34:28,710] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-06-09 16:34:28,711] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 16:34:28,711] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 16:34:28,712] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-06-09 16:34:28,712] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 16:34:28,712] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 16:34:28,738] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-06-09 16:34:31,241] INFO root Files in otomatisasi view: 6 files found
+[2025-06-09 16:34:53,973] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+[2025-06-09 16:35:04,385] DEBUG automation.views [DEBUG] Tipe data setiap kolom: {'No': dtype('int64'), 'Nama': dtype('O'), 'Jenis_Kelamin': dtype('O'), 'NIK': dtype('int64'), 'Tempat_Lahir': dtype('O'), 'Tanggal_Lahir': dtype('<M8[ns]'), 'NISN': dtype('int64'), 'Agama_LKP': dtype('O'), 'Handphone': dtype('int64'), 'Kewarganegaraan': dtype('O'), 'Jenis_Tinggal': dtype('O'), 'Tanggal_Masuk': dtype('<M8[ns]'), 'Email': dtype('O'), 'Nama_Ortu': dtype('O'), 'NIK_Ortu': dtype('int64'), 'Pekerjaan_Ortu': dtype('O'), 'Pendidikan_Ortu': dtype('O'), 'Penghasilan_Ortu': dtype('int64'), 'Handphone_Ortu': dtype('int64'), 'Tempat_Lahir_Ortu': dtype('O'), 'Tanggal_Lahir_Ortu': dtype('<M8[ns]'), 'Asal': dtype('O'), 'Alamat': dtype('O'), 'RT': dtype('int64'), 'RW': dtype('int64'), 'Kecamatan': dtype('O'), 'Kelurahan': dtype('O'), 'Kab/Kota': dtype('O'), 'Propinsi': dtype('O'), 'Nama_Ibu_kandung': dtype('O'), 'Nama_Ayah': dtype('O'), 'Agama_Kemdikbud': dtype('O'), 'Penerima_KPS': dtype('O'), 'Layak_PIP': dtype('O'), 'Penerima_KIP': dtype('O'), 'Kode_Pos': dtype('int64'), 'Jenis_tinggal': dtype('O'), 'Alat_Transportasi': dtype('O'), 'Pendidikan_Terakhir': dtype('O'), 'Nama_Lembaga': dtype('O'), 'Jabatan': dtype('O'), 'Alamat_Kantor': dtype('O'), 'Telp_Kantor': dtype('int64')}
+[2025-06-09 16:35:04,391] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-20 00:00:00')]
+[2025-06-09 16:35:04,391] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Masuk: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 16:35:04,392] DEBUG automation.views [DEBUG] Nilai mentah Tanggal_Lahir_Ortu: [Timestamp('2000-01-01 00:00:00'), Timestamp('2000-01-02 00:00:00')]
+[2025-06-09 16:35:04,392] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 20)]
+[2025-06-09 16:35:04,393] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Masuk: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 16:35:04,393] DEBUG automation.views [DEBUG] Nilai setelah parsing Tanggal_Lahir_Ortu: [datetime.date(2000, 1, 1), datetime.date(2000, 1, 2)]
+[2025-06-09 16:35:04,421] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/input_data/
+[2025-06-09 16:35:06,779] INFO root Files in otomatisasi view: 7 files found
+[2025-06-09 16:35:13,030] INFO root process_files called with file_ids: ['59'], from URL: /process-files/, Referer: http://127.0.0.1:8000/otomatisasi/
+[2025-06-09 16:35:13,032] INFO root Starting process for file: D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx, exists: True, URL: https://lkpdispendik.surabaya.go.id
+[2025-06-09 16:35:31,150] DEBUG root Subprocess stdout for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx: {"status": "error", "message": "Browser ditutup sebelum login selesai", "last_row": 0}
+
+[2025-06-09 16:35:31,151] DEBUG root Subprocess stderr for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx: === DEBUG INFO ===
+Current directory: D:\Intern\LSP Trust\automation\automation
+Script location: D:\Intern\LSP Trust\automation\automation\otomatisasi.py
+Args received: ['D:\\Intern\\LSP Trust\\automation\\automation\\otomatisasi.py', 'D:\\Intern\\LSP Trust\\automation\\uploads\\lkp2_template_baru_Kty7dDV.xlsx', '--url', 'https://lkpdispendik.surabaya.go.id']
+File 1 found: D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx
+=================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\logging\__init__.py", line 1153, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 33: character maps to <undefined>
+Call stack:
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 1226, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from, url=args.url)
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 77, in process_files
+    logging.info(f"\u2705 Mengakses {url}. Silakan login di browser...")
+Message: '\u2705 Mengakses https://lkpdispendik.surabaya.go.id. Silakan login di browser...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 95, in process_files
+    driver.find_element(
+    ~~~~~~~~~~~~~~~~~~~^
+        By.XPATH,
+        ^^^^^^^^^
+        "//a[@href='https://lkpdispendik.surabaya.go.id/dasboard/siswa/view/list/aktif?id=966']",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 898, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: MicrosoftEdge=137.0.3296.62)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff7262d3905+25605]
+	(No symbol) [0x0x7ff726223a10]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff726556f1a+1962506]
+	(No symbol) [0x0x7ff725fdbcd0]
+	(No symbol) [0x0x7ff725ffa76a]
+	(No symbol) [0x0x7ff72605f7c7]
+	(No symbol) [0x0x7ff726076eea]
+	(No symbol) [0x0x7ff726059bb3]
+	(No symbol) [0x0x7ff72602df56]
+	(No symbol) [0x0x7ff72602d463]
+	(No symbol) [0x0x7ff72602dd83]
+	(No symbol) [0x0x7ff72612e10d]
+	(No symbol) [0x0x7ff72613dce8]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263b88d9+265161]
+	Microsoft::Applications::Events::EventProperty::to_string [0x0x7ff7263c01b1+296097]
+	(No symbol) [0x0x7ff7262321b1]
+	(No symbol) [0x0x7ff72622a654]
+	(No symbol) [0x0x7ff72622a7a3]
+	(No symbol) [0x0x7ff72621b976]
+	BaseThreadInitThunk [0x0x7ffe685fe8d7+23]
+	RtlUserThreadStart [0x0x7ffe69c9c5dc+44]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\logging\__init__.py", line 1153, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 34: character maps to <undefined>
+Call stack:
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 1226, in <module>
+    process_files(args.file_paths, resume_from=args.resume_from, url=args.url)
+  File "D:\Intern\LSP Trust\automation\automation\otomatisasi.py", line 105, in process_files
+    logging.error(f"\u274c Browser ditutup atau tidak dapat diakses: {e}")
+Message: '\u274c Browser ditutup atau tidak dapat diakses: Message: invalid session id: session deleted as the browser has closed the connection\nfrom disconnected: not connected to DevTools\n  (Session info: MicrosoftEdge=137.0.3296.62)\nStacktrace:\n\tGetHandleVerifier [0x0x7ff7262d3905+25605]\n\t(No symbol) [0x0x7ff726223a10]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x0x7ff726556f1a+1962506]\n\t(No symbol) [0x0x7ff725fdbcd0]\n\t(No symbol) [0x0x7ff725ffa76a]\n\t(No symbol) [0x0x7ff72605f7c7]\n\t(No symbol) [0x0x7ff726076eea]\n\t(No symbol) [0x0x7ff726059bb3]\n\t(No symbol) [0x0x7ff72602df56]\n\t(No symbol) [0x0x7ff72602d463]\n\t(No symbol) [0x0x7ff72602dd83]\n\t(No symbol) [0x0x7ff72612e10d]\n\t(No symbol) [0x0x7ff72613dce8]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x0x7ff7263b88d9+265161]\n\tMicrosoft::Applications::Events::EventProperty::to_string [0x0x7ff7263c01b1+296097]\n\t(No symbol) [0x0x7ff7262321b1]\n\t(No symbol) [0x0x7ff72622a654]\n\t(No symbol) [0x0x7ff72622a7a3]\n\t(No symbol) [0x0x7ff72621b976]\n\tBaseThreadInitThunk [0x0x7ffe685fe8d7+23]\n\tRtlUserThreadStart [0x0x7ffe69c9c5dc+44]\n'
+Arguments: ()
+
+[2025-06-09 16:35:31,152] DEBUG root Subprocess returncode for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx: 0
+[2025-06-09 16:35:31,154] INFO root File copied to temp location: D:\Intern\LSP Trust\automation\uploads\temp_failed_files\lkp2_template_baru_Kty7dDV.xlsx
+[2025-06-09 16:35:31,169] INFO root Removed UploadedFile entry for failed file: D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx, file preserved at: D:\Intern\LSP Trust\automation\uploads\temp_failed_files\lkp2_template_baru_Kty7dDV.xlsx
+[2025-06-09 16:35:31,170] INFO root Ensured process for D:\Intern\LSP Trust\automation\uploads\lkp2_template_baru_Kty7dDV.xlsx is terminated.
+[2025-06-09 16:35:31,170] INFO root Returning response: status=error, failed_file_ids=[None]
+[2025-06-09 16:35:37,818] INFO automation.views Mengambil 26 data peserta untuk generate_document
+[2025-06-09 16:35:45,551] INFO automation.views [DEBUG] Memproses permintaan delete_all_logs2 pada: /delete_all_logs2/
+[2025-06-09 16:35:45,554] INFO automation.views [INFO] Berhasil menghapus 16 record LogHistory2
+[2025-06-09 16:35:49,341] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-06-09 16:36:01,709] INFO root Files in otomatisasi view: 6 files found
+[2025-06-09 16:36:04,988] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+[2025-06-09 16:36:08,069] INFO root Files in otomatisasi view: 6 files found
+[2025-06-09 16:36:10,222] INFO root Deleted UploadedFile entry with ID 53
+[2025-06-09 16:36:11,637] INFO root Deleted UploadedFile entry with ID 54
+[2025-06-09 16:36:12,948] INFO root Deleted UploadedFile entry with ID 55
+[2025-06-09 16:36:14,315] INFO root Deleted UploadedFile entry with ID 56
+[2025-06-09 16:36:15,368] INFO root Deleted UploadedFile entry with ID 57
+[2025-06-09 16:36:16,226] INFO root Deleted UploadedFile entry with ID 58
+[2025-06-09 16:36:18,328] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/otomatisasi/
+[2025-06-09 16:36:24,288] INFO automation.views Mengambil 0 data peserta untuk generate_document
+[2025-06-09 16:37:37,983] INFO automation.views Mengambil 0 data peserta untuk generate_document
+[2025-06-09 16:37:41,074] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/homepage/
+[2025-06-09 16:37:42,530] INFO root Files in otomatisasi view: 0 files found
+[2025-06-09 16:37:44,721] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/log-history/
+[2025-06-09 16:37:51,895] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-06-09 16:38:44,262] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-06-09 16:38:45,275] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-06-09 16:39:17,598] INFO automation.views Loading input_data page with GET request. URL: /input_data/, Referer: http://127.0.0.1:8000/data_siswa/
+[2025-06-09 16:39:22,355] INFO automation.views Mengambil 0 data peserta untuk generate_document
+[2025-06-09 16:40:37,834] INFO automation.views Mengambil 0 data peserta untuk generate_document

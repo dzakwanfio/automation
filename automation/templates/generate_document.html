@@ -172,8 +172,33 @@ function searchData() {
     showPage(1);
 }
 
+// Fungsi untuk mengonversi teks tanggal Indonesia ke Date object
+function parseIndonesianDateTime(dateStr) {
+    // Contoh: "09 Juni 2025 11:54"
+    const bulanIndonesia = {
+        'januari': 'January', 'februari': 'February', 'maret': 'March', 'april': 'April',
+        'mei': 'May', 'juni': 'June', 'juli': 'July', 'agustus': 'August',
+        'september': 'September', 'oktober': 'October', 'november': 'November', 'desember': 'December'
+    };
+    if (!dateStr || dateStr === "-") return null;
+    // Pisahkan tanggal dan waktu
+    // "09 Juni 2025 11:54" => ["09", "Juni", "2025", "11:54"]
+    const parts = dateStr.trim().split(' ');
+    if (parts.length < 4) return null;
+    const day = parts[0];
+    const month = bulanIndonesia[parts[1].toLowerCase()];
+    const year = parts[2];
+    const time = parts.slice(3).join(' '); // bisa saja ada detik
+    if (!month) return null;
+    // Format: "June 09, 2025 11:54"
+    const dateTimeStr = `${month} ${day}, ${year} ${time}`;
+    const parsedDate = new Date(dateTimeStr);
+    return isNaN(parsedDate) ? null : parsedDate;
+}
+
 // Sorting Table
 function sortTable(columnIndex, header) {
+    console.log("[DEBUG] sortTable() dipanggil untuk kolom: ", columnIndex);
     let table = document.querySelector("#table-body");
     let rows = Array.from(table.rows);
     let isAscending = header.getAttribute("data-sort") === "asc";
@@ -182,9 +207,8 @@ function sortTable(columnIndex, header) {
         let cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
         let cellB = rowB.cells[columnIndex].textContent.trim().toLowerCase();
 
-        // Khusus untuk kolom Upload Date (indeks 5), bandingkan sebagai tanggal dan waktu
-        if (columnIndex === 5) {
-            // Konversi teks "09 Juni 2025 11:54" ke Date object
+        if (columnIndex === 5) { // Kolom Upload Date
+            console.log("[DEBUG] Sorting kolom Upload Date: ", cellA, cellB);
             let dateA = cellA === '-' ? null : parseIndonesianDateTime(cellA);
             let dateB = cellB === '-' ? null : parseIndonesianDateTime(cellB);
 
@@ -194,10 +218,13 @@ function sortTable(columnIndex, header) {
             if (!dateB) return isAscending ? -1 : 1;
 
             return isAscending ? dateA - dateB : dateB - dateA;
+        } else if (columnIndex === 1) { // Kolom Nama
+            console.log("[DEBUG] Sorting kolom Nama: ", cellA, cellB);
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
         }
 
-        // Untuk kolom lain, gunakan localeCompare
-        return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellB);
+        // Default untuk kolom lain (jika ada)
+        return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
     });
 
     table.innerHTML = "";
@@ -209,23 +236,8 @@ function sortTable(columnIndex, header) {
     showPage(currentPage);
 }
 
-// Fungsi untuk mengonversi teks tanggal Indonesia ke Date object
-function parseIndonesianDateTime(dateStr) {
-    const bulanIndonesia = {
-        'januari': 'January', 'februari': 'February', 'maret': 'March', 'april': 'April',
-        'mei': 'May', 'juni': 'June', 'juli': 'July', 'agustus': 'August',
-        'september': 'September', 'oktober': 'October', 'november': 'November', 'desember': 'December'
-    };
-
-    // Pisahkan tanggal dan waktu (misalnya, "09 Juni 2025 11:54")
-    const [datePart, timePart] = dateStr.split(' ');
-    const [day, month, year] = datePart.split(' ');
-    const monthEn = bulanIndonesia[month.toLowerCase()];
-    const dateTimeStr = `${monthEn} ${day}, ${year} ${timePart}`;
-    return new Date(dateTimeStr);
-}
-
 function updateSortIcons(header, isAscending) {
+    console.log("[DEBUG] Memperbarui ikon sorting untuk header: ", header.textContent, "isAscending: ", isAscending);
     document.querySelectorAll("th i").forEach(icon => {
         icon.classList.remove("fa-sort-up", "fa-sort-down");
         icon.classList.add("fa-sort");

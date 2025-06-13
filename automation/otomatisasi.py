@@ -248,7 +248,7 @@ def process_files(file_paths, resume_from=2, url=None):
                             driver.find_element(By.NAME, "hp_ayah").send_keys(Handphone_Ortu)
                             driver.find_element(By.NAME, "tempat_lahir_ayah").send_keys(Tempat_Lahir_Ortu)
                             driver.find_element(By.NAME, "tgl_lahir_ayah").send_keys(Tanggal_Lahir_Ortu)
-                            driver.find_element(By.NAME, "asal_domisili").send_keys(Asal)
+                            driver.find_element(By.NAME, "asal_domisili").send_keys("SURABAYA" if safe_str(sheet[f"V{i}"].value).strip().lower() == "surabaya" else "Luar Kota")
                             driver.find_element(By.NAME, "alamat_domisili").send_keys(Alamat)
                             driver.find_element(By.NAME, "rt_domisili").send_keys(RT)
                             driver.find_element(By.NAME, "rw_domisili").send_keys(RW)
